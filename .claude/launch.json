@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "lacerda",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8412", "--directory", "D:/DOCUMENTOS/22. PROJETOS DE IA/01. RUGIDO/06. GABY/05. Doutora Lacerda/01. INFRAESTRUTURA"],
+      "port": 8412
+    }
+  ]
+}

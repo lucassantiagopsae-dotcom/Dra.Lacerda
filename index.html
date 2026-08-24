@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dra. Victoria Lacerda — Slim Balance | Emagrecimento além da dieta</title>
+<meta name="description" content="No Slim Balance, a Dra. Victoria Lacerda avalia comportamento alimentar, composição corporal, estilo de vida e possíveis alterações metabólicas para entender o que pode estar dificultando o seu emagrecimento. São José do Rio Preto – SP.">
+<meta name="theme-color" content="#611D17">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;1,6..96,400;1,6..96,500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS — paleta amostrada dos posts do Instagram da Dra.
+   ============================================================ */
+:root{
+  --bordo:        #611D17;
+  --bordo-deep:   #4A1611;
+  --bordo-ink:    #330F0B;
+  --creme:        #EFE9DE;
+  --creme-2:      #DBD5C8;
+  --creme-3:      #C9C1B1;
+  --paper:        #F8F3E8;
+  --clinic-blue:  #D7E3E5;
+  --star:         #C99A38;
+  --ink:          #221F1C;
+  --ink-soft:     #4A443E;
+
+  --display: "Bodoni Moda", "Times New Roman", serif;
+  --sans: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --shell: 1144px;
+  --gutter: clamp(20px, 5vw, 56px);
+  --section-y: clamp(72px, 10vw, 132px);
+
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16.5px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{margin:0;font-family:var(--display);font-weight:400;line-height:1.02;letter-spacing:0}
+p{margin:0 0 1.05em}
+p:last-child{margin-bottom:0}
+.sr-only{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+
+/* granulado — presente nos posts dela */
+.grain{position:relative;isolation:isolate}
+.grain::after{
+  content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+  opacity:.13;mix-blend-mode:overlay;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.shell{width:100%;max-width:var(--shell);margin-inline:auto;padding-inline:var(--gutter)}
+.section{padding-block:var(--section-y);position:relative}
+.section--bordo{background:var(--bordo);color:var(--creme)}
+.section--deep{background:var(--bordo-deep);color:var(--creme)}
+.section--creme2{background:var(--creme-2)}
+
+.eyebrow{
+  font-family:var(--sans);font-size:.7rem;font-weight:600;
+  letter-spacing:.28em;text-transform:uppercase;
+  margin:0 0 1.6rem;color:var(--bordo);
+}
+.section--bordo .eyebrow,.section--deep .eyebrow{color:var(--creme-3)}
+
+.h2{font-size:3.35rem}
+.h2 em{font-style:italic}
+.lede{font-size:1.16rem;max-width:60ch;color:var(--ink-soft)}
+.section--bordo .lede,.section--deep .lede{color:var(--creme-2)}
+
+/* ============================================================
+   BOTÕES
+   ============================================================ */
+.btn{
+  display:inline-flex;align-items:center;gap:.65em;
+  font-family:var(--sans);font-size:.94rem;font-weight:600;
+  letter-spacing:.01em;text-decoration:none;
+  padding:1.05em 1.9em;border:1px solid transparent;
+  background:var(--bordo);color:var(--creme);
+  transition:transform .25s var(--ease),background .25s var(--ease),color .25s var(--ease);
+}
+.btn:hover{background:var(--bordo-deep);transform:translateY(-2px)}
+.btn svg{width:1.15em;height:1.15em;flex:none;fill:currentColor}
+.btn--light{background:var(--creme);color:var(--bordo-deep)}
+.btn--light:hover{background:#fff;color:var(--bordo-deep)}
+.btn--ghost{background:transparent;color:var(--creme);border-color:rgba(239,233,222,.4)}
+.btn--ghost:hover{background:rgba(239,233,222,.1);border-color:var(--creme)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+
+/* ============================================================
+   TOPO
+   ============================================================ */
+.topbar{
+  position:absolute;inset:0 0 auto 0;z-index:12;
+  border-bottom:1px solid rgba(239,233,222,.18);
+  color:var(--creme);
+}
+.topbar__inner{
+  width:100%;max-width:var(--shell);margin-inline:auto;padding:1rem var(--gutter);
+  display:flex;align-items:center;justify-content:space-between;gap:1.4rem;
+}
+.brand{
+  display:flex;align-items:baseline;gap:.55rem;text-decoration:none;
+  font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+}
+.brand span{font-family:var(--display);font-size:1.08rem;font-weight:400;letter-spacing:0;text-transform:none}
+.topbar nav{display:flex;align-items:center;gap:1.2rem;font-size:.74rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--creme-2)}
+.topbar nav a{text-decoration:none;transition:color .2s var(--ease)}
+.topbar nav a:hover{color:var(--creme)}
+.topbar__cta{
+  font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;
+  border:1px solid rgba(239,233,222,.45);padding:.72rem 1rem;
+  transition:background .2s var(--ease),color .2s var(--ease),border-color .2s var(--ease);
+}
+.topbar__cta:hover{background:var(--creme);color:var(--bordo-deep);border-color:var(--creme)}
+
+/* ============================================================
+   HERO — elemento assinatura: as tarjas de recorte
+   ============================================================ */
+.hero{
+  position:relative;min-height:min(88svh,840px);
+  background:
+    linear-gradient(90deg, rgba(51,15,11,.32) 0%, rgba(51,15,11,.16) 48%, rgba(51,15,11,.04) 100%),
+    linear-gradient(0deg, rgba(51,15,11,.46), rgba(51,15,11,0) 38%),
+    url("assets/hero-dra-desktop.webp") center center/cover no-repeat;
+  color:var(--creme);
+  padding-block:clamp(118px,14vw,162px) clamp(48px,7vw,76px);
+  overflow:hidden;display:flex;align-items:flex-end;
+}
+.hero::before{
+  content:"";position:absolute;inset:auto 0 0 0;height:28%;
+  background:linear-gradient(0deg,rgba(51,15,11,.88),rgba(51,15,11,0));
+  z-index:1;pointer-events:none;
+}
+.hero .shell{position:relative;z-index:4}
+.hero__content{max-width:760px}
+.hero__tag{
+  display:inline-block;background:var(--creme);color:var(--bordo-deep);
+  font-size:.68rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  padding:.55em 1.15em;margin-bottom:clamp(26px,4vw,40px);
+}
+.clip{margin:0 0 clamp(30px,4vw,44px)}
+.clip__line{display:block;text-wrap:balance}
+/* box-decoration-break: cada linha quebrada ganha a sua própria tarja,
+   como nas artes do Instagram — a quebra vira parte do desenho. */
+.clip__line > span{
+  display:inline;
+  -webkit-box-decoration-break:clone;
+  box-decoration-break:clone;
+  font-size:4.65rem;
+  line-height:1.3;
+  padding:.06em .28em .12em;
+  -webkit-padding-start:.28em;
+}
+.clip__line--a > span{background:var(--creme);color:var(--bordo-deep)}
+.clip__line--b{margin-left:clamp(10px,2.4vw,34px)}
+.clip__line--b > span{background:var(--bordo-ink);color:var(--creme)}
+.clip__line--b em{font-style:italic}
+
+.hero__sub{max-width:56ch;font-size:1.13rem;color:var(--creme-2);margin-bottom:2.2rem}
+.hero__local{
+  display:inline-block;margin-top:.2rem;
+  font-size:.78rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--creme-3);
+}
+.hero__strip{
+  margin-top:clamp(52px,8vw,88px);padding-top:1.5rem;
+  border-top:1px solid rgba(239,233,222,.22);
+  display:flex;flex-wrap:wrap;gap:1.2rem 2.6rem;
+  font-size:.72rem;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--creme-3);
+}
+.hero__strip b{color:var(--creme);font-weight:700}
+
+/* animação de entrada — as tarjas assentam como fita */
+@media (prefers-reduced-motion:no-preference){
+  .clip__line{
+    clip-path:inset(0 100% 0 0);
+    animation:tape .82s var(--ease) forwards;
+  }
+  .clip__line--a{animation-delay:.15s}
+  .clip__line--b{animation-delay:.42s}
+  .hero__tag,.hero__sub,.hero__cta,.hero__strip{opacity:0;animation:rise .7s var(--ease) forwards}
+  .hero__tag{animation-delay:.05s}
+  .hero__sub{animation-delay:.72s}
+  .hero__cta{animation-delay:.84s}
+  .hero__strip{animation-delay:.96s}
+}
+@keyframes tape{to{clip-path:inset(0 0 0 0)}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ============================================================
+   DORES
+   ============================================================ */
+.pains{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--creme-3);margin-top:2.6rem}
+.pain{background:var(--paper);padding:2.1rem 1.7rem 2.3rem}
+.pain__mark{display:block;width:26px;height:2px;background:var(--bordo);margin-bottom:1.4rem}
+.pain p{font-size:1rem;line-height:1.5;color:var(--ink)}
+
+/* narrativa do loop */
+.loop{
+  position:relative;max-width:960px;margin:clamp(56px,8vw,90px) auto 0;
+  text-align:left;background:var(--paper);border:1px solid var(--creme-3);
+  padding:clamp(28px,5vw,56px);box-shadow:0 22px 70px rgba(74,22,17,.08);
+}
+.loop::before{
+  content:"";position:absolute;inset:clamp(16px,3vw,28px) auto clamp(16px,3vw,28px) 0;
+  width:6px;background:var(--bordo);
+}
+.loop p{font-size:1.14rem;color:var(--ink-soft)}
+.loop p.loop__beat{font-family:var(--display);font-size:1.55rem;color:var(--ink);line-height:1.35}
+.loop p.loop__q{
+  font-family:var(--display);font-style:italic;
+  font-size:2.55rem;line-height:1.16;color:var(--creme);
+  display:inline-block;background:var(--bordo-ink);padding:.18em .34em .24em;
+  margin:1.7rem 0 1.5rem;
+}
+
+/* ============================================================
+   METODO — uma investigação em camadas, não uma lista
+   ============================================================ */
+.method-section{overflow:hidden}
+.method-section::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(circle at 13% 20%, rgba(201,154,56,.16), transparent 28rem),
+    linear-gradient(90deg,rgba(51,15,11,.38),rgba(51,15,11,0) 58%),
+    linear-gradient(180deg,rgba(239,233,222,.08),rgba(239,233,222,0) 34%);
+}
+.method-section .shell{position:relative;z-index:3}
+.method-hero{
+  display:grid;grid-template-columns:minmax(0,1.02fr) minmax(320px,.72fr);
+  gap:clamp(32px,7vw,86px);align-items:end;
+}
+.method-title{max-width:12.6ch}
+.method-note{
+  border-left:1px solid rgba(239,233,222,.32);
+  padding-left:clamp(20px,3vw,34px);margin-bottom:.35rem;
+}
+.method-note p{font-size:1.08rem;line-height:1.65;color:var(--creme-2)}
+.method-note .btn{margin-top:1.1rem}
+.method-diagnostic{
+  margin-top:clamp(46px,7vw,86px);
+  padding:clamp(28px,5vw,58px);
+  background:var(--paper);color:var(--bordo-ink);
+  border:1px solid rgba(239,233,222,.34);
+  box-shadow:0 34px 90px rgba(51,15,11,.18);
+}
+.diagnostic-statement{
+  position:relative;padding-left:clamp(18px,2.8vw,34px);
+  max-width:720px;overflow:hidden;
+}
+.diagnostic-statement::before{
+  content:"";position:absolute;inset:.25rem auto .35rem 0;width:5px;background:var(--bordo);
+}
+.diagnostic-statement span,
+.signal__tag,
+.assessment__kicker,
+.assessment-tile__tag{
+  display:block;font-size:.67rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+}
+.diagnostic-statement span{color:var(--bordo)}
+.diagnostic-statement strong{
+  display:block;margin:.9rem 0 1rem;
+  font-family:var(--display);font-size:clamp(3.15rem,6vw,5.45rem);
+  font-weight:400;line-height:.92;color:var(--bordo-ink);max-width:9ch;
+}
+.diagnostic-statement p{font-size:1.06rem;line-height:1.62;color:var(--ink-soft);max-width:47ch}
+.signal-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
+  background:var(--creme-3);border:1px solid var(--creme-3);
+  margin-top:clamp(30px,4.6vw,54px);
+}
+.signal{
+  min-height:248px;padding:clamp(22px,3vw,34px);
+  background:#fffaf0;display:flex;flex-direction:column;justify-content:space-between;
+}
+.signal--b{background:var(--creme)}
+.signal--c{background:#F4EDE1}
+.signal__tag{color:var(--bordo);margin-bottom:1.6rem}
+.signal h3{font-size:1.72rem;color:var(--bordo-ink);margin-bottom:.8rem}
+.signal p{font-size:.98rem;line-height:1.58;color:var(--ink-soft)}
+.assessment{
+  margin-top:clamp(52px,7vw,88px);
+}
+.assessment__head{
+  display:grid;grid-template-columns:minmax(220px,.42fr) minmax(0,1fr);
+  gap:clamp(20px,4vw,54px);align-items:center;
+  border-block:1px solid rgba(239,233,222,.24);padding-block:clamp(20px,3vw,30px);
+}
+.assessment__kicker{color:var(--clinic-blue)}
+.assessment__head p{
+  font-family:var(--display);font-size:clamp(1.65rem,2.8vw,2.35rem);
+  line-height:1.18;color:var(--creme);max-width:24ch;
+}
+.assessment-grid{
+  display:grid;grid-template-columns:1.08fr .92fr .92fr;
+  grid-template-areas:
+    "metabolism lifestyle body"
+    "metabolism behavior behavior";
+  gap:1px;background:rgba(239,233,222,.28);
+  border:1px solid rgba(239,233,222,.28);border-top:0;
+}
+.assessment-tile{
+  min-height:220px;padding:clamp(24px,3.4vw,38px);
+  background:rgba(51,15,11,.34);display:flex;flex-direction:column;justify-content:space-between;
+}
+.assessment-tile--metabolism{grid-area:metabolism;background:var(--creme);color:var(--bordo-ink)}
+.assessment-tile--lifestyle{grid-area:lifestyle}
+.assessment-tile--body{grid-area:body;background:rgba(51,15,11,.38)}
+.assessment-tile--behavior{grid-area:behavior;background:rgba(51,15,11,.42)}
+.assessment-tile__tag{color:var(--creme-3);margin-bottom:1.5rem}
+.assessment-tile--metabolism .assessment-tile__tag{color:var(--bordo)}
+.assessment-tile h3{font-size:1.62rem;color:var(--creme);margin-bottom:.8rem}
+.assessment-tile--metabolism h3{font-size:2.25rem;color:var(--bordo-ink)}
+.assessment-tile p{font-size:.96rem;line-height:1.58;color:var(--creme-2)}
+.assessment-tile--metabolism p{color:var(--ink-soft)}
+.method-cta{
+  display:flex;align-items:center;justify-content:space-between;gap:1.2rem;
+  padding:clamp(20px,3vw,30px);background:var(--bordo-ink);
+  border:1px solid rgba(239,233,222,.28);border-top:0;
+}
+.method-cta p{
+  font-family:var(--display);font-size:1.55rem;line-height:1.22;
+  color:var(--creme);max-width:23ch;
+}
+
+/* ============================================================
+   CONSULTA — coluna fixa + etapas em scroll
+   ============================================================ */
+.process-section{
+  background:
+    linear-gradient(180deg,var(--paper),#F6EFE2 54%,var(--paper));
+}
+.process{
+  display:grid;grid-template-columns:minmax(280px,.82fr) minmax(0,1.18fr);
+  gap:clamp(42px,8vw,112px);align-items:start;
+}
+.process__intro{
+  position:sticky;top:clamp(72px,10vh,112px);
+  min-height:calc(100svh - 136px);
+  display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+}
+.process__title{max-width:11.8ch}
+.process__text{
+  margin:1.35rem 0 2rem;max-width:35ch;
+  color:var(--ink-soft);font-size:1.03rem;line-height:1.62;
+}
+.steps{
+  margin:0;padding:0;list-style:none;position:relative;
+  border-top:1px solid var(--creme-3);
+}
+.step{
+  position:relative;display:grid;grid-template-columns:clamp(64px,8vw,104px) minmax(0,1fr);
+  gap:clamp(18px,3vw,34px);align-items:start;
+  min-height:clamp(190px,24vw,258px);padding:clamp(34px,5vw,62px) 0;
+  border-bottom:1px solid var(--creme-3);
+}
+.step::before{
+  content:"";position:absolute;left:clamp(31px,4vw,51px);top:0;bottom:0;width:1px;
+  background:linear-gradient(180deg,rgba(97,29,23,0),rgba(97,29,23,.28) 18%,rgba(97,29,23,.28) 82%,rgba(97,29,23,0));
+}
+.step__n{
+  position:relative;z-index:1;display:grid;place-items:center;
+  width:clamp(58px,7vw,86px);height:clamp(58px,7vw,86px);
+  background:var(--paper);border:1px solid var(--creme-3);
+  font-family:var(--display);font-size:clamp(2.3rem,5vw,4.45rem);line-height:1;
+  color:rgba(97,29,23,.44);
+  transition:color .25s var(--ease),border-color .25s var(--ease),background .25s var(--ease);
+}
+.step__body{position:relative;z-index:1;max-width:62ch}
+.step__tag{
+  display:block;margin-bottom:.8rem;
+  font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--bordo);
+}
+.step h3{font-size:clamp(1.45rem,2.5vw,2.1rem);margin-bottom:.6rem;color:var(--ink)}
+.step p{color:var(--ink-soft);font-size:1rem;line-height:1.62}
+.step:hover .step__n{color:var(--bordo);border-color:rgba(97,29,23,.55);background:#fff}
+
+/* ============================================================
+   SOBRE A DRA.
+   ============================================================ */
+.about-section{padding:0;overflow:hidden}
+.about{
+  display:grid;grid-template-columns:minmax(420px,48vw) minmax(0,1fr);
+  min-height:780px;
+}
+.portrait{position:relative;background:var(--bordo-deep);overflow:hidden;min-height:780px;height:100%}
+.portrait::before{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(90deg,rgba(51,15,11,.16),rgba(51,15,11,0) 45%),
+    linear-gradient(180deg,rgba(51,15,11,0) 52%,rgba(51,15,11,.84) 100%);
+  pointer-events:none;
+}
+.portrait img{width:100%;height:100%;object-fit:cover;object-position:center top;aspect-ratio:auto}
+.portrait__cap{
+  position:absolute;left:0;bottom:0;z-index:3;
+  background:var(--creme);color:var(--bordo-deep);
+  padding:.85em 1.1em;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;line-height:1.5;
+}
+.portrait__cap span{display:block;font-weight:500;letter-spacing:.1em;opacity:.75}
+.about__body{
+  align-self:center;padding:clamp(72px,8vw,112px) var(--gutter);
+  max-width:760px;
+}
+.about__title{font-size:3.45rem;max-width:12ch;margin-bottom:1.35rem}
+.about__body p{color:var(--creme-2);font-size:1.01rem}
+.about__pull{
+  font-family:var(--display);font-style:italic;
+  font-size:1.75rem;line-height:1.3;color:var(--creme);
+  border-left:2px solid var(--creme-3);padding-left:1.2rem;margin:1.8rem 0 1.35rem;
+}
+.about__closing{max-width:62ch}
+.bio-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;background:rgba(239,233,222,.28);
+  border:1px solid rgba(239,233,222,.28);
+  margin:1.85rem 0 0;
+}
+.bio-card{
+  background:rgba(51,15,11,.22);padding:1.15rem 1.1rem 1.25rem;
+}
+.bio-card--wide{grid-column:1/-1}
+.bio-card span{
+  display:block;color:var(--creme-3);
+  font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  margin-bottom:.72rem;
+}
+.bio-card p{font-size:.94rem;line-height:1.55}
+.bio-card p:last-child{margin-bottom:0}
+.bio-card em{font-family:var(--display);font-size:1.2rem;line-height:1.35;color:var(--creme)}
+.bio-card--wide p{max-width:68ch}
+.credentials{
+  display:flex;flex-wrap:wrap;gap:.7rem;margin:0 0 1.6rem;padding:0;list-style:none;
+}
+.credentials li{
+  border:1px solid rgba(239,233,222,.3);color:var(--creme-2);
+  padding:.58rem .82rem;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+}
+
+/* ============================================================
+   DEPOIMENTOS
+   ============================================================ */
+.testimonials__head{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;
+  gap:1.4rem;align-items:end;
+}
+.testimonial-controls{
+  display:flex;align-items:center;gap:.65rem;margin-bottom:.35rem;
+}
+.testimonial-counter{
+  min-width:4.2rem;text-align:center;
+  font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--bordo);
+}
+.testimonial-nav{
+  width:46px;height:46px;border:1px solid rgba(97,29,23,.34);
+  background:transparent;color:var(--bordo);display:grid;place-items:center;
+  cursor:pointer;transition:background .22s var(--ease),color .22s var(--ease),border-color .22s var(--ease),transform .22s var(--ease);
+}
+.testimonial-nav:hover{background:var(--bordo);color:var(--creme);border-color:var(--bordo);transform:translateY(-2px)}
+.testimonial-nav svg{width:19px;height:19px;stroke:currentColor;stroke-width:1.9;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.testimonial-more-wrap{display:none;margin-top:1rem}
+.testimonial-more{width:100%;justify-content:center;cursor:pointer}
+.rail{
+  display:grid;grid-template-columns:1.12fr 1fr 1fr;
+  gap:1px;background:var(--creme-3);grid-auto-rows:minmax(264px,auto);
+  margin-top:2.6rem;border:1px solid var(--creme-3);min-height:clamp(620px,48vw,747px);
+  transition:opacity .26s var(--ease),transform .26s var(--ease);
+}
+.rail.is-switching{opacity:.08;transform:translateY(12px)}
+.quote{background:var(--paper);padding:2rem 1.7rem;display:flex;flex-direction:column;gap:1rem}
+.quote:first-child{
+  grid-row:span 2;background:var(--bordo-ink);color:var(--creme);
+  padding:clamp(28px,4vw,44px);min-height:560px;
+}
+.quote__stars{color:var(--star);font-size:.9rem;letter-spacing:.18em}
+.quote__text{font-size:.97rem;line-height:1.6;color:var(--ink-soft);flex:1;margin:0}
+.quote:first-child .quote__text{font-size:1.04rem;color:var(--creme-2)}
+.quote__name{font-family:var(--display);font-size:1.1rem;color:var(--ink);margin:0}
+.quote:first-child .quote__name{font-size:1.35rem;color:var(--creme)}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.faq{margin-top:clamp(36px,5vw,56px);border-top:1px solid var(--creme-3);max-width:80ch}
+.faq details{border-bottom:1px solid var(--creme-3)}
+.faq summary{
+  cursor:pointer;list-style:none;padding:1.5rem 2.6rem 1.5rem 0;position:relative;
+  font-family:var(--display);font-size:1.32rem;line-height:1.3;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content:"+";position:absolute;right:0;top:1.35rem;
+  font-family:var(--sans);font-size:1.35rem;font-weight:400;color:var(--bordo);
+  transition:transform .3s var(--ease);
+}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq p{padding:0 2.6rem 1.7rem 0;color:var(--ink-soft);font-size:1rem;max-width:64ch}
+
+/* ============================================================
+   CTA FINAL + RODAPÉ
+   ============================================================ */
+.final{text-align:center}
+.final h2{font-size:3.55rem;max-width:18ch;margin-inline:auto}
+.final h2 em{font-style:italic}
+.final .lede{margin:1.6rem auto 2.4rem;text-align:center}
+
+.foot{background:var(--bordo-ink);color:var(--creme-2);padding-block:clamp(48px,6vw,72px)}
+.foot__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:clamp(28px,4vw,48px)}
+.foot h3{font-family:var(--sans);font-size:.7rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--creme-3);margin-bottom:1.1rem}
+.foot a{text-decoration:none;color:var(--creme-2);transition:color .2s var(--ease)}
+.foot a:hover{color:var(--creme)}
+.foot address{font-style:normal;font-size:.94rem;line-height:1.65}
+.foot__links{display:flex;flex-direction:column;gap:.75rem;align-items:flex-start;font-size:.94rem}
+.foot__bar{
+  margin-top:clamp(36px,5vw,56px);padding-top:1.5rem;
+  border-top:1px solid rgba(239,233,222,.16);
+  display:flex;flex-wrap:wrap;gap:.6rem 2rem;justify-content:space-between;
+  font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--creme-3);
+}
+
+/* botão flutuante do WhatsApp */
+.float{
+  position:fixed;right:clamp(16px,3vw,28px);bottom:clamp(16px,3vw,28px);z-index:50;
+  width:56px;height:56px;border-radius:50%;
+  background:var(--bordo);color:var(--creme);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 26px rgba(51,15,11,.28);
+  transition:transform .25s var(--ease),background .25s var(--ease);
+}
+.float:hover{transform:scale(1.06);background:var(--bordo-deep)}
+.float svg{width:27px;height:27px;fill:currentColor}
+
+/* revelação no scroll */
+@media (prefers-reduced-motion:no-preference){
+  .rv{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .rv.in{opacity:1;transform:none}
+  .quote.is-added{animation:quoteMore .45s var(--ease) both}
+}
+@keyframes quoteMore{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* ============================================================
+   RESPONSIVO
+   ============================================================ */
+@media (max-width:1180px){
+  .hero{
+    background:
+      linear-gradient(90deg, rgba(51,15,11,.34) 0%, rgba(51,15,11,.16) 54%, rgba(51,15,11,.05) 100%),
+      linear-gradient(0deg, rgba(51,15,11,.48), rgba(51,15,11,0) 38%),
+      url("assets/hero-dra-tablet.webp") center center/cover no-repeat;
+  }
+}
+@media (max-width:980px){
+  .topbar nav{display:none}
+  .clip__line > span{font-size:3.25rem}
+  .h2{font-size:2.75rem}
+  .final h2{font-size:2.9rem}
+  .process{grid-template-columns:minmax(240px,.7fr) minmax(0,1fr);gap:clamp(32px,5vw,54px)}
+  .process__title{max-width:13ch}
+  .method-hero{grid-template-columns:1fr}
+  .method-title{max-width:15ch}
+  .method-note{
+    border-left:0;border-top:1px solid rgba(239,233,222,.28);
+    padding-left:0;padding-top:1.25rem;max-width:58ch;
+  }
+  .diagnostic-statement{max-width:58ch}
+  .signal-grid{grid-template-columns:1fr 1fr}
+  .signal--a,.signal--b,.signal--c{grid-column:auto;margin-top:0}
+  .signal--c{grid-column:1/-1}
+  .assessment-grid{
+    grid-template-columns:1fr 1fr;
+    grid-template-areas:
+      "metabolism metabolism"
+      "lifestyle body"
+      "behavior behavior";
+  }
+  .rail{grid-template-columns:1fr 1fr}
+  .quote:first-child{grid-row:auto;grid-column:1/-1;min-height:auto}
+}
+@media (max-width:860px){
+  .process{grid-template-columns:1fr;gap:2.5rem}
+  .process__intro{
+    position:relative;top:auto;min-height:auto;display:block;
+  }
+  .process__text{max-width:58ch}
+  .about{grid-template-columns:1fr;min-height:auto}
+  .portrait{min-height:560px;height:560px}
+  .portrait img{object-position:center 18%}
+  .about__body{max-width:none;padding:64px var(--gutter) 76px}
+  .about__title{font-size:2.75rem;max-width:15ch}
+}
+@media (max-width:680px){
+  body{font-size:16px}
+  .topbar__inner{padding-block:.85rem}
+  .brand{font-size:.7rem}
+  .brand span{font-size:1rem}
+  .topbar__cta{padding:.62rem .78rem;font-size:.68rem}
+  .hero{
+    min-height:auto;
+    background:
+      linear-gradient(90deg, rgba(51,15,11,.44) 0%, rgba(51,15,11,.16) 70%, rgba(51,15,11,.06) 100%),
+      linear-gradient(0deg, rgba(51,15,11,.5), rgba(51,15,11,0) 42%),
+      url("assets/hero-dra-mobile.webp") center center/cover no-repeat;
+    padding-block:112px 48px;
+  }
+  .hero__tag{font-size:.62rem;letter-spacing:.18em}
+  .clip__line > span{font-size:2.45rem;line-height:1.32}
+  .hero__sub{font-size:1rem}
+  .h2{font-size:2.15rem}
+  .loop{padding:2rem 1.5rem}
+  .loop p{font-size:1.02rem}
+  .loop p.loop__beat{font-size:1.32rem}
+  .loop p.loop__q{font-size:1.85rem}
+  .step{
+    grid-template-columns:58px minmax(0,1fr);gap:1rem;
+    min-height:auto;padding:2rem 0;
+  }
+  .step::before{left:28px}
+  .step__n{width:56px;height:56px;font-size:2.25rem}
+  .step__tag{font-size:.62rem;letter-spacing:.14em}
+  .step h3{font-size:1.48rem}
+  .method-diagnostic{margin-top:2.2rem;padding:2rem 1.45rem}
+  .diagnostic-statement{padding-left:1.35rem}
+  .diagnostic-statement strong{font-size:3.05rem;max-width:none}
+  .diagnostic-statement p{max-width:none}
+  .signal-grid{grid-template-columns:1fr}
+  .signal{min-height:auto}
+  .signal--c{grid-column:auto}
+  .assessment{margin-top:2.3rem}
+  .assessment__head{grid-template-columns:1fr;padding-block:1.4rem}
+  .assessment__head p{font-size:1.5rem}
+  .assessment-grid{
+    grid-template-columns:1fr;
+    grid-template-areas:"metabolism" "lifestyle" "body" "behavior";
+  }
+  .assessment-tile{min-height:auto}
+  .assessment-tile--metabolism h3{font-size:1.86rem}
+  .method-cta{flex-direction:column;align-items:flex-start}
+  .method-cta p{font-size:1.35rem}
+  .method-cta .btn{width:100%;justify-content:center;text-align:center}
+  .testimonials__head{grid-template-columns:1fr;gap:1.6rem}
+  .testimonial-controls{display:none}
+  .testimonial-more-wrap{display:block}
+  .rail{grid-template-columns:1fr;min-height:auto}
+  .quote:first-child{grid-column:auto}
+  .final h2{font-size:2.25rem}
+  .portrait{min-height:500px;height:500px}
+  .about__body{padding-block:52px 64px}
+  .about__title{font-size:2.24rem;max-width:13ch}
+  .bio-grid{grid-template-columns:1fr}
+  .bio-card--wide{grid-column:auto}
+  .about__pull{font-size:1.45rem}
+  .float{display:none}
+}
+@media (max-width:560px){
+  .clip__line--b{margin-left:0}
+  .process__intro .btn{width:100%;justify-content:center;text-align:center}
+  .testimonial-nav{width:44px;height:44px}
+  .testimonial-counter{min-width:auto}
+  .step{grid-template-columns:1fr;gap:.65rem}
+  .step::before{display:none}
+  .step__n{font-size:2rem;width:52px;height:52px}
+  .hero__strip{gap:.8rem 1.6rem;font-size:.66rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero grain">
+  <div class="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="#top" aria-label="Slim Balance">
+        Victoria <span>Lacerda</span>
+      </a>
+      <nav aria-label="Navegação principal">
+        <a href="#metodo">Método</a>
+        <a href="#como-funciona">Consulta</a>
+        <a href="#depoimentos">Pacientes</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a class="topbar__cta" href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+  <div class="shell">
+    <div class="hero__content">
+      <span class="hero__tag">Método Slim Balance</span>
+
+      <h1 class="clip" id="top">
+        <span class="clip__line clip__line--a"><span>Um plano de</span></span>
+        <span class="clip__line clip__line--a"><span>emagrecimento</span></span>
+        <span class="clip__line clip__line--b"><span>que vai <em>além da dieta</em>.</span></span>
+      </h1>
+
+      <p class="hero__sub">
+        No Slim Balance, a Dra. Victoria Lacerda avalia comportamento alimentar, composição corporal,
+        estilo de vida e possíveis alterações metabólicas para entender o que pode estar dificultando
+        o seu emagrecimento.
+        <span class="hero__local">Atendimento em São José do Rio Preto – SP</span>
+      </p>
+
+      <div class="hero__cta">
+        <a class="btn btn--light" href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47s1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.8h-.02a9.8 9.8 0 0 1-4.99-1.37l-.36-.21-3.71.97.99-3.62-.23-.37a9.78 9.78 0 0 1-1.5-5.22c0-5.4 4.4-9.8 9.82-9.8 2.62 0 5.08 1.03 6.93 2.88a9.74 9.74 0 0 1 2.87 6.93c0 5.41-4.4 9.81-9.8 9.81M20.52 3.45A11.7 11.7 0 0 0 12.05 0C5.56 0 .28 5.28.28 11.77c0 2.07.54 4.1 1.57 5.89L.18 24l6.49-1.7a11.74 11.74 0 0 0 5.38 1.31c6.48 0 11.76-5.28 11.76-11.77 0-3.14-1.22-6.1-3.44-8.32"/></svg>
+          Quero agendar minha consulta
+        </a>
+      </div>
+    </div>
+
+    <div class="hero__strip">
+      <span>Victoria</span><span><b>Lacerda</b></span><span>Emagrecimento</span><span>CRM-SP 196.390</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ DORES ============ -->
+<section class="section">
+  <div class="shell">
+    <p class="eyebrow rv">O que costuma acontecer</p>
+    <h2 class="h2 rv">Muitas pessoas querem emagrecer,<br>mas esbarram <em>nos mesmos pontos</em>.</h2>
+
+    <div class="pains rv">
+      <article class="pain"><span class="pain__mark"></span><p>Perder peso e voltar a engordar.</p></article>
+      <article class="pain"><span class="pain__mark"></span><p>Comer pouco, passar fome e não ver o resultado esperado.</p></article>
+      <article class="pain"><span class="pain__mark"></span><p>Tentar dietas difíceis de sustentar.</p></article>
+      <article class="pain"><span class="pain__mark"></span><p>Não saber o que ajustar quando o emagrecimento não acontece.</p></article>
+    </div>
+
+    <div class="loop rv">
+      <p class="loop__beat">Você começa uma dieta. Consegue seguir por algum tempo. Perde alguns quilos — ou nem chega a perceber a mudança que esperava.</p>
+      <p>Depois, a fome aumenta, a rotina pesa, o resultado desacelera e parece que você voltou ao mesmo lugar.</p>
+      <p>Se você já tentou emagrecer outras vezes, talvez o problema não seja apenas saber o que comer. Quando isso acontece, insistir apenas em comer menos pode não responder à pergunta mais importante:</p>
+      <p class="loop__q">O que está dificultando o seu emagrecimento?</p>
+      <p>Porque o peso não depende de um único fator. É por isso que no método Slim Balance começamos entendendo você antes de definir a estratégia.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ METODO ============ -->
+<section class="section section--bordo grain method-section" id="metodo">
+  <div class="shell">
+    <div class="method-hero">
+      <div class="rv">
+        <p class="eyebrow">Por que é tão difícil</p>
+        <h2 class="h2 method-title">Emagrecer e manter o peso <em>envolve mais do que força de vontade</em>.</h2>
+      </div>
+
+      <div class="method-note rv">
+        <p>No Slim Balance, a Dra. Victoria investiga o que pode estar segurando o resultado antes de definir a estratégia. A consulta cruza sinais do corpo, rotina, composição corporal e comportamento alimentar.</p>
+      </div>
+    </div>
+
+    <div class="method-diagnostic">
+      <aside class="diagnostic-statement rv">
+        <span>O ponto de virada</span>
+        <strong>Não é fraqueza.</strong>
+        <p>Quando o corpo, a rotina e o comportamento puxam em direções diferentes, comer menos pode não responder ao problema real.</p>
+      </aside>
+
+      <div class="signal-grid" aria-label="Sinais que podem dificultar o emagrecimento">
+        <article class="signal signal--a">
+          <span class="signal__tag">Fome e saciedade</span>
+          <div>
+            <h3>Sinais podem mudar</h3>
+            <p>O excesso de gordura pode alterar mecanismos envolvidos na fome e na saciedade.</p>
+          </div>
+        </article>
+
+        <article class="signal signal--b">
+          <span class="signal__tag">Defesa do organismo</span>
+          <div>
+            <h3>O gasto pode cair</h3>
+            <p>O organismo pode interpretar o emagrecimento como ameaça e responder reduzindo o gasto energético.</p>
+          </div>
+        </article>
+
+        <article class="signal signal--c">
+          <span class="signal__tag">Padrões automáticos</span>
+          <div>
+            <h3>Hábitos entram no piloto automático</h3>
+            <p>Padrões alimentares construídos ao longo dos anos podem ficar mais automáticos e difíceis de mudar.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+
+      <div class="assessment">
+        <div class="assessment__head rv">
+        <span class="assessment__kicker">A avaliação cruza quatro camadas</span>
+        <p>O método procura o que precisa ser ajustado no seu caso, não em uma fórmula pronta.</p>
+      </div>
+
+      <div class="assessment-grid">
+        <article class="assessment-tile assessment-tile--metabolism">
+          <span class="assessment-tile__tag">Investigação médica</span>
+          <div>
+            <h3>Metabolismo e fatores hormonais</h3>
+            <p>A avaliação considera possíveis alterações que mereçam investigação, como resistência insulínica, hipotireoidismo, menopausa e outros fatores metabólicos ou hormonais.</p>
+          </div>
+        </article>
+
+        <article class="assessment-tile assessment-tile--lifestyle">
+          <span class="assessment-tile__tag">Rotina</span>
+          <div>
+            <h3>Estilo de vida</h3>
+            <p>Sono, rotina alimentar, oferta adequada de proteínas, nível de atividade física e outros hábitos que influenciam a saúde e a composição corporal.</p>
+          </div>
+        </article>
+
+        <article class="assessment-tile assessment-tile--body">
+          <span class="assessment-tile__tag">Medidas reais</span>
+          <div>
+            <h3>Composição corporal</h3>
+            <p>A avaliação considera gordura corporal, gordura visceral e massa muscular para compreender o ponto de partida e acompanhar a evolução.</p>
+          </div>
+        </article>
+
+        <article class="assessment-tile assessment-tile--behavior">
+          <span class="assessment-tile__tag">Padrões alimentares</span>
+          <div>
+            <h3>Comportamento alimentar</h3>
+            <p>Fome emocional, compulsão, beliscos frequentes, dificuldade de perceber saciedade e outros padrões que podem interferir na alimentação ao longo do dia.</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="method-cta rv">
+        <p>Antes da conduta, vem a leitura completa do seu caso.</p>
+        <a class="btn btn--light" href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20entender%20o%20meu%20caso." target="_blank" rel="noopener">Quero conversar pelo WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PASSO A PASSO ============ -->
+<section class="section process-section" id="como-funciona">
+  <div class="shell process">
+    <div class="process__intro">
+      <p class="eyebrow">Como funciona</p>
+      <h2 class="h2 process__title">O acompanhamento com a <em>Dra. Victoria</em>, passo a passo.</h2>
+      <p class="process__text">Da primeira conversa até a definição da estratégia, cada etapa organiza uma parte da sua história clínica.</p>
+      <a class="btn" href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">Quero agendar minha consulta</a>
+    </div>
+
+    <ol class="steps" aria-label="Etapas do acompanhamento">
+      <li class="step">
+        <span class="step__n">1</span>
+        <div class="step__body">
+          <span class="step__tag">Contato inicial</span>
+          <h3>Você entra em contato pelo WhatsApp</h3>
+          <p>A equipe entende sua necessidade e orienta sobre o agendamento da consulta.</p>
+        </div>
+      </li>
+
+      <li class="step">
+        <span class="step__n">2</span>
+        <div class="step__body">
+          <span class="step__tag">Ponto de partida</span>
+          <h3>Sua composição corporal é avaliada</h3>
+          <p>A bioimpedância ajuda a entender fatores como percentual de gordura, gordura visceral e massa muscular.</p>
+        </div>
+      </li>
+
+      <li class="step">
+        <span class="step__n">3</span>
+        <div class="step__body">
+          <span class="step__tag">Anamnese completa</span>
+          <h3>A Dra. Victoria investiga o seu contexto</h3>
+          <p>São avaliados seu histórico, comportamento alimentar, rotina, sono, alimentação, atividade física e possíveis fatores metabólicos ou hormonais que mereçam investigação.</p>
+        </div>
+      </li>
+
+      <li class="step">
+        <span class="step__n">4</span>
+        <div class="step__body">
+          <span class="step__tag">Leitura integrada</span>
+          <h3>O seu caso é analisado de forma integrada</h3>
+          <p>As informações são cruzadas para entender quais fatores podem estar contribuindo para a sua dificuldade de emagrecer.</p>
+        </div>
+      </li>
+
+      <li class="step">
+        <span class="step__n">5</span>
+        <div class="step__body">
+          <span class="step__tag">Conduta individual</span>
+          <h3>É definida uma estratégia individualizada</h3>
+          <p>A partir da avaliação, é definida a estratégia mais adequada para o seu caso, que pode incluir mudanças no estilo de vida, acompanhamento nutricional e, quando houver indicação médica, o uso de medicamentos para auxiliar no tratamento.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ SOBRE A DRA. ============ -->
+<section class="about-section section section--deep grain">
+  <div class="about">
+    <figure class="portrait" style="margin:0">
+      <img src="assets/dra-victoria-portrait.webp" alt="Dra. Victoria Lacerda no consultório" loading="lazy">
+      <figcaption class="portrait__cap">Dra. Victoria Lacerda<span>CRM-SP 196.390</span></figcaption>
+    </figure>
+
+    <div class="about__body">
+      <p class="eyebrow">Por trás do Slim Balance</p>
+      <h2 class="about__title">Minha relação com o emagrecimento não começou <em>no consultório</em>.</h2>
+      <ul class="credentials" aria-label="Credenciais">
+        <li>Médica</li>
+        <li>Nutrologia</li>
+        <li>Professora</li>
+      </ul>
+
+      <div class="bio-grid">
+        <article class="bio-card">
+          <span>Experiência pessoal</span>
+          <p>Eu também já vivi a dificuldade com o meu próprio peso e sei como é frustrante tentar fazer tudo certo e sentir que o corpo nem sempre responde como você espera.</p>
+        </article>
+        <article class="bio-card">
+          <span>Prática clínica</span>
+          <p>Essa experiência se somou à minha formação médica, aos anos acompanhando pacientes com dificuldade para emagrecer e à minha atuação como professora de Nutrologia.</p>
+        </article>
+        <article class="bio-card bio-card--wide">
+          <span>O método</span>
+          <p>Foi dessa combinação que eu estruturei o Slim Balance: <em>uma forma de conduzir o emagrecimento olhando além da balança.</em></p>
+        </article>
+      </div>
+
+      <p class="about__pull">Porque, antes de definir a estratégia, eu preciso entender você.</p>
+      <p class="about__closing">O foco vai além da perda de peso: buscamos um emagrecimento que faça parte de um estilo de vida mais saudável e sustentável, com atenção à sua saúde, bem-estar, disposição e autoestima.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEPOIMENTOS ============ -->
+<section class="section section--creme2" id="depoimentos">
+  <div class="shell">
+    <div class="testimonials__head">
+      <div>
+        <p class="eyebrow rv">Pacientes</p>
+        <h2 class="h2 rv">O que dizem os<br>nossos <em>pacientes</em>?</h2>
+      </div>
+
+      <div class="testimonial-controls rv" aria-label="Navegar pelos depoimentos">
+        <button class="testimonial-nav" type="button" aria-label="Ver depoimentos anteriores" aria-controls="testimonial-rail" title="Depoimentos anteriores" data-testimonial-prev>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <span class="testimonial-counter" data-testimonial-counter>1 / 2</span>
+        <button class="testimonial-nav" type="button" aria-label="Ver próximos depoimentos" aria-controls="testimonial-rail" title="Próximos depoimentos" data-testimonial-next>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="rail rv testimonial-rail" id="testimonial-rail" aria-live="polite" data-testimonial-rail>
+      <article class="quote" data-quote-slot><span class="quote__stars">★★★★★</span><p class="quote__text">A consulta foi a melhor possível. Surpreendi-me, pois a Dra. Victoria é uma pessoa incrível. Eficiente profissionalmente, carinhosa, humana e não deixa você sair com dúvidas. Excelente profissional. Estou super satisfeita. O espaço é confortável e acolhedor. Minha nota para ela é 1000. Super recomendo.</p><p class="quote__name">Maria Engel</p></article>
+      <article class="quote" data-quote-slot><span class="quote__stars">★★★★★</span><p class="quote__text">A doutora Victoria é muito atenciosa. Fiquei impressionada com o acolhimento desde minha chegada, com sua equipe, e durante todo atendimento. A consulta demorou uma hora e meia, pois ela explicou tudo muito bem, com carinho e dedicação.</p><p class="quote__name">Andréa Petit</p></article>
+      <article class="quote" data-quote-slot><span class="quote__stars">★★★★★</span><p class="quote__text">O atendimento foi excelente do começo ao fim. A médica foi extremamente atenciosa, paciente e demonstrou muito cuidado ao ouvir e explicar tudo com calma. É nítido o quanto ela se preocupa com o bem-estar dos pacientes. Além disso, o local é muito bonito, organizado e transmite uma sensação de acolhimento.</p><p class="quote__name">Elisa Silva</p></article>
+      <article class="quote" data-quote-slot><span class="quote__stars">★★★★★</span><p class="quote__text">Estou amando o acompanhamento com a Dra. Victoria Lacerda! Ela é super atenciosa, uma profissional incrível e passa muita segurança. O atendimento é humanizado, completo e acolhedor. Tem me orientado com muito cuidado e está me ajudando bastante no meu processo de emagrecimento. Recomendo demais!</p><p class="quote__name">Gabriela Pereira</p></article>
+      <article class="quote" data-quote-slot><span class="quote__stars">★★★★★</span><p class="quote__text">Excelente profissional. Adorei a consulta. A Dra. Victoria foi super atenciosa, me passou muita segurança e confiança. Não teve pressa em atender, isso que mais gostei: explicou tudo com calma, respondeu minhas perguntas... ela realmente estava “presente” na nossa consulta.</p><p class="quote__name">Sarah Gomes</p></article>
+    </div>
+
+    <div class="testimonial-more-wrap" data-testimonial-more-wrap>
+      <button class="btn testimonial-more" type="button" aria-controls="testimonial-rail" data-testimonial-more>Ver mais depoimentos</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq">
+  <div class="shell">
+    <p class="eyebrow rv">Antes de começar</p>
+    <h2 class="h2 rv">O que você <em>precisa saber</em>.</h2>
+
+    <div class="faq rv">
+      <details open>
+        <summary>O que é o Slim Balance?</summary>
+        <p>O Slim Balance é a abordagem utilizada pela Dra. Victoria para organizar a avaliação e o acompanhamento de pacientes que buscam emagrecimento. Ela considera diferentes fatores que podem participar da dificuldade para perder peso, incluindo comportamento alimentar, composição corporal, estilo de vida e aspectos metabólicos ou hormonais que precisem ser investigados.</p>
+      </details>
+      <details>
+        <summary>Vou fazer bioimpedância?</summary>
+        <p>A avaliação da composição corporal faz parte da jornada do Slim Balance e ajuda a compreender informações que o peso isolado não consegue mostrar.</p>
+      </details>
+      <details>
+        <summary>O tratamento envolve medicamento?</summary>
+        <p>Medicamentos podem ou não fazer parte da conduta, dependendo da avaliação médica, das necessidades da paciente e das indicações para cada caso. O tratamento não é definido previamente antes da consulta.</p>
+      </details>
+      <details>
+        <summary>O Slim Balance é somente para quem precisa perder muitos quilos?</summary>
+        <p>Não necessariamente. A indicação depende da avaliação individual e dos objetivos relacionados ao peso, à composição corporal e à saúde da paciente.</p>
+      </details>
+      <details>
+        <summary>Há garantia de resultado?</summary>
+        <p>Não existe resultado garantido em qualquer tratamento de saúde. O que garantimos é protocolo correto, equipe qualificada e suporte. O resultado depende da combinação entre o protocolo e o comprometimento da paciente.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section class="section section--bordo grain final">
+  <div class="shell">
+    <h2 class="h2 rv">Um emagrecimento mais duradouro começa <em>entendendo o seu corpo</em>.</h2>
+    <p class="lede rv">Entre em contato com nossa equipe para agendar sua consulta e ter um plano de emagrecimento pensado para o seu caso.</p>
+    <p class="rv">
+      <a class="btn btn--light" href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20meu%20plano%20personalizado." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47s1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.8h-.02a9.8 9.8 0 0 1-4.99-1.37l-.36-.21-3.71.97.99-3.62-.23-.37a9.78 9.78 0 0 1-1.5-5.22c0-5.4 4.4-9.8 9.82-9.8 2.62 0 5.08 1.03 6.93 2.88a9.74 9.74 0 0 1 2.87 6.93c0 5.41-4.4 9.81-9.8 9.81M20.52 3.45A11.7 11.7 0 0 0 12.05 0C5.56 0 .28 5.28.28 11.77c0 2.07.54 4.1 1.57 5.89L.18 24l6.49-1.7a11.74 11.74 0 0 0 5.38 1.31c6.48 0 11.76-5.28 11.76-11.77 0-3.14-1.22-6.1-3.44-8.32"/></svg>
+        Quero meu plano personalizado
+      </a>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ RODAPÉ ============ -->
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__grid">
+      <div>
+        <h3>Consultório</h3>
+        <address>
+          Georgina Business Park — Setor Ásia<br>
+          Av. Anísio Haddad, 8001 — Sala 106 Bangkok<br>
+          Jardim Aclimação, São José do Rio Preto — SP<br>
+          <a href="https://maps.app.goo.gl/tft7rNs8DHDH3DsAA" target="_blank" rel="noopener">Ver no Google Maps</a>
+        </address>
+      </div>
+      <div>
+        <h3>Contato</h3>
+        <div class="foot__links">
+          <a href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20a%20equipe." target="_blank" rel="noopener">Falar com a equipe — (17) 99745-4974</a>
+          <a href="https://www.instagram.com/dravictorialacerda/" target="_blank" rel="noopener">Acompanhar no Instagram</a>
+        </div>
+      </div>
+      <div>
+        <h3>Responsável técnica</h3>
+        <p style="font-size:.94rem">Dra. Victoria Lacerda<br>CRM-SP 196.390</p>
+      </div>
+    </div>
+    <div class="foot__bar">
+      <span>Slim Balance · Dra. Victoria Lacerda</span>
+      <span>São José do Rio Preto — SP</span>
+    </div>
+  </div>
+</footer>
+
+<a class="float" href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47s1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.8h-.02a9.8 9.8 0 0 1-4.99-1.37l-.36-.21-3.71.97.99-3.62-.23-.37a9.78 9.78 0 0 1-1.5-5.22c0-5.4 4.4-9.8 9.82-9.8 2.62 0 5.08 1.03 6.93 2.88a9.74 9.74 0 0 1 2.87 6.93c0 5.41-4.4 9.81-9.8 9.81M20.52 3.45A11.7 11.7 0 0 0 12.05 0C5.56 0 .28 5.28.28 11.77c0 2.07.54 4.1 1.57 5.89L.18 24l6.49-1.7a11.74 11.74 0 0 0 5.38 1.31c6.48 0 11.76-5.28 11.76-11.77 0-3.14-1.22-6.1-3.44-8.32"/></svg>
+</a>
+
+<script>
+(function(){
+  var els = document.querySelectorAll('.rv');
+  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    els.forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+  els.forEach(function(el){ io.observe(el); });
+})();
+
+(function(){
+  var testimonials = [
+    {
+      name: 'Maria Engel',
+      text: 'A consulta foi a melhor possível. Surpreendi-me, pois a Dra. Victoria é uma pessoa incrível. Eficiente profissionalmente, carinhosa, humana e não deixa você sair com dúvidas. Excelente profissional. Estou super satisfeita. O espaço é confortável e acolhedor. Minha nota para ela é 1000. Super recomendo.'
+    },
+    {
+      name: 'Andréa Petit',
+      text: 'A doutora Victoria é muito atenciosa. Fiquei impressionada com o acolhimento desde minha chegada, com sua equipe, e durante todo atendimento. A consulta demorou uma hora e meia, pois ela explicou tudo muito bem, com carinho e dedicação.'
+    },
+    {
+      name: 'Elisa Silva',
+      text: 'O atendimento foi excelente do começo ao fim. A médica foi extremamente atenciosa, paciente e demonstrou muito cuidado ao ouvir e explicar tudo com calma. É nítido o quanto ela se preocupa com o bem-estar dos pacientes. Além disso, o local é muito bonito, organizado e transmite uma sensação de acolhimento.'
+    },
+    {
+      name: 'Gabriela Pereira',
+      text: 'Estou amando o acompanhamento com a Dra. Victoria Lacerda! Ela é super atenciosa, uma profissional incrível e passa muita segurança. O atendimento é humanizado, completo e acolhedor. Tem me orientado com muito cuidado e está me ajudando bastante no meu processo de emagrecimento. Recomendo demais!'
+    },
+    {
+      name: 'Sarah Gomes',
+      text: 'Excelente profissional. Adorei a consulta. A Dra. Victoria foi super atenciosa, me passou muita segurança e confiança. Não teve pressa em atender, isso que mais gostei: explicou tudo com calma, respondeu minhas perguntas... ela realmente estava “presente” na nossa consulta.'
+    },
+    {
+      name: 'Aparecida de Lourdes',
+      text: 'A Dra. Victória é uma excelente profissional. Desde a 1ª consulta me explicou de forma detalhada todo o protocolo, exames e tratamento. Além de entregar resultados excelentes com seu protocolo é uma pessoa muito amável, inteligente, acolhedora e humana.'
+    },
+    {
+      name: 'Lidia Scatena',
+      text: 'A Dra. Victoria é uma excelente profissional. Estive em uma consulta com ela e o atendimento foi excelente, me senti à vontade para falar de mim e as explicações dela foram passadas de maneira muito clara e completas. Uma médica que gosta daquilo que faz.'
+    },
+    {
+      name: 'Letícia Rodrigues',
+      text: 'Fui muito bem atendida. Dra. super atenciosa, explicou tudo certinho, saí sem dúvida nenhuma sobre o tratamento. Consegui emagrecer e sair do sedentarismo. Doutora Victoria, super recomendo!'
+    },
+    {
+      name: 'Flávia Siqueira',
+      text: 'Excelente profissional. Explica detalhadamente e orienta muito bem. Passa segurança e faz uma anamnese incrível. Recomendo.'
+    },
+    {
+      name: 'Marcio Maiolo',
+      text: 'Atendimento no horário marcado, recepção organizada e atendimento excelente. Dra. Victoria, ótima profissional, cuidadosa e atenta aos pacientes.'
+    }
+  ];
+
+  var rail = document.querySelector('[data-testimonial-rail]');
+  if (!rail) return;
+
+  var slots = Array.prototype.slice.call(rail.querySelectorAll('[data-quote-slot]'));
+  var prev = document.querySelector('[data-testimonial-prev]');
+  var next = document.querySelector('[data-testimonial-next]');
+  var counter = document.querySelector('[data-testimonial-counter]');
+  var more = document.querySelector('[data-testimonial-more]');
+  var moreWrap = document.querySelector('[data-testimonial-more-wrap]');
+  var mobileQuery = window.matchMedia('(max-width: 680px)');
+  var page = 0;
+  var perPage = slots.length;
+  var totalPages = Math.ceil(testimonials.length / perPage);
+  var loadedCount = perPage;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isSwitching = false;
+
+  function fillQuote(slot, item){
+    slot.querySelector('.quote__stars').textContent = '★★★★★';
+    slot.querySelector('.quote__text').textContent = item.text;
+    slot.querySelector('.quote__name').textContent = item.name;
+  }
+
+  function createQuote(item){
+    var quote = document.createElement('article');
+    quote.className = 'quote';
+    quote.setAttribute('data-mobile-quote', '');
+
+    var stars = document.createElement('span');
+    stars.className = 'quote__stars';
+    stars.textContent = '★★★★★';
+
+    var text = document.createElement('p');
+    text.className = 'quote__text';
+    text.textContent = item.text;
+
+    var name = document.createElement('p');
+    name.className = 'quote__name';
+    name.textContent = item.name;
+
+    quote.appendChild(stars);
+    quote.appendChild(text);
+    quote.appendChild(name);
+    if (!reduceMotion) quote.classList.add('is-added');
+    return quote;
+  }
+
+  function clearMobileQuotes(){
+    rail.querySelectorAll('[data-mobile-quote]').forEach(function(el){ el.remove(); });
+  }
+
+  function updateMoreButton(){
+    if (!more || !moreWrap) return;
+    var hasMore = loadedCount < testimonials.length;
+    moreWrap.hidden = !hasMore;
+    more.hidden = !hasMore;
+  }
+
+  function renderDesktop(){
+    clearMobileQuotes();
+    loadedCount = perPage;
+    slots.forEach(function(slot){ slot.hidden = false; });
+    var start = page * perPage;
+    slots.forEach(function(slot, index){
+      var item = testimonials[start + index];
+      if (!item) return;
+      fillQuote(slot, item);
+    });
+    if (counter) counter.textContent = (page + 1) + ' / ' + totalPages;
+    if (moreWrap) moreWrap.hidden = true;
+  }
+
+  function renderMobile(){
+    page = 0;
+    loadedCount = Math.min(perPage, testimonials.length);
+    clearMobileQuotes();
+    slots.forEach(function(slot, index){
+      var item = testimonials[index];
+      slot.hidden = !item;
+      if (item) fillQuote(slot, item);
+    });
+    updateMoreButton();
+  }
+
+  function loadMoreMobile(){
+    if (!mobileQuery.matches) return;
+    testimonials.slice(loadedCount, loadedCount + perPage).forEach(function(item){
+      rail.appendChild(createQuote(item));
+    });
+    loadedCount = Math.min(loadedCount + perPage, testimonials.length);
+    updateMoreButton();
+  }
+
+  function syncTestimonials(){
+    if (mobileQuery.matches) renderMobile();
+    else renderDesktop();
+  }
+
+  function go(direction){
+    if (mobileQuery.matches) return;
+    if (isSwitching) return;
+    isSwitching = true;
+    page = (page + direction + totalPages) % totalPages;
+
+    if (reduceMotion){
+      renderDesktop();
+      isSwitching = false;
+      return;
+    }
+
+    rail.classList.add('is-switching');
+    window.setTimeout(function(){
+      renderDesktop();
+      window.requestAnimationFrame(function(){
+        rail.classList.remove('is-switching');
+        window.setTimeout(function(){ isSwitching = false; }, 260);
+      });
+    }, 220);
+  }
+
+  if (prev) prev.addEventListener('click', function(){ go(-1); });
+  if (next) next.addEventListener('click', function(){ go(1); });
+  if (more) more.addEventListener('click', loadMoreMobile);
+  if (mobileQuery.addEventListener) mobileQuery.addEventListener('change', syncTestimonials);
+  else mobileQuery.addListener(syncTestimonials);
+  syncTestimonials();
+})();
+</script>
+
+</body>
+</html>
