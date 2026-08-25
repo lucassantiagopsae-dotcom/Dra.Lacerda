@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dra. Victoria Lacerda — Slim Balance | Emagrecimento além da dieta</title>
-<meta name="description" content="No Slim Balance, a Dra. Victoria Lacerda avalia comportamento alimentar, composição corporal, estilo de vida e possíveis alterações metabólicas para entender o que pode estar dificultando o seu emagrecimento. São José do Rio Preto – SP.">
+<meta name="description" content="No Slim Balance, a Dra. Victoria Lacerda avalia você de forma completa para entender o que está dificultando o seu emagrecimento. São José do Rio Preto – SP.">
 <meta name="theme-color" content="#611D17">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,13 +50,14 @@ body{
 }
 img{max-width:100%;display:block}
 a{color:inherit}
-h1,h2,h3{margin:0;font-family:var(--display);font-weight:400;line-height:1.02;letter-spacing:0}
+h1,h2,h3{margin:0;font-family:var(--display);font-weight:500;line-height:1.02;letter-spacing:0}
 p{margin:0 0 1.05em}
 p:last-child{margin-bottom:0}
 .sr-only{
   position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
   clip:rect(0,0,0,0);white-space:nowrap;border:0;
 }
+.mobile-only{display:none}
 
 /* granulado — presente nos posts dela */
 .grain{position:relative;isolation:isolate}
@@ -209,29 +210,11 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 /* ============================================================
    DORES
    ============================================================ */
-.pains{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--creme-3);margin-top:2.6rem}
-.pain{background:var(--paper);padding:2.1rem 1.7rem 2.3rem}
-.pain__mark{display:block;width:26px;height:2px;background:var(--bordo);margin-bottom:1.4rem}
-.pain p{font-size:1rem;line-height:1.5;color:var(--ink)}
-
-/* narrativa do loop */
-.loop{
-  position:relative;max-width:960px;margin:clamp(56px,8vw,90px) auto 0;
-  text-align:left;background:var(--paper);border:1px solid var(--creme-3);
-  padding:clamp(28px,5vw,56px);box-shadow:0 22px 70px rgba(74,22,17,.08);
-}
-.loop::before{
-  content:"";position:absolute;inset:clamp(16px,3vw,28px) auto clamp(16px,3vw,28px) 0;
-  width:6px;background:var(--bordo);
-}
-.loop p{font-size:1.14rem;color:var(--ink-soft)}
-.loop p.loop__beat{font-family:var(--display);font-size:1.55rem;color:var(--ink);line-height:1.35}
-.loop p.loop__q{
-  font-family:var(--display);font-style:italic;
-  font-size:2.55rem;line-height:1.16;color:var(--creme);
-  display:inline-block;background:var(--bordo-ink);padding:.18em .34em .24em;
-  margin:1.7rem 0 1.5rem;
-}
+.pains{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:rgba(97,29,23,.2);margin-top:2.6rem}
+.pain{background:var(--bordo);color:var(--creme);padding:2.1rem 1.7rem 2.3rem;min-height:170px}
+.pain:nth-child(even){background:var(--bordo-deep)}
+.pain__mark{display:block;width:26px;height:2px;background:var(--star);margin-bottom:1.4rem}
+.pain p{font-size:1rem;line-height:1.5;color:var(--creme)}
 
 /* ============================================================
    METODO — uma investigação em camadas, não uma lista
@@ -255,6 +238,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   padding-left:clamp(20px,3vw,34px);margin-bottom:.35rem;
 }
 .method-note p{font-size:1.08rem;line-height:1.65;color:var(--creme-2)}
+.method-note p + p{margin-top:.95rem}
 .method-note .btn{margin-top:1.1rem}
 .method-diagnostic{
   margin-top:clamp(46px,7vw,86px);
@@ -286,17 +270,18 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 .signal-grid{
   display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
   background:var(--creme-3);border:1px solid var(--creme-3);
-  margin-top:clamp(30px,4.6vw,54px);
+  margin-top:0;
 }
 .signal{
-  min-height:248px;padding:clamp(22px,3vw,34px);
-  background:#fffaf0;display:flex;flex-direction:column;justify-content:space-between;
+  min-height:220px;padding:clamp(22px,3vw,34px);
+  background:#fffaf0;display:flex;flex-direction:column;justify-content:flex-end;gap:1.35rem;
 }
+.signal::before{content:"";display:block;width:30px;height:2px;background:var(--bordo)}
 .signal--b{background:var(--creme)}
 .signal--c{background:#F4EDE1}
 .signal__tag{color:var(--bordo);margin-bottom:1.6rem}
 .signal h3{font-size:1.72rem;color:var(--bordo-ink);margin-bottom:.8rem}
-.signal p{font-size:.98rem;line-height:1.58;color:var(--ink-soft)}
+.signal p{font-family:var(--display);font-size:1.48rem;font-weight:500;line-height:1.25;color:var(--bordo-ink)}
 .assessment{
   margin-top:clamp(52px,7vw,88px);
 }
@@ -316,7 +301,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
     "metabolism lifestyle body"
     "metabolism behavior behavior";
   gap:1px;background:rgba(239,233,222,.28);
-  border:1px solid rgba(239,233,222,.28);border-top:0;
+  border:1px solid rgba(239,233,222,.28);
 }
 .assessment-tile{
   min-height:220px;padding:clamp(24px,3.4vw,38px);
@@ -333,7 +318,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 .assessment-tile p{font-size:.96rem;line-height:1.58;color:var(--creme-2)}
 .assessment-tile--metabolism p{color:var(--ink-soft)}
 .method-cta{
-  display:flex;align-items:center;justify-content:space-between;gap:1.2rem;
+  display:flex;align-items:center;justify-content:flex-end;gap:1.2rem;
   padding:clamp(20px,3vw,30px);background:var(--bordo-ink);
   border:1px solid rgba(239,233,222,.28);border-top:0;
 }
@@ -363,6 +348,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   margin:1.35rem 0 2rem;max-width:35ch;
   color:var(--ink-soft);font-size:1.03rem;line-height:1.62;
 }
+.process__intro .btn{margin-top:2rem}
 .steps{
   margin:0;padding:0;list-style:none;position:relative;
   border-top:1px solid var(--creme-3);
@@ -481,20 +467,21 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 .testimonial-more{width:100%;justify-content:center;cursor:pointer}
 .rail{
   display:grid;grid-template-columns:1.12fr 1fr 1fr;
-  gap:1px;background:var(--creme-3);grid-auto-rows:minmax(264px,auto);
-  margin-top:2.6rem;border:1px solid var(--creme-3);min-height:clamp(620px,48vw,747px);
+  gap:1px;background:rgba(97,29,23,.24);grid-auto-rows:minmax(264px,auto);
+  margin-top:2.6rem;border:1px solid rgba(97,29,23,.24);min-height:clamp(620px,48vw,747px);
   transition:opacity .26s var(--ease),transform .26s var(--ease);
 }
 .rail.is-switching{opacity:.08;transform:translateY(12px)}
-.quote{background:var(--paper);padding:2rem 1.7rem;display:flex;flex-direction:column;gap:1rem}
+.quote{background:var(--bordo);color:var(--creme);padding:2rem 1.7rem;display:flex;flex-direction:column;gap:1rem}
+.quote:nth-child(even){background:var(--bordo-deep)}
 .quote:first-child{
   grid-row:span 2;background:var(--bordo-ink);color:var(--creme);
   padding:clamp(28px,4vw,44px);min-height:560px;
 }
 .quote__stars{color:var(--star);font-size:.9rem;letter-spacing:.18em}
-.quote__text{font-size:.97rem;line-height:1.6;color:var(--ink-soft);flex:1;margin:0}
+.quote__text{font-size:.97rem;line-height:1.6;color:var(--creme-2);flex:1;margin:0}
 .quote:first-child .quote__text{font-size:1.04rem;color:var(--creme-2)}
-.quote__name{font-family:var(--display);font-size:1.1rem;color:var(--ink);margin:0}
+.quote__name{font-family:var(--display);font-size:1.1rem;color:var(--creme);margin:0}
 .quote:first-child .quote__name{font-size:1.35rem;color:var(--creme)}
 
 /* ============================================================
@@ -609,26 +596,25 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 }
 @media (max-width:680px){
   body{font-size:16px}
-  .topbar__inner{padding-block:.85rem}
+  .shell{padding-inline:24px 28px}
+  .topbar__inner{padding-block:.85rem;gap:.75rem}
   .brand{font-size:.7rem}
   .brand span{font-size:1rem}
-  .topbar__cta{padding:.62rem .78rem;font-size:.68rem}
+  .topbar__cta{display:none}
   .hero{
     min-height:auto;
     background:
-      linear-gradient(90deg, rgba(51,15,11,.44) 0%, rgba(51,15,11,.16) 70%, rgba(51,15,11,.06) 100%),
-      linear-gradient(0deg, rgba(51,15,11,.5), rgba(51,15,11,0) 42%),
-      url("assets/hero-dra-mobile.webp") center center/cover no-repeat;
+      linear-gradient(180deg, rgba(255,255,255,.07), rgba(51,15,11,.18) 48%, rgba(51,15,11,.44)),
+      linear-gradient(135deg, var(--bordo) 0%, var(--bordo-ink) 100%);
     padding-block:112px 48px;
   }
   .hero__tag{font-size:.62rem;letter-spacing:.18em}
-  .clip__line > span{font-size:2.45rem;line-height:1.32}
-  .hero__sub{font-size:1rem}
-  .h2{font-size:2.15rem}
-  .loop{padding:2rem 1.5rem}
-  .loop p{font-size:1.02rem}
-  .loop p.loop__beat{font-size:1.32rem}
-  .loop p.loop__q{font-size:1.85rem}
+  .clip__line > span{font-size:2.24rem;line-height:1.32}
+  .hero__content{max-width:100%}
+  .hero__sub{font-size:1rem;line-height:1.55;max-width:31ch}
+  .hero__local{display:block;max-width:27ch;line-height:1.55;letter-spacing:.1em}
+  .h2{font-size:1.98rem;line-height:1.08}
+  .mobile-only{display:block}
   .step{
     grid-template-columns:58px minmax(0,1fr);gap:1rem;
     min-height:auto;padding:2rem 0;
@@ -643,6 +629,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   .diagnostic-statement p{max-width:none}
   .signal-grid{grid-template-columns:1fr}
   .signal{min-height:auto}
+  .signal p{font-size:1.28rem}
   .signal--c{grid-column:auto}
   .assessment{margin-top:2.3rem}
   .assessment__head{grid-template-columns:1fr;padding-block:1.4rem}
@@ -661,6 +648,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   .testimonial-more-wrap{display:block}
   .rail{grid-template-columns:1fr;min-height:auto}
   .quote:first-child{grid-column:auto}
+  .quote,.quote__text,.faq p{min-width:0;overflow-wrap:break-word}
   .final h2{font-size:2.25rem}
   .portrait{min-height:500px;height:500px}
   .about__body{padding-block:52px 64px}
@@ -707,14 +695,12 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
       <h1 class="clip" id="top">
         <span class="clip__line clip__line--a"><span>Um plano de</span></span>
         <span class="clip__line clip__line--a"><span>emagrecimento</span></span>
-        <span class="clip__line clip__line--b"><span>que vai <em>além da dieta</em>.</span></span>
+        <span class="clip__line clip__line--b"><span>que vai <em>além <br class="mobile-only">da dieta</em>.</span></span>
       </h1>
 
       <p class="hero__sub">
-        No Slim Balance, a Dra. Victoria Lacerda avalia comportamento alimentar, composição corporal,
-        estilo de vida e possíveis alterações metabólicas para entender o que pode estar dificultando
-        o seu emagrecimento.
-        <span class="hero__local">Atendimento em São José do Rio Preto – SP</span>
+        No Slim Balance, a Dra. Victoria Lacerda avalia você de forma completa para entender o que está dificultando o seu emagrecimento.
+        <span class="hero__local">Atendimento em São José do Rio Preto – SP.</span>
       </p>
 
       <div class="hero__cta">
@@ -737,21 +723,13 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 <section class="section">
   <div class="shell">
     <p class="eyebrow rv">O que costuma acontecer</p>
-    <h2 class="h2 rv">Muitas pessoas querem emagrecer,<br>mas esbarram <em>nos mesmos pontos</em>.</h2>
+    <h2 class="h2 rv">Muitas pessoas querem <br class="mobile-only">emagrecer,<br>mas enfrentam <br class="mobile-only"><em>desafios como:</em></h2>
 
     <div class="pains rv">
-      <article class="pain"><span class="pain__mark"></span><p>Perder peso e voltar a engordar.</p></article>
-      <article class="pain"><span class="pain__mark"></span><p>Comer pouco, passar fome e não ver o resultado esperado.</p></article>
-      <article class="pain"><span class="pain__mark"></span><p>Tentar dietas difíceis de sustentar.</p></article>
+      <article class="pain"><span class="pain__mark"></span><p>Perder peso e voltar a engordar;</p></article>
+      <article class="pain"><span class="pain__mark"></span><p>Comer pouco, passar fome e não ver o resultado esperado;</p></article>
+      <article class="pain"><span class="pain__mark"></span><p>Tentar dietas difíceis de sustentar;</p></article>
       <article class="pain"><span class="pain__mark"></span><p>Não saber o que ajustar quando o emagrecimento não acontece.</p></article>
-    </div>
-
-    <div class="loop rv">
-      <p class="loop__beat">Você começa uma dieta. Consegue seguir por algum tempo. Perde alguns quilos — ou nem chega a perceber a mudança que esperava.</p>
-      <p>Depois, a fome aumenta, a rotina pesa, o resultado desacelera e parece que você voltou ao mesmo lugar.</p>
-      <p>Se você já tentou emagrecer outras vezes, talvez o problema não seja apenas saber o que comer. Quando isso acontece, insistir apenas em comer menos pode não responder à pergunta mais importante:</p>
-      <p class="loop__q">O que está dificultando o seu emagrecimento?</p>
-      <p>Porque o peso não depende de um único fator. É por isso que no método Slim Balance começamos entendendo você antes de definir a estratégia.</p>
     </div>
   </div>
 </section>
@@ -762,60 +740,38 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
     <div class="method-hero">
       <div class="rv">
         <p class="eyebrow">Por que é tão difícil</p>
-        <h2 class="h2 method-title">Emagrecer e manter o peso <em>envolve mais do que força de vontade</em>.</h2>
+        <h2 class="h2 method-title">Por que emagrecer e manter o peso pode ser <em>tão difícil?</em></h2>
       </div>
 
       <div class="method-note rv">
-        <p>No Slim Balance, a Dra. Victoria investiga o que pode estar segurando o resultado antes de definir a estratégia. A consulta cruza sinais do corpo, rotina, composição corporal e comportamento alimentar.</p>
+        <p>Por isso, emagrecer exige olhar além da dieta.</p>
+        <p>No Slim Balance, a Dra. Victoria investiga diferentes fatores que podem estar envolvidos na sua dificuldade para emagrecer e manter os resultados.</p>
       </div>
     </div>
 
     <div class="method-diagnostic">
-      <aside class="diagnostic-statement rv">
-        <span>O ponto de virada</span>
-        <strong>Não é fraqueza.</strong>
-        <p>Quando o corpo, a rotina e o comportamento puxam em direções diferentes, comer menos pode não responder ao problema real.</p>
-      </aside>
-
       <div class="signal-grid" aria-label="Sinais que podem dificultar o emagrecimento">
         <article class="signal signal--a">
-          <span class="signal__tag">Fome e saciedade</span>
-          <div>
-            <h3>Sinais podem mudar</h3>
-            <p>O excesso de gordura pode alterar mecanismos envolvidos na fome e na saciedade.</p>
-          </div>
+          <p>O excesso de gordura pode alterar sinais envolvidos na fome e na saciedade;</p>
         </article>
 
         <article class="signal signal--b">
-          <span class="signal__tag">Defesa do organismo</span>
-          <div>
-            <h3>O gasto pode cair</h3>
-            <p>O organismo pode interpretar o emagrecimento como ameaça e responder reduzindo o gasto energético.</p>
-          </div>
+          <p>O organismo pode interpretar o emagrecimento como uma ameaça e responder reduzindo o gasto energético;</p>
         </article>
 
         <article class="signal signal--c">
-          <span class="signal__tag">Padrões automáticos</span>
-          <div>
-            <h3>Hábitos entram no piloto automático</h3>
-            <p>Padrões alimentares construídos ao longo dos anos podem ficar mais automáticos e difíceis de mudar.</p>
-          </div>
+          <p>Hábitos e padrões alimentares construídos ao longo dos anos podem se tornar mais automáticos e difíceis de mudar.</p>
         </article>
       </div>
     </div>
 
-      <div class="assessment">
-        <div class="assessment__head rv">
-        <span class="assessment__kicker">A avaliação cruza quatro camadas</span>
-        <p>O método procura o que precisa ser ajustado no seu caso, não em uma fórmula pronta.</p>
-      </div>
-
+    <div class="assessment">
       <div class="assessment-grid">
         <article class="assessment-tile assessment-tile--metabolism">
           <span class="assessment-tile__tag">Investigação médica</span>
           <div>
             <h3>Metabolismo e fatores hormonais</h3>
-            <p>A avaliação considera possíveis alterações que mereçam investigação, como resistência insulínica, hipotireoidismo, menopausa e outros fatores metabólicos ou hormonais.</p>
+            <p>A avaliação médica considera possíveis alterações que mereçam investigação, como resistência insulínica, hipotireoidismo, menopausa e outros fatores metabólicos ou hormonais.</p>
           </div>
         </article>
 
@@ -831,7 +787,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
           <span class="assessment-tile__tag">Medidas reais</span>
           <div>
             <h3>Composição corporal</h3>
-            <p>A avaliação considera gordura corporal, gordura visceral e massa muscular para compreender o ponto de partida e acompanhar a evolução.</p>
+            <p>Além do peso na balança, a avaliação considera fatores como gordura corporal, gordura visceral e massa muscular para compreender melhor o ponto de partida e acompanhar a evolução.</p>
           </div>
         </article>
 
@@ -845,8 +801,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
       </div>
 
       <div class="method-cta rv">
-        <p>Antes da conduta, vem a leitura completa do seu caso.</p>
-        <a class="btn btn--light" href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20entender%20o%20meu%20caso." target="_blank" rel="noopener">Quero conversar pelo WhatsApp</a>
+        <a class="btn btn--light" href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20entender%20o%20meu%20caso." target="_blank" rel="noopener">Quero entender o meu caso</a>
       </div>
     </div>
   </div>
@@ -857,8 +812,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   <div class="shell process">
     <div class="process__intro">
       <p class="eyebrow">Como funciona</p>
-      <h2 class="h2 process__title">O acompanhamento com a <em>Dra. Victoria</em>, passo a passo.</h2>
-      <p class="process__text">Da primeira conversa até a definição da estratégia, cada etapa organiza uma parte da sua história clínica.</p>
+      <h2 class="h2 process__title">Como funciona o acompanhamento com a <em>Dra. Victoria</em></h2>
       <a class="btn" href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">Quero agendar minha consulta</a>
     </div>
 
@@ -866,7 +820,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
       <li class="step">
         <span class="step__n">1</span>
         <div class="step__body">
-          <span class="step__tag">Contato inicial</span>
           <h3>Você entra em contato pelo WhatsApp</h3>
           <p>A equipe entende sua necessidade e orienta sobre o agendamento da consulta.</p>
         </div>
@@ -875,7 +828,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
       <li class="step">
         <span class="step__n">2</span>
         <div class="step__body">
-          <span class="step__tag">Ponto de partida</span>
           <h3>Sua composição corporal é avaliada</h3>
           <p>A bioimpedância ajuda a entender fatores como percentual de gordura, gordura visceral e massa muscular.</p>
         </div>
@@ -884,7 +836,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
       <li class="step">
         <span class="step__n">3</span>
         <div class="step__body">
-          <span class="step__tag">Anamnese completa</span>
           <h3>A Dra. Victoria investiga o seu contexto</h3>
           <p>São avaliados seu histórico, comportamento alimentar, rotina, sono, alimentação, atividade física e possíveis fatores metabólicos ou hormonais que mereçam investigação.</p>
         </div>
@@ -893,7 +844,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
       <li class="step">
         <span class="step__n">4</span>
         <div class="step__body">
-          <span class="step__tag">Leitura integrada</span>
           <h3>O seu caso é analisado de forma integrada</h3>
           <p>As informações são cruzadas para entender quais fatores podem estar contribuindo para a sua dificuldade de emagrecer.</p>
         </div>
@@ -902,7 +852,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
       <li class="step">
         <span class="step__n">5</span>
         <div class="step__body">
-          <span class="step__tag">Conduta individual</span>
           <h3>É definida uma estratégia individualizada</h3>
           <p>A partir da avaliação, é definida a estratégia mais adequada para o seu caso, que pode incluir mudanças no estilo de vida, acompanhamento nutricional e, quando houver indicação médica, o uso de medicamentos para auxiliar no tratamento.</p>
         </div>
@@ -921,12 +870,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 
     <div class="about__body">
       <p class="eyebrow">Por trás do Slim Balance</p>
-      <h2 class="about__title">Minha relação com o emagrecimento não começou <em>no consultório</em>.</h2>
-      <ul class="credentials" aria-label="Credenciais">
-        <li>Médica</li>
-        <li>Nutrologia</li>
-        <li>Professora</li>
-      </ul>
+      <h2 class="about__title">Minha relação com o emagrecimento não começou apenas <em>no consultório</em>.</h2>
 
       <div class="bio-grid">
         <article class="bio-card">
@@ -935,7 +879,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
         </article>
         <article class="bio-card">
           <span>Prática clínica</span>
-          <p>Essa experiência se somou à minha formação médica, aos anos acompanhando pacientes com dificuldade para emagrecer e à minha atuação como professora de Nutrologia.</p>
+          <p>Essa experiência pessoal se somou à minha formação médica, aos anos acompanhando pacientes com dificuldade para emagrecer e à minha atuação como professora de Nutrologia.</p>
         </article>
         <article class="bio-card bio-card--wide">
           <span>O método</span>
@@ -987,7 +931,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 <section class="section" id="faq">
   <div class="shell">
     <p class="eyebrow rv">Antes de começar</p>
-    <h2 class="h2 rv">O que você <em>precisa saber</em>.</h2>
+    <h2 class="h2 rv">O que você precisa saber <em>antes de começar</em></h2>
 
     <div class="faq rv">
       <details open>
@@ -1017,7 +961,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 <!-- ============ CTA FINAL ============ -->
 <section class="section section--bordo grain final">
   <div class="shell">
-    <h2 class="h2 rv">Um emagrecimento mais duradouro começa <em>entendendo o seu corpo</em>.</h2>
+    <h2 class="h2 rv">Um emagrecimento mais duradouro começa entendendo <em>o que seu corpo precisa</em>.</h2>
     <p class="lede rv">Entre em contato com nossa equipe para agendar sua consulta e ter um plano de emagrecimento pensado para o seu caso.</p>
     <p class="rv">
       <a class="btn btn--light" href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20meu%20plano%20personalizado." target="_blank" rel="noopener">
