@@ -536,18 +536,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--creme-3);
 }
 
-/* botão flutuante do WhatsApp */
-.float{
-  position:fixed;right:clamp(16px,3vw,28px);bottom:clamp(16px,3vw,28px);z-index:50;
-  width:56px;height:56px;border-radius:50%;
-  background:var(--bordo);color:var(--creme);
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 8px 26px rgba(51,15,11,.28);
-  transition:transform .25s var(--ease),background .25s var(--ease);
-}
-.float:hover{transform:scale(1.06);background:var(--bordo-deep)}
-.float svg{width:27px;height:27px;fill:currentColor}
-
 /* revelação no scroll */
 @media (prefers-reduced-motion:no-preference){
   .rv{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
@@ -671,7 +659,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   .bio-grid{grid-template-columns:1fr}
   .bio-card--wide{grid-column:auto}
   .about__pull{font-size:1.45rem}
-  .float{display:none}
 }
 @media (max-width:560px){
   .clip__line--b{margin-left:0}
@@ -1129,8 +1116,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 .foot h3{color:var(--star);font-weight:700}
 .foot address,.foot__links,.foot p{font-size:14px;line-height:24px}
 .foot__bar{margin-top:56px}
-.float{background:var(--bordo);border-radius:0}
-.float img{width:27px;height:27px}
 
 @media (max-width:1300px){
   .shell{width:calc(100% - 128px)}
@@ -1199,7 +1184,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   .final .lede{font-size:16px;line-height:26px}
   .foot{padding-block:56px}
   .foot__bar{display:grid}
-  .float{display:none}
 }
 </style>
 </head>
@@ -1570,10 +1554,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   </div>
 </footer>
 
-<a class="float" href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
-  <img src="assets/figma-whatsapp.svg" alt="" aria-hidden="true">
-</a>
-
 <script>
 (function(){
   var els = document.querySelectorAll('.rv');
@@ -1761,6 +1741,44 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   syncTestimonials();
 })();
 </script>
+
+<script>
+window.WidgetWhatsConfig = {
+  "userId": 952312,
+  "accountId": 766699,
+  "funnelId": null,
+  "sequenceId": null,
+  "whatsappNumber": "+5517997454974",
+  "companyName": "Dra Victoria Lacerda",
+  "whatsappMessage": "Olá, gostaria de falar com a equipe da Dra. Victoria Lacerda",
+  "entity": "person",
+  "deal": false,
+  "fields": [
+    {
+      "name": "name",
+      "label": "Nome",
+      "type": "text",
+      "required": true,
+      "customField": false
+    },
+    {
+      "name": "email",
+      "label": "E-mail",
+      "type": "email",
+      "required": false,
+      "customField": false
+    },
+    {
+      "name": "whatsapp",
+      "label": "WhatsApp",
+      "type": "text",
+      "required": true,
+      "customField": false
+    }
+  ]
+};
+</script>
+<script src="https://widgets.agendor.com.br/whatsapp.js" defer></script>
 
 </body>
 </html>
