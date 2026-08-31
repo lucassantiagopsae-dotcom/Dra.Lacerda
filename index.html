@@ -391,6 +391,13 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 .step h3{font-size:clamp(1.45rem,2.5vw,2.1rem);margin-bottom:.6rem;color:var(--ink)}
 .step p{color:var(--ink-soft);font-size:1rem;line-height:1.62}
 .step:hover .step__n{color:var(--bordo);border-color:rgba(97,29,23,.55);background:#fff}
+.process__actions{
+  grid-column:2;
+  display:flex;
+  justify-content:flex-start;
+  padding-top:32px;
+}
+.process__actions .btn{background:var(--bordo);color:var(--creme);box-shadow:none}
 
 /* ============================================================
    SOBRE A DRA.
@@ -745,6 +752,13 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   overflow:hidden;
   pointer-events:none;
 }
+.hero__media picture{
+  position:absolute;
+  inset:0;
+  display:block;
+  width:100%;
+  height:100%;
+}
 .hero__media img{
   position:absolute;
   top:0;
@@ -774,31 +788,34 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 .hero__title{
   display:flex;
   flex-direction:column;
-  gap:20px;
+  gap:16px;
   margin:0;
-  font-size:56px;
+  font-size:62px;
   line-height:1;
   color:var(--bordo-ink);
   font-variation-settings:"SOFT" 0,"WONK" 1;
 }
 .hero__title span,.hero__title em{display:block}
-.hero__title span{line-height:49px}
-.hero__title em{font-style:italic;line-height:40px;color:var(--bordo)}
+.hero__title span{line-height:1.03}
+.hero__title em{font-style:italic;line-height:1;color:var(--bordo)}
 .hero__sub{
   width:493px;
   max-width:100%;
-  margin:32px 0 0;
+  margin:28px 0 0;
   color:var(--ink-soft);
   font-size:16px;
   line-height:1.6;
 }
-.hero__footer-block{display:flex;flex-direction:column;align-items:flex-start;gap:16px;margin-top:32px}
+.hero__footer-block{display:flex;flex-direction:column;align-items:flex-start;gap:16px;margin-top:24px}
 .hero__local{
   margin:0;
+  padding:11px 14px;
+  background:#fff;
+  border:1px solid rgba(201,154,56,.55);
   color:var(--bordo-deep);
   font-size:12px;
   font-weight:700;
-  line-height:13px;
+  line-height:1.2;
   letter-spacing:2px;
 }
 .hero__strip{
@@ -820,32 +837,33 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 
 .pains{
   grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:24px;
+  gap:18px;
   background:transparent;
-  margin-top:64px;
+  margin-top:48px;
 }
 .pain{
   position:relative;
-  min-height:320px;
-  padding:32px;
+  min-height:260px;
+  padding:28px;
   overflow:hidden;
   justify-content:flex-end;
   box-shadow:0 16px 16px rgba(51,15,11,.1);
   background:var(--bordo);
+  border:1px solid rgba(201,154,56,.26);
 }
-.pain:nth-child(even){background:var(--bordo-deep)}
+.pain:nth-child(even){background:var(--bordo)}
 .pain::before,.pain::after{content:"";position:absolute;inset:0;pointer-events:none}
 .pain::before{background:center/cover no-repeat;opacity:.9;filter:saturate(.92)}
-.pain::after{background:rgba(97,29,23,.36)}
+.pain::after{background:linear-gradient(180deg,rgba(51,15,11,.08),rgba(51,15,11,.72))}
 .pain--0::before{background-image:url("assets/figma-pain-0.png")}
 .pain--1::before{background-image:url("assets/figma-pain-1.png")}
 .pain--2::before{background-image:url("assets/figma-pain-2.png")}
 .pain--3::before{background-image:url("assets/figma-pain-3.png")}
-.pain__mark{position:relative;z-index:2;width:32px;background:var(--star);margin-bottom:24px}
-.pain p{position:relative;z-index:2;font-size:20px;line-height:26px;color:var(--creme);font-weight:700}
+.pain__mark{display:none}
+.pain p{position:relative;z-index:2;font-size:24px;line-height:29px;color:var(--creme);font-weight:700}
 
 .method-section{
-  min-height:980px;
+  min-height:900px;
   padding:0;
   display:flex;
   align-items:center;
@@ -856,11 +874,11 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   opacity:.16;
   mix-blend-mode:soft-light;
 }
-.method-section .shell{padding-block:120px}
-.method-hero{max-width:640px}
-.method-title{max-width:640px;color:var(--creme)}
+.method-section .shell{padding-block:104px}
+.method-hero{max-width:800px}
+.method-title{max-width:760px;color:var(--creme)}
 .method-diagnostic{
-  margin-top:56px;
+  margin-top:44px;
   padding:0;
   background:transparent;
   border:0;
@@ -868,51 +886,54 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 }
 .signal-grid{
   display:grid;
-  grid-template-columns:540px minmax(0,1fr);
-  grid-template-areas:"a b" "a c";
-  gap:24px;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-areas:"a b c";
+  gap:18px;
   margin:0;
   background:transparent;
   border:0;
+  align-items:stretch;
 }
 .signal{
-  min-height:158px;
-  padding:32px;
-  background:var(--bordo-deep);
+  --lift:0px;
+  min-height:286px;
+  padding:30px;
+  background:rgba(248,243,232,.96);
   border:0;
   align-items:flex-start;
-  justify-content:flex-start;
+  justify-content:space-between;
   flex-direction:column;
   gap:16px;
+  color:var(--bordo-ink);
+  box-shadow:0 24px 52px rgba(31,10,7,.22);
+  transform:translateY(var(--lift));
 }
 .signal::before,.signal::after{display:none}
-.signal:hover{transform:none}
+.signal:hover{transform:translateY(calc(var(--lift) - 8px));background:#fff}
 .signal--a{
   grid-area:a;
-  min-height:340px;
-  justify-content:center;
-  padding:48px;
-  background:var(--bordo-ink);
-  border:1px solid rgba(239,233,222,.23);
+  min-height:286px;
+  padding:30px;
+  background:var(--paper);
+  border:1px solid rgba(201,154,56,.38);
 }
-.signal--b{grid-area:b;background:var(--bordo-deep)}
-.signal--c{grid-area:c;background:var(--bordo-ink)}
-.signal--c{background:var(--bordo-ink)}
+.signal--b{grid-area:b;--lift:28px;border:1px solid rgba(239,233,222,.55)}
+.signal--c{grid-area:c;--lift:56px;border:1px solid rgba(201,154,56,.3)}
 .signal__label{
   position:relative;
   z-index:2;
   display:block;
   margin:0;
-  color:var(--creme-2);
+  color:var(--bordo);
   font-size:11px;
   font-weight:700;
   letter-spacing:2px;
   text-transform:uppercase;
 }
 .signal--a .signal__label{color:var(--star);font-size:12px}
-.signal p{font-size:18px;line-height:28px;color:var(--creme);font-weight:400}
-.signal--a p{font-family:var(--display);font-size:28px;line-height:38px;max-width:100%;color:var(--creme);font-variation-settings:"SOFT" 0,"WONK" 1}
-.signal strong{font-weight:700;color:#fff}
+.signal p{font-size:20px;line-height:30px;color:var(--bordo-deep);font-weight:400}
+.signal--a p{font-family:var(--display);font-size:28px;line-height:38px;max-width:100%;color:var(--bordo-ink);font-variation-settings:"SOFT" 0,"WONK" 1}
+.signal strong{font-weight:700;color:var(--bordo)}
 .method-note{
   margin-top:24px;
   padding:36px;
@@ -924,8 +945,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 .method-note p:first-child{max-width:none;font-size:28px;line-height:1.25;color:var(--bordo-ink)}
 
 .pillars-section{background:var(--paper);padding-block:120px}
-.pillars__head{margin-bottom:64px}
-.pillars__head .h2{font-size:40px;line-height:1.2}
+.pillars__head{margin-bottom:48px}
+.pillars__head .h2{font-size:56px;line-height:1.05;max-width:780px}
 .assessment{margin-top:0}
 .assessment-grid{
   display:grid;
@@ -944,12 +965,12 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   border:1px solid var(--creme-2);
   color:var(--ink-soft);
 }
-.assessment-tile--behavior{background:var(--bordo);border-color:var(--star);color:var(--creme)}
+.assessment-tile--behavior{background:#fff;border-color:var(--creme-2);color:var(--ink-soft)}
 .assessment-tile__tag{margin-bottom:20px;color:var(--star)}
 .assessment-tile h3{font-size:24px;line-height:1.15;color:var(--bordo-deep)}
 .assessment-tile p{font-size:14px;line-height:1.6;color:var(--ink-soft);opacity:.8}
-.assessment-tile--behavior h3,.assessment-tile--behavior p{color:var(--creme)}
-.assessment-tile--behavior p{opacity:.86}
+.assessment-tile--behavior h3{color:var(--bordo-deep)}
+.assessment-tile--behavior p{color:var(--ink-soft);opacity:.8}
 .method-cta{
   margin-top:24px;
   display:flex;
@@ -999,18 +1020,39 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 }
 .portrait{min-height:950px;background:var(--bordo-ink)}
 .portrait::before{
-  background:linear-gradient(180deg,rgba(51,15,11,0) 52%,rgba(51,15,11,.55) 100%);
+  background:linear-gradient(180deg,rgba(51,15,11,0) 54%,rgba(51,15,11,.58) 100%);
 }
 .portrait img{
   position:absolute;
-  top:0;
-  left:50%;
-  width:auto;
+  inset:0;
+  width:100%;
   height:100%;
   max-width:none;
-  transform:translateX(-68%);
+  object-fit:cover;
+  object-position:68% center;
+  transform:none;
 }
 .portrait__cap{display:none}
+.portrait__crm{
+  position:absolute;
+  left:clamp(24px,4vw,48px);
+  bottom:clamp(24px,4vw,48px);
+  z-index:3;
+  width:min(380px,calc(100% - 48px));
+  padding:18px;
+  background:rgba(248,243,232,.94);
+  border:1px solid rgba(201,154,56,.7);
+  color:var(--bordo-ink);
+  box-shadow:0 18px 42px rgba(31,10,7,.28);
+}
+.portrait__crm strong,.portrait__crm span{
+  display:block;
+  font-size:12px;
+  line-height:1;
+  letter-spacing:1.8px;
+  text-transform:uppercase;
+}
+.portrait__crm span{margin-top:10px;color:var(--bordo);font-weight:700}
 .about__body{
   align-self:stretch;
   max-width:none;
@@ -1037,7 +1079,15 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   text-transform:uppercase;
 }
 .about__identity span{margin-top:10px;color:var(--creme-2);font-weight:600}
-.about__closing{max-width:538px;margin-bottom:24px;color:var(--creme-2);font-size:16px;line-height:26px}
+.about__closing{
+  max-width:538px;
+  margin:24px 0 0;
+  padding-top:24px;
+  border-top:1px solid rgba(239,233,222,.18);
+  color:var(--creme-2);
+  font-size:16px;
+  line-height:26px;
+}
 .bio-grid{
   max-width:538px;
   margin:0;
@@ -1129,17 +1179,42 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   .process{grid-template-columns:minmax(300px,435px) minmax(430px,1fr)}
 }
 @media (max-width:980px){
+  .topbar{
+    background:transparent;
+    border-bottom:0;
+    backdrop-filter:none;
+  }
+  .brand{filter:drop-shadow(0 1px 8px rgba(239,233,222,.35))}
+  .brand__top{color:var(--bordo-ink)}
+  .brand .brand__script{color:var(--bordo)}
   .topbar nav{display:none}
-  .hero{min-height:auto;padding-top:120px;padding-bottom:64px;flex-direction:column}
-  .hero__media{position:relative;right:auto;top:auto;width:100%;height:520px;margin:0 0 32px}
-  .hero__media img{left:0;width:100%;object-fit:cover;object-position:68% top}
-  .hero__plate{width:100%}
+  .topbar__cta{display:none}
+  .hero{min-height:auto;padding-top:0;padding-bottom:64px;flex-direction:column}
+  .hero__media{
+    position:relative;
+    right:auto;
+    top:auto;
+    width:calc(100% + 80px);
+    height:clamp(620px,82vw,760px);
+    margin:0 -40px -150px;
+  }
+  .hero__media img{
+    inset:0;
+    width:100%;
+    height:100%;
+    max-width:none;
+    object-fit:cover;
+    object-position:70% center;
+  }
+  .hero__plate{position:relative;z-index:4;width:100%}
   .pains{grid-template-columns:repeat(2,minmax(0,1fr))}
   .assessment-grid{grid-template-columns:1fr;grid-template-areas:"metabolism" "lifestyle" "body" "behavior"}
   .process{grid-template-columns:1fr}
   .process__intro{position:relative;top:auto;min-height:auto}
+  .process__actions{grid-column:1;padding-top:0}
   .about{grid-template-columns:1fr;min-height:auto}
   .portrait{min-height:680px;height:680px}
+  .portrait img{object-position:78% center}
   .about__body{padding:64px 40px}
   .testimonials__head{grid-template-columns:1fr}
   .rail{grid-template-columns:1fr 1fr}
@@ -1148,21 +1223,41 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 }
 @media (max-width:680px){
   .shell{width:auto;padding-inline:24px 28px}
-  .section,.pillars-section,.process-section{padding-block:72px}
+  .section:not(.about-section){padding-block:60px}
   .topbar__inner,.hero,.hero__strip{padding-inline:24px}
   .topbar__cta{display:none}
-  .hero__media{height:380px;margin-inline:-24px;width:calc(100% + 48px)}
+  .hero{padding-top:0;padding-bottom:56px}
+  .hero__media{
+    height:clamp(650px,140vw,760px);
+    margin-inline:-24px;
+    margin-bottom:-178px;
+    width:calc(100% + 48px);
+  }
+  .hero__media img{
+    top:0;
+    right:auto;
+    bottom:auto;
+    left:-205%;
+    width:345%;
+    object-position:center 36%;
+  }
   .hero__plate{padding:28px}
-  .hero__title{font-size:36px;line-height:40px}
-  .hero__title em{line-height:42px}
+  .hero__title{font-size:42px;line-height:44px;gap:14px}
+  .hero__title span{line-height:1.06}
+  .hero__title em{line-height:1.04}
+  .hero__sub{margin-top:24px}
+  .hero__footer-block{margin-top:20px}
+  .hero__local{max-width:100%;font-size:11px;line-height:1.35;letter-spacing:1.35px}
   .hero__strip{display:grid;gap:12px;min-height:auto}
   .h2,.method-title,.process__title,.testimonials__head .h2,.about__title{font-size:34px;line-height:38px}
-  .pains{grid-template-columns:1fr;gap:16px;width:auto}
-  .pain{min-height:220px}
+  .pains{grid-template-columns:1fr;gap:12px;width:auto;margin-top:32px}
+  .pain{min-height:148px;padding:22px}
+  .pain p{font-size:24px;line-height:28px}
   .method-section{min-height:auto}
-  .method-section .shell{padding-block:72px}
+  .method-section .shell{padding-block:60px}
   .signal-grid{display:flex;flex-direction:column}
-  .signal,.signal--a{min-height:auto;padding:28px}
+  .signal,.signal--a{--lift:0px;min-height:auto;padding:28px;transform:none}
+  .signal:hover{transform:none}
   .method-note{padding:28px}
   .assessment-tile{padding:28px}
   .method-cta{align-items:flex-start}
@@ -1171,8 +1266,10 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   .step::before{left:29px}
   .step__n{width:58px;height:58px;font-size:36px}
   .step h3{font-size:24px;line-height:28px}
+  .process__actions .btn{width:100%;justify-content:center;text-align:center}
   .portrait{height:540px;min-height:540px}
-  .portrait img{left:50%;transform:translateX(-66%)}
+  .portrait img{left:0;transform:none;object-position:88% center}
+  .portrait__crm{left:24px;bottom:24px;width:calc(100% - 48px)}
   .about__body{padding:52px 24px 64px}
   .bio-grid{grid-template-columns:1fr}
   .testimonial-controls{display:none}
@@ -1203,21 +1300,21 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
         <a href="#depoimentos">Pacientes</a>
         <a href="#faq">FAQ</a>
       </nav>
-      <a class="topbar__cta" href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">WhatsApp</a>
+      <a class="topbar__cta" data-agendor-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">WhatsApp</a>
     </div>
   </div>
 
   <div class="hero__media" aria-hidden="true">
-    <img src="assets/figma-hero-vfinal.png" alt="">
+    <picture>
+      <img src="assets/figma-hero-vfinal.png" alt="">
+    </picture>
   </div>
 
   <div class="hero__layout">
     <div class="hero__content hero__plate">
-      <span class="hero__tag">Método Slim Balance</span>
-
       <h1 class="hero__title" id="top">
         <span>Um plano de emagrecimento</span>
-        <em>que vai além da dieta.</em>
+        <em>que vai além da dieta</em>
       </h1>
 
       <p class="hero__sub">
@@ -1225,11 +1322,11 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
       </p>
 
       <div class="hero__cta hero__footer-block">
-        <a class="btn btn--light" href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">
+        <span class="hero__local">Atendimento em São José do Rio Preto - SP.</span>
+        <a class="btn btn--light" data-agendor-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">
           <img src="assets/figma-chevron-right.svg" alt="" aria-hidden="true">
           Quero agendar minha consulta
         </a>
-        <span class="hero__local">Atendimento em São José do Rio Preto – SP.</span>
       </div>
     </div>
   </div>
@@ -1296,8 +1393,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 <section class="section pillars-section">
   <div class="shell">
     <div class="pillars__head rv">
-      <p class="eyebrow">Pilares do Método</p>
-      <h2 class="h2">Investigação integrada de saúde</h2>
+      <h2 class="h2">Pilares do Método Slim Balance</h2>
     </div>
 
     <div class="assessment">
@@ -1335,13 +1431,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
         </article>
       </div>
 
-      <div class="method-cta rv">
-        <p>Quer entender quais barreiras estão travando seus resultados?</p>
-        <a class="btn btn--light" href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20entender%20o%20meu%20caso." target="_blank" rel="noopener">
-          <img src="assets/figma-chevron-right.svg" alt="" aria-hidden="true">
-          Quero entender o meu caso
-        </a>
-      </div>
     </div>
   </div>
 </section>
@@ -1356,7 +1445,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
         acompanhamento<br>
         com a <em>Dra.&nbsp;Victoria</em>
       </h2>
-      <a class="btn" href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">Quero agendar minha consulta</a>
     </div>
 
     <ol class="steps" aria-label="Etapas do acompanhamento">
@@ -1400,6 +1488,13 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
         </div>
       </li>
     </ol>
+
+    <div class="process__actions rv">
+      <a class="btn" data-agendor-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">
+        <img src="assets/figma-chevron-right.svg" alt="" aria-hidden="true">
+        Quero agendar minha consulta
+      </a>
+    </div>
   </div>
 </section>
 
@@ -1408,18 +1503,15 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   <div class="about">
     <figure class="portrait" style="margin:0">
       <img src="assets/figma-hero-vfinal.png" alt="Dra. Victoria Lacerda no consultório" loading="lazy">
+      <figcaption class="portrait__crm">
+        <strong>Dra. Victoria Lacerda</strong>
+        <span>CRM-SP 196.390</span>
+      </figcaption>
     </figure>
 
     <div class="about__body">
       <p class="eyebrow">Por trás do Slim Balance</p>
       <h2 class="about__title">Minha relação com o emagrecimento não começou apenas no consultório.</h2>
-
-      <div class="about__identity">
-        <strong>Dra. Victoria Lacerda</strong>
-        <span>CRM-SP 196.390</span>
-      </div>
-
-      <p class="about__closing">O foco vai além da perda de peso: buscamos um emagrecimento que faça parte de um estilo de vida mais saudável e sustentável, com atenção à sua saúde, bem-estar, disposição e autoestima.</p>
 
       <div class="bio-grid">
         <article class="bio-card">
@@ -1437,6 +1529,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
       </div>
 
       <p class="about__pull">Porque, antes de definir a estratégia, eu preciso entender você.</p>
+      <p class="about__closing">O foco vai além da perda de peso: buscamos um emagrecimento que faça parte de um estilo de vida mais saudável e sustentável, com atenção à sua saúde, bem-estar, disposição e autoestima.</p>
     </div>
   </div>
 </section>
@@ -1512,7 +1605,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
     <h2 class="h2 rv">Um emagrecimento mais duradouro começa entendendo <em>o que seu corpo precisa</em>.</h2>
     <p class="lede rv">Entre em contato com nossa equipe para agendar sua consulta e ter um plano de emagrecimento pensado para o seu caso.</p>
     <p class="rv">
-      <a class="btn btn--light" href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20meu%20plano%20personalizado." target="_blank" rel="noopener">
+      <a class="btn btn--light" data-agendor-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20meu%20plano%20personalizado." target="_blank" rel="noopener">
         <img src="assets/figma-chevron-right.svg" alt="" aria-hidden="true">
         Quero meu plano personalizado
       </a>
@@ -1538,7 +1631,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
       <div>
         <h3>Contato</h3>
         <div class="foot__links">
-          <a href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20a%20equipe." target="_blank" rel="noopener">Falar com a equipe — (17) 99745-4974</a>
+          <a data-agendor-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20a%20equipe." target="_blank" rel="noopener">Falar com a equipe — (17) 99745-4974</a>
           <a href="https://www.instagram.com/dravictorialacerda/" target="_blank" rel="noopener">Acompanhar no Instagram</a>
         </div>
       </div>
@@ -1739,6 +1832,67 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   if (mobileQuery.addEventListener) mobileQuery.addEventListener('change', syncTestimonials);
   else mobileQuery.addListener(syncTestimonials);
   syncTestimonials();
+})();
+</script>
+
+<script>
+(function(){
+  function textOf(el){
+    return ((el.getAttribute('aria-label') || '') + ' ' + (el.textContent || '') + ' ' + (el.className || '') + ' ' + (el.id || '')).toLowerCase();
+  }
+
+  function hasAgendorShadowWidget(){
+    return Array.prototype.slice.call(document.querySelectorAll('body > div[style*="fixed"]')).some(function(host){
+      return host.shadowRoot && host.shadowRoot.querySelector('.button-widget-whatsapp') && host.shadowRoot.querySelector('.popover-widget-whatsapp');
+    });
+  }
+
+  function openAgendorWidget(){
+    var openedShadow = Array.prototype.slice.call(document.querySelectorAll('body > div[style*="fixed"]')).some(function(host){
+      if (!host.shadowRoot) return false;
+      var button = host.shadowRoot.querySelector('.button-widget-whatsapp');
+      var popover = host.shadowRoot.querySelector('.popover-widget-whatsapp');
+      if (!button || !popover) return false;
+      button.click();
+      if (getComputedStyle(popover).display === 'none') popover.style.setProperty('display', 'block', 'important');
+      return true;
+    });
+    if (openedShadow) return true;
+
+    var candidates = Array.prototype.slice.call(document.querySelectorAll('button,a,[role="button"],iframe'));
+    var widget = candidates.find(function(el){
+      if (el.matches && el.matches('[data-agendor-trigger]')) return false;
+      if (el.offsetParent === null && getComputedStyle(el).position !== 'fixed') return false;
+      var haystack = textOf(el) + ' ' + ((el.getAttribute('href') || '') + ' ' + (el.getAttribute('src') || '')).toLowerCase();
+      if (haystack.indexOf('agendor') > -1 || haystack.indexOf('whats') > -1) return true;
+      var rect = el.getBoundingClientRect();
+      return rect.width >= 40 && rect.height >= 40 && rect.right > window.innerWidth - 140 && rect.bottom > window.innerHeight - 140;
+    });
+    if (!widget) return false;
+    widget.click();
+    return true;
+  }
+
+  document.addEventListener('click', function(event){
+    var trigger = event.target.closest('[data-agendor-trigger]');
+    if (!trigger) return;
+
+    if (hasAgendorShadowWidget()){
+      event.preventDefault();
+      window.setTimeout(openAgendorWidget, 0);
+      return;
+    }
+
+    if (openAgendorWidget()){
+      event.preventDefault();
+      return;
+    }
+
+    if (trigger.href){
+      event.preventDefault();
+      window.open(trigger.href, '_blank', 'noopener');
+    }
+  });
 })();
 </script>
 
