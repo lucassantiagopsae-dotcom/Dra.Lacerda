@@ -681,7 +681,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 /* ============================================================
    VERSÃO FINAL FIGMA — camada de fidelidade visual
    ============================================================ */
-:root{--shell:1152px}
+:root{--shell:1144px}
 .shell{max-width:var(--shell);padding-inline:0}
 .section{padding-block:120px}
 .section .eyebrow{margin-bottom:16px;font-weight:700;color:var(--bordo);letter-spacing:2.5px}
@@ -1282,6 +1282,655 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   .foot{padding-block:56px}
   .foot__bar{display:grid}
 }
+
+/* ============================================================
+   AJUSTES DO BRIEFING 31/08 — primeira dobra, ritmo e carrossel
+   ============================================================ */
+body{background:var(--paper)}
+
+.hero{
+  min-height:866px;
+  padding:122px max(var(--gutter),calc((100vw - var(--shell))/2)) 0;
+  display:flex;
+  flex-direction:row;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:56px;
+  background:
+    radial-gradient(circle at 76% 42%, rgba(201,154,56,.14), transparent 30%),
+    linear-gradient(110deg, var(--bordo-ink) 0%, var(--bordo) 48%, var(--bordo-deep) 100%);
+  color:var(--creme);
+}
+.hero::before{display:none}
+.topbar{
+  height:90px;
+  background:transparent;
+  border-bottom:1px solid rgba(239,233,222,.13);
+  backdrop-filter:none;
+}
+.topbar__inner{
+  max-width:var(--shell);
+  height:90px;
+  padding:24px var(--gutter);
+}
+.brand__top{color:var(--creme)}
+.brand .brand__script{color:var(--star)}
+.hero__layout{
+  order:1;
+  position:relative;
+  z-index:5;
+  width:min(532px,48%);
+  max-width:532px;
+  margin:0 0 104px;
+  padding:0;
+  text-align:left;
+  flex:none;
+}
+.hero__content{max-width:none}
+.hero__plate{
+  width:100%;
+  margin:0;
+  padding:0;
+  background:transparent;
+  border:0;
+  color:var(--creme);
+  box-shadow:none;
+}
+.hero__title{
+  display:block;
+  margin:0;
+  font-size:clamp(58px,5.2vw,76px);
+  line-height:1;
+  color:var(--creme);
+  text-wrap:balance;
+}
+.hero__title span,
+.hero__title em{display:block}
+.hero__title em{
+  margin-top:14px;
+  color:var(--star);
+  font-style:italic;
+}
+.hero__sub{
+  width:auto;
+  max-width:45ch;
+  margin:28px 0 0;
+  color:rgba(239,233,222,.86);
+  font-size:18px;
+  line-height:1.62;
+  opacity:1;
+  animation:none;
+  transform:none;
+}
+.hero__footer-block{
+  align-items:flex-start;
+  gap:14px;
+  margin-top:28px;
+  opacity:1;
+  animation:none;
+  transform:none;
+}
+.hero__footer-block .btn{
+  order:1;
+  min-height:58px;
+  background:#fff;
+  color:var(--bordo-deep);
+  border-color:#fff;
+  box-shadow:0 18px 38px rgba(31,10,7,.25);
+}
+.hero__footer-block .btn:hover{background:var(--creme)}
+.hero__local{
+  order:2;
+  padding:0;
+  background:transparent;
+  border:0;
+  color:rgba(239,233,222,.72);
+  font-size:11px;
+  letter-spacing:2.2px;
+}
+.hero__media{
+  order:2;
+  position:absolute;
+  top:0;
+  right:0;
+  bottom:0;
+  left:auto;
+  z-index:4;
+  width:calc(min(620px,48vw) + max(var(--gutter),calc((100vw - var(--shell)) / 2)));
+  height:auto;
+  margin:0;
+  overflow:visible;
+  pointer-events:auto;
+  flex:none;
+}
+.hero__media picture{
+  position:absolute;
+  inset:0;
+  display:block;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+.hero__media img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  max-width:none;
+  object-fit:cover;
+  object-position:94% center;
+}
+.hero__media::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  background:linear-gradient(180deg, rgba(51,15,11,0) 55%, rgba(51,15,11,.64) 100%);
+  pointer-events:none;
+}
+.hero__identity{
+  position:absolute;
+  left:24px;
+  top:auto;
+  bottom:24px;
+  z-index:3;
+  width:min(360px,calc(100% - 48px));
+  margin:0;
+  padding:16px 18px;
+  transform:none;
+  background:rgba(248,243,232,.96);
+  border:1px solid rgba(201,154,56,.72);
+  color:var(--bordo-ink);
+  box-shadow:0 20px 46px rgba(31,10,7,.3);
+}
+.hero__identity strong,
+.hero__identity span{
+  display:block;
+  font-family:var(--sans);
+  font-size:11px;
+  font-weight:800;
+  line-height:1;
+  letter-spacing:1.8px;
+  text-transform:uppercase;
+}
+.hero__identity span{
+  margin-top:9px;
+  color:var(--bordo);
+  font-weight:700;
+}
+.hero__strip{display:none}
+
+main > .section:first-child{padding-block:82px 74px}
+.pains{margin-top:34px}
+.pain{
+  min-height:212px;
+  padding:24px;
+}
+.pain p{font-size:26px;line-height:1.16}
+
+.method-section{
+  min-height:auto;
+  align-items:flex-start;
+}
+.method-section .shell{padding-block:80px 92px}
+.method-diagnostic{margin-top:32px}
+.method-title{max-width:820px}
+.signal-grid{gap:18px;align-items:stretch}
+.signal,
+.signal--a,
+.signal--b,
+.signal--c{
+  min-height:268px;
+  padding:30px;
+  background:var(--paper);
+  border:1px solid rgba(201,154,56,.42);
+  color:var(--bordo-ink);
+  box-shadow:0 22px 54px rgba(31,10,7,.22);
+}
+.signal:hover,
+.signal--a:hover,
+.signal--b:hover,
+.signal--c:hover{
+  background:#fff;
+  transform:translateY(calc(var(--lift) - 8px));
+}
+.signal__label,
+.signal--a .signal__label{
+  color:var(--star);
+  font-size:11px;
+  letter-spacing:1.9px;
+}
+.signal p,
+.signal--a p{
+  font-family:var(--display);
+  font-size:25px;
+  font-weight:400;
+  line-height:1.28;
+  color:var(--bordo-ink);
+  font-variation-settings:"SOFT" 0,"WONK" 1;
+}
+.signal strong{font-weight:700;color:var(--bordo)}
+.signal.rv{opacity:0;transform:translateY(calc(var(--lift) + 18px))}
+.signal.rv.in{opacity:1;transform:translateY(var(--lift))}
+.method-note{
+  margin-top:24px;
+  padding:32px;
+}
+
+.pillars-section{padding-block:92px;background:var(--paper)}
+.pillars__head{margin-bottom:34px}
+.pillars__head .h2{
+  max-width:680px;
+  font-size:46px;
+  line-height:1.06;
+}
+.assessment-grid{gap:18px}
+.assessment-tile{
+  min-height:166px;
+  padding:30px;
+  display:flex;
+  align-items:flex-end;
+  background:#fff;
+  border:1px solid rgba(201,193,177,.95);
+  box-shadow:0 18px 44px rgba(51,15,11,.06);
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease);
+}
+.assessment-tile:hover{
+  transform:translateY(-6px);
+  border-color:rgba(201,154,56,.72);
+  box-shadow:0 26px 58px rgba(51,15,11,.1);
+}
+.assessment-tile h3{
+  margin:0;
+  color:var(--bordo-deep);
+  font-size:29px;
+  line-height:1.08;
+}
+.assessment-tile.rv{opacity:0;transform:translateY(22px)}
+.assessment-tile.rv.in{opacity:1;transform:translateY(0)}
+
+.process-section{padding-block:96px;background:#fbf7ef}
+.process__intro{
+  position:sticky;
+  top:104px;
+  min-height:420px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+.step.rv{opacity:0;transform:translateY(24px)}
+.step.rv.in{opacity:1;transform:translateY(0)}
+.step__n{
+  color:var(--bordo);
+  border-color:rgba(97,29,23,.44);
+  background:#fff;
+}
+.process__actions{padding-top:10px}
+
+.about-section{padding-block:0;background:var(--bordo-ink)}
+.about{
+  max-width:var(--shell);
+  margin-inline:auto;
+  padding:96px var(--gutter);
+  display:grid;
+  grid-template-columns:1fr;
+  gap:48px;
+  min-height:auto;
+}
+.portrait{
+  width:min(760px,100%);
+  height:620px;
+  min-height:0;
+  margin:0 auto !important;
+  border:1px solid rgba(239,233,222,.12);
+}
+.portrait img{
+  object-position:78% center;
+}
+.portrait__crm{
+  left:50%;
+  bottom:24px;
+  transform:translateX(-50%);
+}
+.about__body{
+  max-width:760px;
+  margin:0 auto;
+  padding:0;
+}
+.about__body .eyebrow{margin-bottom:12px}
+.about__title{
+  max-width:720px;
+  margin-bottom:24px;
+  font-size:48px;
+  line-height:1.08;
+}
+.bio-grid{
+  max-width:760px;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+.bio-card,
+.bio-card--wide{
+  min-height:auto;
+  padding:22px;
+}
+.bio-card--wide{grid-column:auto}
+.bio-card p{
+  font-size:14px;
+  line-height:1.5;
+}
+.about__pull{
+  max-width:760px;
+  margin-top:22px;
+}
+
+.testimonials__head,
+.testimonials__head--single{
+  display:block;
+  text-align:center;
+}
+.testimonials__head .h2{
+  max-width:680px;
+  margin-inline:auto;
+  font-size:48px;
+  line-height:1;
+}
+.testimonial-carousel{
+  position:relative;
+  width:min(900px,100%);
+  margin:48px auto 0;
+  display:grid;
+  grid-template-columns:52px minmax(0,720px) 52px;
+  align-items:center;
+  justify-content:center;
+  gap:20px;
+}
+.testimonial-carousel .quote.testimonial-card,
+.testimonial-carousel .quote:nth-child(even).testimonial-card,
+.testimonial-carousel .quote:first-child.testimonial-card{
+  min-height:360px;
+  padding:42px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  background:#fff;
+  border:1px solid rgba(97,29,23,.16);
+  color:var(--ink);
+  box-shadow:0 24px 58px rgba(51,15,11,.08);
+}
+.testimonial-carousel.is-switching .testimonial-card{
+  opacity:.25;
+  transform:translateY(10px);
+}
+.quote__stars{color:var(--star);font-size:15px;letter-spacing:.22em}
+.testimonial-carousel .quote__text,
+.testimonial-carousel .quote:first-child .quote__text{
+  font-size:18px;
+  line-height:1.68;
+  color:var(--ink-soft);
+}
+.testimonial-carousel .quote__name,
+.testimonial-carousel .quote:first-child .quote__name{
+  margin-top:auto;
+  color:var(--bordo);
+  font-size:24px;
+  line-height:1.1;
+}
+.testimonial-nav,
+.testimonial-nav--prev,
+.testimonial-nav--next{
+  width:52px;
+  height:52px;
+  display:grid;
+  place-items:center;
+  padding:0;
+  border-radius:50%;
+  border:1px solid rgba(97,29,23,.2);
+  background:#fff;
+  color:var(--bordo);
+  cursor:pointer;
+  transition:transform .25s var(--ease),background .25s var(--ease),border-color .25s var(--ease);
+}
+.testimonial-nav:hover{
+  background:var(--bordo);
+  border-color:var(--bordo);
+  transform:translateY(-2px);
+}
+.testimonial-nav img{width:17px;height:17px}
+.testimonial-dots{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:9px;
+  margin-top:24px;
+}
+.testimonial-dot{
+  width:8px;
+  height:8px;
+  padding:0;
+  border:0;
+  border-radius:999px;
+  background:rgba(97,29,23,.24);
+  cursor:pointer;
+  transition:width .25s var(--ease),background .25s var(--ease);
+}
+.testimonial-dot.is-active{
+  width:26px;
+  background:var(--bordo);
+}
+
+@media (max-width:1180px){
+  .hero{min-height:850px}
+  .hero__media{width:calc(min(560px,48vw) + max(var(--gutter),calc((100vw - var(--shell)) / 2)));height:auto}
+  .signal p,.signal--a p{font-size:23px}
+  .bio-grid{grid-template-columns:1fr}
+}
+
+@media (max-width:980px){
+  .hero{
+    min-height:auto;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    gap:0;
+    padding:118px 0 0;
+    background:
+      radial-gradient(circle at 50% 24%, rgba(201,154,56,.12), transparent 35%),
+      linear-gradient(180deg, var(--bordo-ink), var(--bordo) 58%, var(--bordo-deep));
+  }
+  .topbar{background:transparent}
+  .brand{filter:none}
+  .brand__top{color:var(--creme)}
+  .brand .brand__script{color:var(--star)}
+  .hero__layout{
+    width:100%;
+    max-width:var(--shell);
+    margin:0 auto;
+    padding-inline:var(--gutter);
+    text-align:left;
+    flex:auto;
+  }
+  .hero__plate{margin:0}
+  .hero__title{font-size:clamp(46px,9vw,70px)}
+  .hero__sub{margin-inline:0;max-width:44ch;font-size:17px}
+  .hero__footer-block{align-items:flex-start}
+  .hero__media{
+    position:relative;
+    inset:auto;
+    right:auto;
+    bottom:auto;
+    left:auto;
+    width:100%;
+    height:clamp(500px,72vw,660px);
+    margin:40px 0 0;
+  }
+  .hero__media img{object-position:86% center}
+  .hero__identity{
+    left:var(--gutter);
+    top:auto;
+    bottom:24px;
+    transform:none;
+  }
+  .pains{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .signal-grid{grid-template-columns:1fr;grid-template-areas:"a" "b" "c"}
+  .signal,
+  .signal--a,
+  .signal--b,
+  .signal--c{
+    --lift:0px;
+    min-height:auto;
+  }
+  .process__intro{
+    position:relative;
+    top:auto;
+    min-height:auto;
+  }
+  .about{padding-block:76px}
+  .portrait{height:560px}
+}
+
+@media (max-width:680px){
+  .shell{padding-inline:24px}
+  .section:not(.about-section){padding-block:58px}
+  .topbar{height:88px}
+  .topbar__inner{height:88px;padding:22px 24px}
+  .hero{
+    padding:112px 0 0;
+  }
+  .hero__layout{padding-inline:24px}
+  .hero__title{
+    font-size:43px;
+    line-height:1.04;
+  }
+  .hero__title em{margin-top:12px}
+  .hero__sub{
+    max-width:32ch;
+    margin-top:22px;
+    font-size:16px;
+    line-height:1.58;
+  }
+  .hero__footer-block{gap:13px;margin-top:24px}
+  .hero__footer-block .btn{
+    width:100%;
+    justify-content:center;
+    min-height:56px;
+    padding-inline:20px;
+  }
+  .hero__local{
+    max-width:100%;
+    font-size:10px;
+    letter-spacing:1.6px;
+  }
+  .hero__media{
+    height:440px;
+    margin-top:34px;
+  }
+  .hero__media img{
+    inset:0;
+    right:auto;
+    bottom:auto;
+    left:auto;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:88% center;
+  }
+  .hero__identity{
+    left:24px;
+    top:auto;
+    bottom:20px;
+    width:calc(100% - 48px);
+  }
+  main > .section:first-child{padding-block:56px}
+  .h2,.method-title,.process__title,.testimonials__head .h2,.about__title{
+    font-size:34px;
+    line-height:1.1;
+  }
+  .pains{grid-template-columns:1fr;margin-top:26px}
+  .pain{min-height:132px;padding:22px}
+  .pain p{font-size:24px;line-height:1.12}
+  .method-section .shell{padding-block:62px}
+  .method-diagnostic{margin-top:26px}
+  .signal,
+  .signal--a,
+  .signal--b,
+  .signal--c{
+    padding:26px;
+  }
+  .signal p,.signal--a p{font-size:22px;line-height:1.3}
+  .method-note{padding:26px}
+  .method-note p:first-child{font-size:24px}
+  .pillars-section{padding-block:62px}
+  .pillars__head .h2{font-size:34px;line-height:1.1}
+  .assessment-grid{gap:12px}
+  .assessment-tile{min-height:128px;padding:24px}
+  .assessment-tile h3{font-size:25px}
+  .process-section{padding-block:66px}
+  .step{
+    grid-template-columns:58px minmax(0,1fr);
+    gap:18px;
+    min-height:auto;
+    padding:32px 0;
+  }
+  .step::before{left:29px}
+  .step__n{
+    width:58px;
+    height:58px;
+    font-size:38px;
+  }
+  .step h3{font-size:24px;line-height:1.12}
+  .about{
+    padding:0 0 62px;
+    gap:36px;
+  }
+  .portrait{
+    width:100%;
+    height:520px;
+    border-inline:0;
+  }
+  .portrait img{object-position:77% center}
+  .portrait__crm{
+    left:24px;
+    width:calc(100% - 48px);
+    transform:none;
+  }
+  .about__body{padding-inline:24px}
+  .bio-grid{grid-template-columns:1fr;gap:1px}
+  .bio-card{padding:22px}
+  .about__pull{font-size:16px;line-height:1.5}
+  .testimonials__head .h2{text-align:left;margin:0}
+  .testimonial-carousel{
+    width:100%;
+    margin-top:34px;
+    grid-template-columns:38px minmax(0,1fr) 38px;
+    gap:8px;
+  }
+  .testimonial-carousel .quote.testimonial-card,
+  .testimonial-carousel .quote:nth-child(even).testimonial-card,
+  .testimonial-carousel .quote:first-child.testimonial-card{
+    min-height:430px;
+    padding:28px 24px;
+  }
+  .quote__text,
+  .quote:first-child .quote__text{
+    font-size:16px;
+    line-height:1.6;
+  }
+  .quote__name,
+  .quote:first-child .quote__name{font-size:21px}
+  .testimonial-nav,
+  .testimonial-nav--prev,
+  .testimonial-nav--next{
+    width:38px;
+    height:38px;
+  }
+  .testimonial-nav img{width:14px;height:14px}
+  .testimonial-dots{
+    flex-wrap:wrap;
+    gap:8px;
+    margin-inline:auto;
+    max-width:240px;
+  }
+}
 </style>
 </head>
 <body>
@@ -1304,11 +1953,15 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
     </div>
   </div>
 
-  <div class="hero__media" aria-hidden="true">
+  <figure class="hero__media">
     <picture>
-      <img src="assets/figma-hero-vfinal.png" alt="">
+      <img src="assets/figma-hero-vfinal.png" alt="Dra. Victoria Lacerda no consultório">
     </picture>
-  </div>
+    <figcaption class="hero__identity">
+      <strong>Dra. Victoria Lacerda</strong>
+      <span>CRM-SP 196.390</span>
+    </figcaption>
+  </figure>
 
   <div class="hero__layout">
     <div class="hero__content hero__plate">
@@ -1341,7 +1994,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 <!-- ============ DORES ============ -->
 <section class="section">
   <div class="shell">
-    <p class="eyebrow rv">O que costuma acontecer</p>
     <h2 class="h2 rv">Muitas pessoas <br class="mobile-only">querem emagrecer,<br>mas enfrentam <br class="mobile-only"><em>desafios como:</em></h2>
 
     <div class="pains rv">
@@ -1365,17 +2017,17 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 
     <div class="method-diagnostic">
       <div class="signal-grid" aria-label="Sinais que podem dificultar o emagrecimento">
-        <article class="signal signal--a">
+        <article class="signal signal--a rv">
           <span class="signal__label">Sinalização ambiental</span>
           <p><strong>O excesso de gordura</strong> pode alterar sinais envolvidos na fome e na saciedade;</p>
         </article>
 
-        <article class="signal signal--b">
+        <article class="signal signal--b rv">
           <span class="signal__label">Adaptação termogênica</span>
           <p>O organismo pode interpretar o emagrecimento como uma <strong>ameaça</strong> e responder <strong>reduzindo o gasto energético</strong>;</p>
         </article>
 
-        <article class="signal signal--c">
+        <article class="signal signal--c rv">
           <span class="signal__label">Comportamento repetitivo</span>
           <p><strong>Hábitos e padrões alimentares</strong> construídos ao longo dos anos podem se tornar mais automáticos e <strong>difíceis de mudar</strong>.</p>
         </article>
@@ -1398,35 +2050,27 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 
     <div class="assessment">
       <div class="assessment-grid">
-        <article class="assessment-tile assessment-tile--metabolism">
-          <span class="assessment-tile__tag">Investigação médica</span>
+        <article class="assessment-tile assessment-tile--metabolism rv">
           <div>
             <h3>Metabolismo e fatores hormonais</h3>
-            <p>A avaliação médica considera possíveis alterações que mereçam investigação, como resistência insulínica, hipotireoidismo, menopausa e outros fatores metabólicos ou hormonais.</p>
           </div>
         </article>
 
-        <article class="assessment-tile assessment-tile--lifestyle">
-          <span class="assessment-tile__tag">Rotina</span>
+        <article class="assessment-tile assessment-tile--lifestyle rv">
           <div>
             <h3>Estilo de vida</h3>
-            <p>Sono, rotina alimentar, oferta adequada de proteínas, nível de atividade física e outros hábitos que influenciam a saúde e a composição corporal.</p>
           </div>
         </article>
 
-        <article class="assessment-tile assessment-tile--body">
-          <span class="assessment-tile__tag">Medidas reais</span>
+        <article class="assessment-tile assessment-tile--body rv">
           <div>
             <h3>Composição corporal</h3>
-            <p>Além do peso na balança, a avaliação considera fatores como gordura corporal, gordura visceral e massa muscular para compreender melhor o ponto de partida e acompanhar a evolução.</p>
           </div>
         </article>
 
-        <article class="assessment-tile assessment-tile--behavior">
-          <span class="assessment-tile__tag">Padrões alimentares</span>
+        <article class="assessment-tile assessment-tile--behavior rv">
           <div>
             <h3>Comportamento alimentar</h3>
-            <p>Fome emocional, compulsão, beliscos frequentes, dificuldade de perceber saciedade e outros padrões que podem interferir na alimentação ao longo do dia.</p>
           </div>
         </article>
       </div>
@@ -1439,16 +2083,19 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 <section class="section process-section" id="como-funciona">
   <div class="shell process">
     <div class="process__intro">
-      <p class="eyebrow">Como funciona</p>
       <h2 class="h2 process__title">
         Como funciona o<br>
         acompanhamento<br>
         com a <em>Dra.&nbsp;Victoria</em>
       </h2>
+      <a class="btn" data-agendor-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">
+        <img src="assets/figma-chevron-right.svg" alt="" aria-hidden="true">
+        Quero agendar minha consulta
+      </a>
     </div>
 
     <ol class="steps" aria-label="Etapas do acompanhamento">
-      <li class="step">
+      <li class="step rv">
         <span class="step__n">1</span>
         <div class="step__body">
           <h3>Você entra em contato pelo WhatsApp</h3>
@@ -1456,7 +2103,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
         </div>
       </li>
 
-      <li class="step">
+      <li class="step rv">
         <span class="step__n">2</span>
         <div class="step__body">
           <h3>Sua composição corporal é avaliada</h3>
@@ -1464,7 +2111,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
         </div>
       </li>
 
-      <li class="step">
+      <li class="step rv">
         <span class="step__n">3</span>
         <div class="step__body">
           <h3>A Dra. Victoria investiga o seu contexto</h3>
@@ -1472,7 +2119,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
         </div>
       </li>
 
-      <li class="step">
+      <li class="step rv">
         <span class="step__n">4</span>
         <div class="step__body">
           <h3>O seu caso é analisado de forma integrada</h3>
@@ -1480,7 +2127,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
         </div>
       </li>
 
-      <li class="step">
+      <li class="step rv">
         <span class="step__n">5</span>
         <div class="step__body">
           <h3>É definida uma estratégia individualizada</h3>
@@ -1488,13 +2135,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
         </div>
       </li>
     </ol>
-
-    <div class="process__actions rv">
-      <a class="btn" data-agendor-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">
-        <img src="assets/figma-chevron-right.svg" alt="" aria-hidden="true">
-        Quero agendar minha consulta
-      </a>
-    </div>
   </div>
 </section>
 
@@ -1529,7 +2169,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
       </div>
 
       <p class="about__pull">Porque, antes de definir a estratégia, eu preciso entender você.</p>
-      <p class="about__closing">O foco vai além da perda de peso: buscamos um emagrecimento que faça parte de um estilo de vida mais saudável e sustentável, com atenção à sua saúde, bem-estar, disposição e autoestima.</p>
     </div>
   </div>
 </section>
@@ -1537,41 +2176,31 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
 <!-- ============ DEPOIMENTOS ============ -->
 <section class="section section--creme2" id="depoimentos">
   <div class="shell">
-    <div class="testimonials__head">
-      <div>
-        <p class="eyebrow rv">Pacientes</p>
-        <h2 class="h2 rv">O que dizem os<br>nossos <em>pacientes</em>?</h2>
-      </div>
-
-      <div class="testimonial-controls rv" aria-label="Navegar pelos depoimentos">
-        <button class="testimonial-nav" type="button" aria-label="Ver depoimentos anteriores" aria-controls="testimonial-rail" title="Depoimentos anteriores" data-testimonial-prev>
-          <img src="assets/figma-arrow-left.svg" alt="" aria-hidden="true">
-        </button>
-        <span class="testimonial-counter" data-testimonial-counter>1 / 2</span>
-        <button class="testimonial-nav" type="button" aria-label="Ver próximos depoimentos" aria-controls="testimonial-rail" title="Próximos depoimentos" data-testimonial-next>
-          <img src="assets/figma-arrow-right.svg" alt="" aria-hidden="true">
-        </button>
-      </div>
+    <div class="testimonials__head testimonials__head--single">
+      <h2 class="h2 rv">O que dizem os<br>nossos <em>pacientes</em>?</h2>
     </div>
 
-    <div class="rail rv testimonial-rail" id="testimonial-rail" aria-live="polite" data-testimonial-rail>
-      <article class="quote" data-quote-slot><span class="quote__stars">★★★★★</span><p class="quote__text">A consulta foi a melhor possível. Surpreendi-me, pois a Dra. Victoria é uma pessoa incrível. Eficiente profissionalmente, carinhosa, humana e não deixa você sair com dúvidas. Excelente profissional. Estou super satisfeita. O espaço é confortável e acolhedor. Minha nota para ela é 1000. Super recomendo.</p><p class="quote__name">Maria Engel</p></article>
-      <article class="quote" data-quote-slot><span class="quote__stars">★★★★★</span><p class="quote__text">A doutora Victoria é muito atenciosa. Fiquei impressionada com o acolhimento desde minha chegada, com sua equipe, e durante todo atendimento. A consulta demorou uma hora e meia, pois ela explicou tudo muito bem, com carinho e dedicação.</p><p class="quote__name">Andréa Petit</p></article>
-      <article class="quote" data-quote-slot><span class="quote__stars">★★★★★</span><p class="quote__text">O atendimento foi excelente do começo ao fim. A médica foi extremamente atenciosa, paciente e demonstrou muito cuidado ao ouvir e explicar tudo com calma. É nítido o quanto ela se preocupa com o bem-estar dos pacientes. Além disso, o local é muito bonito, organizado e transmite uma sensação de acolhimento.</p><p class="quote__name">Elisa Silva</p></article>
-      <article class="quote" data-quote-slot><span class="quote__stars">★★★★★</span><p class="quote__text">Estou amando o acompanhamento com a Dra. Victoria Lacerda! Ela é super atenciosa, uma profissional incrível e passa muita segurança. O atendimento é humanizado, completo e acolhedor. Tem me orientado com muito cuidado e está me ajudando bastante no meu processo de emagrecimento. Recomendo demais!</p><p class="quote__name">Gabriela Pereira</p></article>
-      <article class="quote" data-quote-slot><span class="quote__stars">★★★★★</span><p class="quote__text">Excelente profissional. Adorei a consulta. A Dra. Victoria foi super atenciosa, me passou muita segurança e confiança. Não teve pressa em atender, isso que mais gostei: explicou tudo com calma, respondeu minhas perguntas... ela realmente estava “presente” na nossa consulta.</p><p class="quote__name">Sarah Gomes</p></article>
+    <div class="testimonial-carousel rv" id="testimonial-rail" aria-live="polite" data-testimonial-rail>
+      <button class="testimonial-nav testimonial-nav--prev" type="button" aria-label="Ver depoimento anterior" aria-controls="testimonial-rail" title="Depoimento anterior" data-testimonial-prev>
+        <img src="assets/figma-arrow-left.svg" alt="" aria-hidden="true">
+      </button>
+      <article class="quote testimonial-card" data-quote-slot>
+        <span class="quote__stars">★★★★★</span>
+        <p class="quote__text">A consulta foi a melhor possível. Surpreendi-me, pois a Dra. Victoria é uma pessoa incrível. Eficiente profissionalmente, carinhosa, humana e não deixa você sair com dúvidas. Excelente profissional. Estou super satisfeita. O espaço é confortável e acolhedor. Minha nota para ela é 1000. Super recomendo.</p>
+        <p class="quote__name">Maria Engel</p>
+      </article>
+      <button class="testimonial-nav testimonial-nav--next" type="button" aria-label="Ver próximo depoimento" aria-controls="testimonial-rail" title="Próximo depoimento" data-testimonial-next>
+        <img src="assets/figma-arrow-right.svg" alt="" aria-hidden="true">
+      </button>
     </div>
 
-    <div class="testimonial-more-wrap" data-testimonial-more-wrap>
-      <button class="btn testimonial-more" type="button" aria-controls="testimonial-rail" data-testimonial-more>Ver mais depoimentos</button>
-    </div>
+    <div class="testimonial-dots rv" aria-label="Escolher depoimento" data-testimonial-dots></div>
   </div>
 </section>
 
 <!-- ============ FAQ ============ -->
 <section class="section" id="faq">
   <div class="shell">
-    <p class="eyebrow rv">Antes de começar</p>
     <h2 class="h2 rv">O que você precisa saber <em>antes de começar</em></h2>
 
     <div class="faq rv">
@@ -1713,6 +2342,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   var prev = document.querySelector('[data-testimonial-prev]');
   var next = document.querySelector('[data-testimonial-next]');
   var counter = document.querySelector('[data-testimonial-counter]');
+  var dotsWrap = document.querySelector('[data-testimonial-dots]');
   var more = document.querySelector('[data-testimonial-more]');
   var moreWrap = document.querySelector('[data-testimonial-more-wrap]');
   var mobileQuery = window.matchMedia('(max-width: 680px)');
@@ -1764,6 +2394,27 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
     more.hidden = !hasMore;
   }
 
+  function renderDots(){
+    if (!dotsWrap) return;
+    dotsWrap.textContent = '';
+    testimonials.forEach(function(item, dotIndex){
+      var dot = document.createElement('button');
+      dot.className = 'testimonial-dot';
+      dot.type = 'button';
+      dot.setAttribute('aria-label', 'Ver depoimento de ' + item.name);
+      dot.addEventListener('click', function(){ goTo(dotIndex); });
+      dotsWrap.appendChild(dot);
+    });
+  }
+
+  function updateDots(){
+    if (!dotsWrap) return;
+    Array.prototype.slice.call(dotsWrap.children).forEach(function(dot, dotIndex){
+      dot.classList.toggle('is-active', dotIndex === page);
+      dot.setAttribute('aria-current', dotIndex === page ? 'true' : 'false');
+    });
+  }
+
   function renderDesktop(){
     clearMobileQuotes();
     loadedCount = perPage;
@@ -1776,18 +2427,11 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
     });
     if (counter) counter.textContent = (page + 1) + ' / ' + totalPages;
     if (moreWrap) moreWrap.hidden = true;
+    updateDots();
   }
 
   function renderMobile(){
-    page = 0;
-    loadedCount = Math.min(perPage, testimonials.length);
-    clearMobileQuotes();
-    slots.forEach(function(slot, index){
-      var item = testimonials[index];
-      slot.hidden = !item;
-      if (item) fillQuote(slot, item);
-    });
-    updateMoreButton();
+    renderDesktop();
   }
 
   function loadMoreMobile(){
@@ -1805,10 +2449,13 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   }
 
   function go(direction){
-    if (mobileQuery.matches) return;
+    goTo((page + direction + totalPages) % totalPages);
+  }
+
+  function goTo(nextPage){
     if (isSwitching) return;
     isSwitching = true;
-    page = (page + direction + totalPages) % totalPages;
+    page = nextPage;
 
     if (reduceMotion){
       renderDesktop();
@@ -1831,6 +2478,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   if (more) more.addEventListener('click', loadMoreMobile);
   if (mobileQuery.addEventListener) mobileQuery.addEventListener('change', syncTestimonials);
   else mobileQuery.addListener(syncTestimonials);
+  renderDots();
   syncTestimonials();
 })();
 </script>
