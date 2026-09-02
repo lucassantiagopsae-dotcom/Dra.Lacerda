@@ -2311,24 +2311,41 @@ main > .section:first-child{padding-block:82px 74px}
 .hero__layout,
 .hero__content,
 .hero__title{
-  text-align:center;
+  text-align:left;
 }
 .hero__sub{
-  margin-inline:auto;
-  text-align:center;
+  margin-inline:0;
+  text-align:left;
   text-align-last:auto;
 }
 .hero__footer-block{
-  align-items:center;
+  align-items:flex-start;
 }
 .hero__footer-block .btn{
-  margin-inline:auto;
+  margin-inline:0;
 }
 .hero__local{
   width:100%;
-  text-align:center;
+  text-align:left;
 }
 @media (max-width:980px){
+  .hero__layout,
+  .hero__content,
+  .hero__title{
+    text-align:center;
+  }
+  .hero__sub{
+    margin-inline:auto;
+  }
+  .hero__footer-block{
+    align-items:center;
+  }
+  .hero__footer-block .btn{
+    margin-inline:auto;
+  }
+  .hero__local{
+    text-align:center;
+  }
   .hero__sub{
     text-align:justify;
     text-align-last:center;
