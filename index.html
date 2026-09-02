@@ -415,6 +415,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid cur
   padding-top:32px;
 }
 .process__actions .btn{background:var(--bordo);color:var(--creme);box-shadow:none}
+.process__mobile-cta{display:none}
 
 /* ============================================================
    SOBRE A DRA.
@@ -2306,6 +2307,157 @@ main > .section:first-child{padding-block:82px 74px}
     display:none;
   }
 }
+
+.hero__layout,
+.hero__content,
+.hero__title{
+  text-align:center;
+}
+.hero__sub{
+  margin-inline:auto;
+  text-align:center;
+  text-align-last:auto;
+}
+.hero__footer-block{
+  align-items:center;
+}
+.hero__footer-block .btn{
+  margin-inline:auto;
+}
+.hero__local{
+  width:100%;
+  text-align:center;
+}
+@media (max-width:980px){
+  .hero__sub{
+    text-align:justify;
+    text-align-last:center;
+  }
+}
+@media (max-width:680px){
+  main > .section:first-child{
+    padding-bottom:30px;
+  }
+  main > .section:first-child .h2{
+    max-width:100%;
+    font-size:clamp(35px,9.2vw,40px);
+    line-height:1.08;
+    text-wrap:balance;
+  }
+  main > .section:first-child .h2 .mobile-only{
+    display:none;
+  }
+  .section.method-section{
+    padding-top:0;
+  }
+  .method-section .shell{
+    padding-top:36px;
+  }
+  .pain{
+    height:108px;
+    min-height:108px;
+    padding:18px 24px;
+    justify-content:center;
+  }
+  .pain::after{
+    background:
+      linear-gradient(90deg,rgba(51,15,11,.84),rgba(51,15,11,.58) 58%,rgba(51,15,11,.28)),
+      linear-gradient(180deg,rgba(51,15,11,.18),rgba(51,15,11,.72));
+  }
+  .pain p{
+    width:100%;
+    max-width:none;
+    font-size:clamp(16px,4.05vw,18px);
+    line-height:1.14;
+    letter-spacing:0;
+    overflow-wrap:normal;
+    text-wrap:pretty;
+    hyphens:none;
+  }
+  .pain .mobile-only{
+    display:none;
+  }
+  .method-section .signal,
+  .method-section .signal--a,
+  .method-section .signal--b,
+  .method-section .signal--c{
+    height:auto;
+    min-height:0;
+    padding:26px 24px;
+    gap:22px;
+    justify-content:flex-start;
+    text-align:center;
+    align-items:center;
+  }
+  .method-section .signal__label,
+  .method-section .signal--a .signal__label{
+    width:100%;
+    text-align:center;
+  }
+  .method-section .signal p,
+  .method-section .signal--a p{
+    width:100%;
+    max-width:100%;
+    margin-inline:auto;
+    text-align:center;
+    text-wrap:balance;
+  }
+  .method-section .method-note{
+    text-align:center;
+  }
+  .method-section .method-note p{
+    margin-inline:auto;
+    text-align:center;
+    text-wrap:balance;
+  }
+  .process__intro > .btn{
+    display:none;
+  }
+  .process__mobile-cta{
+    display:flex;
+    justify-content:center;
+    margin-top:28px;
+  }
+  .process__mobile-cta .btn{
+    width:100%;
+    justify-content:center;
+    text-align:center;
+    background:var(--bordo);
+    color:var(--creme);
+    box-shadow:none;
+  }
+  .testimonial-carousel{
+    display:grid;
+    grid-template-columns:40px minmax(0,1fr) 40px;
+    align-items:center;
+    gap:8px;
+    margin-top:30px;
+  }
+  .testimonial-carousel .testimonial-nav,
+  .testimonial-carousel .testimonial-nav--prev,
+  .testimonial-carousel .testimonial-nav--next{
+    display:grid;
+    width:40px;
+    height:40px;
+  }
+  .testimonial-carousel .quote.testimonial-card,
+  .testimonial-carousel .quote:nth-child(even).testimonial-card,
+  .testimonial-carousel .quote:first-child.testimonial-card{
+    min-height:430px;
+    padding:26px 24px;
+  }
+  .testimonial-dots{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    max-width:240px;
+    margin-inline:auto;
+  }
+  .testimonial-more-wrap,
+  .testimonial-more-wrap[hidden]{
+    display:none;
+  }
+}
 </style>
 </head>
 <body>
@@ -2527,6 +2679,13 @@ main > .section:first-child{padding-block:82px 74px}
         </div>
       </li>
     </ol>
+
+    <div class="process__mobile-cta">
+      <a class="btn" data-agendor-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">
+        <img src="assets/figma-chevron-right.svg" alt="" aria-hidden="true">
+        Quero agendar minha consulta
+      </a>
+    </div>
   </div>
 </section>
 
@@ -2833,24 +2992,21 @@ main > .section:first-child{padding-block:82px 74px}
 
   function renderMobile(){
     clearMobileQuotes();
-    page = 0;
-    loadedCount = Math.min(mobileBatch, testimonials.length);
-    if (prev) prev.hidden = true;
-    if (next) next.hidden = true;
-    if (dotsWrap) dotsWrap.hidden = true;
+    if (prev) prev.hidden = false;
+    if (next) next.hidden = false;
+    if (dotsWrap) dotsWrap.hidden = false;
     slots.forEach(function(slot, index){
-      var item = testimonials[index];
-      if (!item){
+      if (index > 0){
         slot.hidden = true;
         return;
       }
+      var item = testimonials[page];
       slot.hidden = false;
       fillQuote(slot, item);
     });
-    testimonials.slice(slots.length, loadedCount).forEach(function(item){
-      rail.appendChild(createQuote(item));
-    });
-    updateMoreButton();
+    if (moreWrap) moreWrap.hidden = true;
+    if (more) more.hidden = true;
+    updateDots();
   }
 
   function loadMoreMobile(){
@@ -2877,14 +3033,14 @@ main > .section:first-child{padding-block:82px 74px}
     page = nextPage;
 
     if (reduceMotion){
-      renderDesktop();
+      syncTestimonials();
       isSwitching = false;
       return;
     }
 
     rail.classList.add('is-switching');
     window.setTimeout(function(){
-      renderDesktop();
+      syncTestimonials();
       window.requestAnimationFrame(function(){
         rail.classList.remove('is-switching');
         window.setTimeout(function(){ isSwitching = false; }, 260);
