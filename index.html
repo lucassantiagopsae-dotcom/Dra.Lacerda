@@ -6,6 +6,24 @@
 <title>Dra. Victoria Lacerda — Slim Balance | Emagrecimento além da dieta</title>
 <meta name="description" content="No Slim Balance, a Dra. Victoria Lacerda avalia você de forma completa para entender o que está dificultando o seu emagrecimento. São José do Rio Preto – SP.">
 <meta name="theme-color" content="#611D17">
+
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1287010046953864');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1287010046953864&ev=PageView&noscript=1" alt=""></noscript>
+<!-- End Meta Pixel -->
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&display=swap" rel="stylesheet">
@@ -3133,6 +3151,23 @@ main > .section:first-child{padding-block:82px 74px}
       window.open(trigger.href, '_blank', 'noopener');
     }
   });
+})();
+</script>
+
+<script>
+/* Meta Pixel — dispara Lead quando o visitante aciona qualquer CTA de WhatsApp.
+   Usa fase de captura para registrar o evento antes do handler do Agendor,
+   que faz preventDefault e abre o widget. */
+(function(){
+  document.addEventListener('click', function(event){
+    var trigger = event.target.closest && event.target.closest('[data-agendor-trigger]');
+    if (!trigger) return;
+    if (typeof window.fbq !== 'function') return;
+    window.fbq('track', 'Lead', {
+      content_name: 'CTA WhatsApp',
+      content_category: (trigger.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60) || 'WhatsApp'
+    });
+  }, true);
 })();
 </script>
 
