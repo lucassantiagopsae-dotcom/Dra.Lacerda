@@ -3155,19 +3155,142 @@ main > .section:first-child{padding-block:82px 74px}
 </script>
 
 <script>
-/* Meta Pixel — dispara Lead quando o visitante aciona qualquer CTA de WhatsApp.
-   Usa fase de captura para registrar o evento antes do handler do Agendor,
-   que faz preventDefault e abre o widget. */
+/* ============================================================================
+   TRACKING — Meta Pixel (navegador) + Conversions API (servidor)
+   Padrao do krob-tracking-stack: cada evento gera um event_id unico e dispara
+   duas vezes — via fbq e via POST /tracker. A Meta deduplica pelo event_id,
+   entao conta uma vez so, mas o evento sobrevive a adblock e a ITP.
+
+   Eventos (nomenclatura padrao da Meta):
+     PageView     -> no <head>, no carregamento
+     ViewContent  -> leitor alcancou a secao do metodo
+     Contact      -> clique em CTA de WhatsApp (intencao)
+     Lead         -> envio do formulario do Agendor, com PII (Advanced Matching)
+   ============================================================================ */
 (function(){
+  'use strict';
+
+  function uuid(){
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c){
+      var r = Math.random() * 16 | 0;
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+  }
+
+  function track(eventName, userData){
+    var eventId = uuid();
+
+    try {
+      if (typeof window.fbq === 'function') {
+        window.fbq('track', eventName, {}, { eventID: eventId });
+      }
+    } catch (_) {}
+
+    try {
+      fetch('/tracker', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event_name: eventName,
+          event_id: eventId,
+          event_time: Math.floor(Date.now() / 1000),
+          event_source_url: window.location.href,
+          user_data: userData || {}
+        }),
+        keepalive: true
+      }).catch(function(){});
+    } catch (_) {}
+  }
+
+  /* --- ViewContent: chegou na secao do metodo (interesse real) --- */
+  var metodo = document.getElementById('metodo');
+  if (metodo && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) {
+          io.disconnect();
+          track('ViewContent');
+          return;
+        }
+      }
+    }, { threshold: 0.5 });
+    io.observe(metodo);
+  }
+
+  /* --- Contact: clique em CTA de WhatsApp --- */
+  var lastContact = 0;
   document.addEventListener('click', function(event){
     var trigger = event.target.closest && event.target.closest('[data-agendor-trigger]');
     if (!trigger) return;
-    if (typeof window.fbq !== 'function') return;
-    window.fbq('track', 'Lead', {
-      content_name: 'CTA WhatsApp',
-      content_category: (trigger.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60) || 'WhatsApp'
-    });
+    var now = Date.now();
+    if (now - lastContact < 2000) return;
+    lastContact = now;
+    track('Contact');
   }, true);
+
+  /* --- Lead: formulario do Agendor, com PII ---
+     O widget roda em shadow DOM e carrega de forma assincrona. O evento
+     `submit` nao atravessa a fronteira do shadow root (composed: false),
+     entao o listener precisa ser anexado la dentro. */
+  var lastLead = 0;
+
+  function fireLead(root){
+    var now = Date.now();
+    if (now - lastLead < 3000) return;
+    lastLead = now;
+
+    function val(selector){
+      var el = root.querySelector(selector);
+      return el && el.value ? el.value.trim() : '';
+    }
+
+    var nome  = val('input[name="name"]');
+    var email = val('input[name="email"]');
+    var fone  = val('input[name="whatsapp"]');
+    if (!email && !fone) return;
+
+    var partes = nome ? nome.split(/\s+/) : [];
+
+    /* Chaves EXATAS da Advanced Matching da Meta (em/fn/ln/ph).
+       O /tracker normaliza e aplica SHA-256 antes de enviar; o PII cru
+       fica no D1 da propria cliente. Outros nomes de chave sao ignorados. */
+    track('Lead', {
+      em: email,
+      ph: fone,
+      fn: partes[0] || '',
+      ln: partes.slice(1).join(' ') || ''
+    });
+  }
+
+  function hook(root){
+    if (root.__leadHooked) return true;
+    var form = root.querySelector('form');
+    if (!form || !root.querySelector('input[name="whatsapp"]')) return false;
+
+    root.__leadHooked = true;
+    form.addEventListener('submit', function(){ fireLead(root); }, true);
+    root.addEventListener('click', function(ev){
+      var btn = ev.target.closest && ev.target.closest('button');
+      if (btn && /whatsapp/i.test(btn.textContent || '')) fireLead(root);
+    }, true);
+    return true;
+  }
+
+  function attach(){
+    var hosts = document.querySelectorAll('body > div');
+    for (var i = 0; i < hosts.length; i++) {
+      if (hosts[i].shadowRoot && hook(hosts[i].shadowRoot)) return true;
+    }
+    return false;
+  }
+
+  if (!attach()) {
+    var tries = 0;
+    var poll = setInterval(function(){
+      if (attach() || ++tries > 60) clearInterval(poll);
+    }, 500);
+  }
 })();
 </script>
 

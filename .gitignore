@@ -1,5 +1,27 @@
+# Segredos e config local — NUNCA commitar (regra dura do tracking stack)
+wrangler.toml
+wrangler.toml.audit
+.dev.vars
+.env
+.env.*
+
+# Artefatos de build do Cloudflare
+.wrangler/
+.cloudflare/
+
+# OS / editor
 .DS_Store
 Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Node
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Trabalho local
 tmp/
 *.log
