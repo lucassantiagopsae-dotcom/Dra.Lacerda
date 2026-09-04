@@ -240,6 +240,8 @@
           <thead class="text-xs uppercase tracking-wider text-[color:var(--dim)] border-b border-[color:var(--border)]">
             <tr>
               <th class="text-left py-2 pr-4">When</th>
+              <th class="text-left py-2 pr-4">Name</th>
+              <th class="text-left py-2 pr-4">WhatsApp</th>
               <th class="text-left py-2 pr-4">Email</th>
               <th class="text-left py-2 pr-4">Source</th>
               <th class="text-left py-2 pr-4">Campaign</th>
@@ -501,12 +503,14 @@
     qs('#kpi-leads').textContent = fmtInt((data.leads || []).length);
     const tbody = qs('#leads-tbody');
     if (!data.leads || data.leads.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="7" class="py-6 text-center text-[color:var(--muted)]">No leads in this window.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="9" class="py-6 text-center text-[color:var(--muted)]">No leads in this window.</td></tr>';
       return;
     }
     tbody.innerHTML = data.leads.map((l, i) => `
       <tr class="row-hover border-b border-[color:var(--border)] cursor-pointer" data-idx="${i}">
         <td class="py-2 pr-4 text-[color:var(--dim)]">${fmtDate(l.timestamp)}</td>
+        <td class="py-2 pr-4">${escapeHtml(l.raw_name || '—')}</td>
+        <td class="py-2 pr-4 mono">${escapeHtml(l.raw_phone || '—')}</td>
         <td class="py-2 pr-4 mono">${escapeHtml(l.raw_email || '—')}</td>
         <td class="py-2 pr-4">${escapeHtml(l.utm_source || '(direct)')}</td>
         <td class="py-2 pr-4 text-[color:var(--dim)]">${escapeHtml(l.utm_campaign || '—')}</td>
@@ -564,7 +568,7 @@
 
     if (kind === 'lead') {
       title.textContent = 'Lead details';
-      subtitle.textContent = `${fmtDate(row.timestamp)} · ${row.raw_email || '(no email)'} · event_id ${row.event_id || '—'}`;
+      subtitle.textContent = `${fmtDate(row.timestamp)} · ${row.raw_name || '(no name)'} · ${row.raw_phone || '(no phone)'} · ${row.raw_email || '(no email)'}`;
     } else {
       title.textContent = 'Purchase details';
       subtitle.textContent = `${fmtDate(row.created_at)} · ${row.raw_email || '(no email)'} · ${money(row.value, row.currency || 'BRL')} · txn ${row.transaction_id || '—'}`;

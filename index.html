@@ -7,7 +7,11 @@
 <meta name="description" content="No Slim Balance, a Dra. Victoria Lacerda avalia você de forma completa para entender o que está dificultando o seu emagrecimento. São José do Rio Preto – SP.">
 <meta name="theme-color" content="#611D17">
 
-<!-- Meta Pixel -->
+<!-- Meta Pixel — o ID vem da variavel META_PIXEL_ID do Cloudflare Pages.
+     O middleware reescreve o conteudo de #krob-pixel-config na resposta, entao
+     trocar o pixel no dashboard troca o do navegador E o da Conversions API.
+     O valor abaixo e so fallback para preview local sem binding. -->
+<script id="krob-pixel-config">window.__PIXEL_ID='1287010046953864';</script>
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -17,10 +21,12 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window,document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1287010046953864');
-fbq('track', 'PageView');
+if (window.__PIXEL_ID) {
+  fbq('init', window.__PIXEL_ID);
+  fbq('track', 'PageView');
+}
 </script>
-<noscript><img height="1" width="1" style="display:none"
+<noscript id="krob-pixel-noscript"><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1287010046953864&ev=PageView&noscript=1" alt=""></noscript>
 <!-- End Meta Pixel -->
 
@@ -2511,7 +2517,7 @@ main > .section:first-child{padding-block:82px 74px}
         <a href="#depoimentos">Pacientes</a>
         <a href="#faq">FAQ</a>
       </nav>
-      <a class="topbar__cta" data-agendor-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">WhatsApp</a>
+      <a class="topbar__cta" data-wa-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">WhatsApp</a>
     </div>
   </div>
 
@@ -2539,7 +2545,7 @@ main > .section:first-child{padding-block:82px 74px}
 
       <div class="hero__cta hero__footer-block">
         <span class="hero__local">Atendimento em São José do Rio Preto - SP.</span>
-        <a class="btn btn--light" data-agendor-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">
+        <a class="btn btn--light" data-wa-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">
           <img src="assets/figma-chevron-right.svg" alt="" aria-hidden="true">
           Quero agendar minha consulta
         </a>
@@ -2667,7 +2673,7 @@ main > .section:first-child{padding-block:82px 74px}
         acompanhamento<br>
         com a <em>Dra.&nbsp;Victoria</em>
       </h2>
-      <a class="btn" data-agendor-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">
+      <a class="btn" data-wa-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">
         <img src="assets/figma-chevron-right.svg" alt="" aria-hidden="true">
         Quero agendar minha consulta
       </a>
@@ -2716,7 +2722,7 @@ main > .section:first-child{padding-block:82px 74px}
     </ol>
 
     <div class="process__mobile-cta">
-      <a class="btn" data-agendor-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">
+      <a class="btn" data-wa-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">
         <img src="assets/figma-chevron-right.svg" alt="" aria-hidden="true">
         Quero agendar minha consulta
       </a>
@@ -2825,7 +2831,7 @@ main > .section:first-child{padding-block:82px 74px}
     <h2 class="h2 rv">Um emagrecimento mais duradouro começa entendendo <em>o que seu corpo precisa</em>.</h2>
     <p class="lede rv">Entre em contato com nossa equipe para agendar sua consulta e ter um plano de emagrecimento pensado para o seu caso.</p>
     <p class="rv">
-      <a class="btn btn--light" data-agendor-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20meu%20plano%20personalizado." target="_blank" rel="noopener">
+      <a class="btn btn--light" data-wa-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20meu%20plano%20personalizado." target="_blank" rel="noopener">
         <img src="assets/figma-chevron-right.svg" alt="" aria-hidden="true">
         Quero meu plano personalizado
       </a>
@@ -2851,7 +2857,7 @@ main > .section:first-child{padding-block:82px 74px}
       <div>
         <h3>Contato</h3>
         <div class="foot__links">
-          <a data-agendor-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20a%20equipe." target="_blank" rel="noopener">Falar com a equipe — (17) 99745-4974</a>
+          <a data-wa-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20a%20equipe." target="_blank" rel="noopener">Falar com a equipe — (17) 99745-4974</a>
           <a href="https://www.instagram.com/dravictorialacerda/" target="_blank" rel="noopener">Acompanhar no Instagram</a>
         </div>
       </div>
@@ -3094,67 +3100,6 @@ main > .section:first-child{padding-block:82px 74px}
 </script>
 
 <script>
-(function(){
-  function textOf(el){
-    return ((el.getAttribute('aria-label') || '') + ' ' + (el.textContent || '') + ' ' + (el.className || '') + ' ' + (el.id || '')).toLowerCase();
-  }
-
-  function hasAgendorShadowWidget(){
-    return Array.prototype.slice.call(document.querySelectorAll('body > div[style*="fixed"]')).some(function(host){
-      return host.shadowRoot && host.shadowRoot.querySelector('.button-widget-whatsapp') && host.shadowRoot.querySelector('.popover-widget-whatsapp');
-    });
-  }
-
-  function openAgendorWidget(){
-    var openedShadow = Array.prototype.slice.call(document.querySelectorAll('body > div[style*="fixed"]')).some(function(host){
-      if (!host.shadowRoot) return false;
-      var button = host.shadowRoot.querySelector('.button-widget-whatsapp');
-      var popover = host.shadowRoot.querySelector('.popover-widget-whatsapp');
-      if (!button || !popover) return false;
-      button.click();
-      if (getComputedStyle(popover).display === 'none') popover.style.setProperty('display', 'block', 'important');
-      return true;
-    });
-    if (openedShadow) return true;
-
-    var candidates = Array.prototype.slice.call(document.querySelectorAll('button,a,[role="button"],iframe'));
-    var widget = candidates.find(function(el){
-      if (el.matches && el.matches('[data-agendor-trigger]')) return false;
-      if (el.offsetParent === null && getComputedStyle(el).position !== 'fixed') return false;
-      var haystack = textOf(el) + ' ' + ((el.getAttribute('href') || '') + ' ' + (el.getAttribute('src') || '')).toLowerCase();
-      if (haystack.indexOf('agendor') > -1 || haystack.indexOf('whats') > -1) return true;
-      var rect = el.getBoundingClientRect();
-      return rect.width >= 40 && rect.height >= 40 && rect.right > window.innerWidth - 140 && rect.bottom > window.innerHeight - 140;
-    });
-    if (!widget) return false;
-    widget.click();
-    return true;
-  }
-
-  document.addEventListener('click', function(event){
-    var trigger = event.target.closest('[data-agendor-trigger]');
-    if (!trigger) return;
-
-    if (hasAgendorShadowWidget()){
-      event.preventDefault();
-      window.setTimeout(openAgendorWidget, 0);
-      return;
-    }
-
-    if (openAgendorWidget()){
-      event.preventDefault();
-      return;
-    }
-
-    if (trigger.href){
-      event.preventDefault();
-      window.open(trigger.href, '_blank', 'noopener');
-    }
-  });
-})();
-</script>
-
-<script>
 /* ============================================================================
    TRACKING — Meta Pixel (navegador) + Conversions API (servidor)
    Padrao do krob-tracking-stack: cada evento gera um event_id unico e dispara
@@ -3165,7 +3110,7 @@ main > .section:first-child{padding-block:82px 74px}
      PageView     -> no <head>, no carregamento
      ViewContent  -> leitor alcancou a secao do metodo
      Contact      -> clique em CTA de WhatsApp (intencao)
-     Lead         -> envio do formulario do Agendor, com PII (Advanced Matching)
+     Lead         -> envio do formulario do WhatsApp, com PII (Advanced Matching)
    ============================================================================ */
 (function(){
   'use strict';
@@ -3221,7 +3166,7 @@ main > .section:first-child{padding-block:82px 74px}
   /* --- Contact: clique em CTA de WhatsApp --- */
   var lastContact = 0;
   document.addEventListener('click', function(event){
-    var trigger = event.target.closest && event.target.closest('[data-agendor-trigger]');
+    var trigger = event.target.closest && event.target.closest('[data-wa-trigger]');
     if (!trigger) return;
     var now = Date.now();
     if (now - lastContact < 2000) return;
@@ -3229,108 +3174,243 @@ main > .section:first-child{padding-block:82px 74px}
     track('Contact');
   }, true);
 
-  /* --- Lead: formulario do Agendor, com PII ---
-     O widget roda em shadow DOM e carrega de forma assincrona. O evento
-     `submit` nao atravessa a fronteira do shadow root (composed: false),
-     entao o listener precisa ser anexado la dentro. */
-  var lastLead = 0;
-
-  function fireLead(root){
-    var now = Date.now();
-    if (now - lastLead < 3000) return;
-    lastLead = now;
-
-    function val(selector){
-      var el = root.querySelector(selector);
-      return el && el.value ? el.value.trim() : '';
-    }
-
-    var nome  = val('input[name="name"]');
-    var email = val('input[name="email"]');
-    var fone  = val('input[name="whatsapp"]');
-    if (!email && !fone) return;
-
-    var partes = nome ? nome.split(/\s+/) : [];
-
-    /* Chaves EXATAS da Advanced Matching da Meta (em/fn/ln/ph).
-       O /tracker normaliza e aplica SHA-256 antes de enviar; o PII cru
-       fica no D1 da propria cliente. Outros nomes de chave sao ignorados. */
-    track('Lead', {
-      em: email,
-      ph: fone,
-      fn: partes[0] || '',
-      ln: partes.slice(1).join(' ') || ''
-    });
-  }
-
-  function hook(root){
-    if (root.__leadHooked) return true;
-    var form = root.querySelector('form');
-    if (!form || !root.querySelector('input[name="whatsapp"]')) return false;
-
-    root.__leadHooked = true;
-    form.addEventListener('submit', function(){ fireLead(root); }, true);
-    root.addEventListener('click', function(ev){
-      var btn = ev.target.closest && ev.target.closest('button');
-      if (btn && /whatsapp/i.test(btn.textContent || '')) fireLead(root);
-    }, true);
-    return true;
-  }
-
-  function attach(){
-    var hosts = document.querySelectorAll('body > div');
-    for (var i = 0; i < hosts.length; i++) {
-      if (hosts[i].shadowRoot && hook(hosts[i].shadowRoot)) return true;
-    }
-    return false;
-  }
-
-  if (!attach()) {
-    var tries = 0;
-    var poll = setInterval(function(){
-      if (attach() || ++tries > 60) clearInterval(poll);
-    }, 500);
-  }
+  /* --- Lead: disparado pelo widget proprio (ver bloco WIDGET no fim do
+     documento), que chama window.krobTrack com o PII do formulario. --- */
+  window.krobTrack = track;
 })();
 </script>
 
+<!-- ============================================================================
+     WIDGET DE WHATSAPP — versao propria (substitui widgets.agendor.com.br)
+     Por que trocamos: o widget do Agendor renderiza em shadow DOM fechado ao
+     nosso codigo e envia o lead direto para a API deles, sem carregar UTM,
+     fbclid nem session_id. Resultado: o lead chegava no CRM sem origem. Esta
+     versao mantem o mesmo layout, mas o submit passa por window.krobTrack, que
+     grava no D1 (com o join de UTMs feito pelo _middleware) e dispara o Lead
+     para a Meta com Advanced Matching antes de abrir o WhatsApp.
+     ============================================================================ -->
+<style>
+  .wa{ position:fixed; right:20px; bottom:20px; z-index:9999; font-family:'Archivo',system-ui,-apple-system,sans-serif; }
+  .wa__fab{
+    display:flex; align-items:center; justify-content:center;
+    width:60px; height:60px; margin-left:auto; border:0; border-radius:50%;
+    background:#25D366; color:#fff; cursor:pointer;
+    box-shadow:0 6px 20px rgba(0,0,0,.24);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .wa__fab:hover{ transform:scale(1.06); box-shadow:0 8px 26px rgba(0,0,0,.3); }
+  .wa__fab svg{ width:32px; height:32px; fill:currentColor; }
+
+  .wa__panel{
+    width:min(320px, calc(100vw - 40px));
+    max-height:min(620px, calc(100vh - 130px));
+    margin-bottom:14px; overflow:auto;
+    border-radius:14px; background:#EFEAE0;
+    box-shadow:0 18px 48px rgba(0,0,0,.28);
+    animation:wa-in .18s ease-out;
+  }
+  @keyframes wa-in{ from{ opacity:0; transform:translateY(10px) scale(.97); } to{ opacity:1; transform:none; } }
+  @media (prefers-reduced-motion:reduce){ .wa__panel{ animation:none; } .wa__fab{ transition:none; } }
+
+  .wa__head{
+    display:flex; align-items:center; gap:10px;
+    padding:14px; background:#25D366; color:#fff;
+    border-radius:14px 14px 0 0;
+  }
+  .wa__head svg{ width:22px; height:22px; fill:currentColor; flex:none; }
+  .wa__head-title{ font-weight:700; font-size:15px; line-height:1.2; }
+  .wa__close{
+    margin-left:auto; width:26px; height:26px; flex:none;
+    display:flex; align-items:center; justify-content:center;
+    border:0; border-radius:50%; background:rgba(255,255,255,.18);
+    color:#fff; font-size:18px; line-height:1; cursor:pointer;
+  }
+  .wa__close:hover{ background:rgba(255,255,255,.3); }
+
+  .wa__body{ padding:16px; }
+  .wa__intro{
+    margin:0 0 16px; padding:14px 16px;
+    background:#fff; border-radius:10px;
+    font-size:14px; line-height:1.45; color:#2C2C2C; text-align:center;
+  }
+  .wa__label{ display:block; margin-bottom:6px; font-size:13px; font-weight:700; color:#2C2C2C; }
+  .wa__input{
+    width:100%; margin-bottom:14px; padding:11px 12px;
+    border:1px solid #D8D2C6; border-radius:8px; background:#fff;
+    font-family:inherit; font-size:14px; color:#2C2C2C;
+    -webkit-appearance:none; appearance:none;
+  }
+  .wa__input:focus{ outline:none; border-color:#25D366; box-shadow:0 0 0 3px rgba(37,211,102,.2); }
+  .wa__input[aria-invalid="true"]{ border-color:#C0392B; }
+  .wa__error{ margin:-6px 0 12px; font-size:12.5px; color:#A5281B; }
+  .wa__submit{
+    width:100%; padding:12px 14px; border:0; border-radius:8px;
+    background:#25D366; color:#fff; font-family:inherit; font-size:14.5px; font-weight:600;
+    cursor:pointer; transition:filter .15s ease;
+  }
+  .wa__submit:hover{ filter:brightness(.94); }
+</style>
+
+<div class="wa" id="wa">
+  <div class="wa__panel" id="wa-panel" role="dialog" aria-labelledby="wa-title" hidden>
+    <div class="wa__head">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>
+      <span class="wa__head-title" id="wa-title">Dra Victoria Lacerda</span>
+      <button type="button" class="wa__close" id="wa-close" aria-label="Fechar">&times;</button>
+    </div>
+    <div class="wa__body">
+      <p class="wa__intro">Olá! Preencha os dados para atendimento via WhatsApp:</p>
+      <form id="wa-form" novalidate>
+        <label class="wa__label" for="wa-name">Nome</label>
+        <input class="wa__input" id="wa-name" name="name" type="text" autocomplete="name" required>
+
+        <label class="wa__label" for="wa-email">E-mail</label>
+        <input class="wa__input" id="wa-email" name="email" type="email" inputmode="email" autocomplete="email">
+
+        <label class="wa__label" for="wa-phone">WhatsApp</label>
+        <input class="wa__input" id="wa-phone" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(17) 99999-9999" required>
+
+        <p class="wa__error" id="wa-error" role="alert" hidden></p>
+        <button class="wa__submit" type="submit">Ir para o WhatsApp</button>
+      </form>
+    </div>
+  </div>
+
+  <button type="button" class="wa__fab" id="wa-fab" aria-label="Abrir atendimento no WhatsApp" aria-expanded="false" aria-controls="wa-panel">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>
+  </button>
+</div>
+
 <script>
-window.WidgetWhatsConfig = {
-  "userId": 952312,
-  "accountId": 766699,
-  "funnelId": null,
-  "sequenceId": null,
-  "whatsappNumber": "+5517997454974",
-  "companyName": "Dra Victoria Lacerda",
-  "whatsappMessage": "Olá, gostaria de falar com a equipe da Dra. Victoria Lacerda",
-  "entity": "person",
-  "deal": false,
-  "fields": [
-    {
-      "name": "name",
-      "label": "Nome",
-      "type": "text",
-      "required": true,
-      "customField": false
-    },
-    {
-      "name": "email",
-      "label": "E-mail",
-      "type": "email",
-      "required": false,
-      "customField": false
-    },
-    {
-      "name": "whatsapp",
-      "label": "WhatsApp",
-      "type": "text",
-      "required": true,
-      "customField": false
-    }
-  ]
-};
+(function(){
+  'use strict';
+
+  var WHATSAPP_NUMBER = '5517997454974';
+  var DEFAULT_MESSAGE = 'Olá! Gostaria de falar com a equipe da Dra. Victoria Lacerda.';
+
+  var panel  = document.getElementById('wa-panel');
+  var fab    = document.getElementById('wa-fab');
+  var closer = document.getElementById('wa-close');
+  var form   = document.getElementById('wa-form');
+  var errBox = document.getElementById('wa-error');
+  var nameEl = document.getElementById('wa-name');
+  var mailEl = document.getElementById('wa-email');
+  var foneEl = document.getElementById('wa-phone');
+
+  /* Cada CTA da pagina carrega a sua propria mensagem no ?text= do href
+     ("quero agendar", "quero meu plano personalizado", ...). Guardamos a do
+     ultimo CTA clicado para que o WhatsApp abra com o contexto certo. */
+  var pendingMessage = DEFAULT_MESSAGE;
+
+  function messageFromTrigger(el){
+    try {
+      var href = el && el.getAttribute('href');
+      if (!href) return '';
+      var q = href.indexOf('?');
+      if (q < 0) return '';
+      return new URLSearchParams(href.slice(q + 1)).get('text') || '';
+    } catch (_) { return ''; }
+  }
+
+  function isOpen(){ return !panel.hidden; }
+
+  function openPanel(message){
+    if (message) pendingMessage = message;
+    panel.hidden = false;
+    fab.setAttribute('aria-expanded', 'true');
+    try { nameEl.focus({ preventScroll: true }); } catch (_) { nameEl.focus(); }
+  }
+
+  function shut(){
+    panel.hidden = true;
+    fab.setAttribute('aria-expanded', 'false');
+  }
+
+  fab.addEventListener('click', function(){
+    if (isOpen()) shut(); else openPanel(DEFAULT_MESSAGE);
+  });
+  closer.addEventListener('click', shut);
+
+  document.addEventListener('keydown', function(ev){
+    if (ev.key === 'Escape' && isOpen()) shut();
+  });
+
+  document.addEventListener('click', function(ev){
+    if (!isOpen()) return;
+    if (document.getElementById('wa').contains(ev.target)) return;
+    if (ev.target.closest && ev.target.closest('[data-wa-trigger]')) return;
+    shut();
+  });
+
+  /* Todos os CTAs da pagina abrem o widget em vez de pular direto pro wa.me.
+     O href continua no HTML como fallback: sem JS o link ainda funciona. */
+  document.addEventListener('click', function(ev){
+    var trigger = ev.target.closest && ev.target.closest('[data-wa-trigger]');
+    if (!trigger) return;
+    ev.preventDefault();
+    openPanel(messageFromTrigger(trigger) || DEFAULT_MESSAGE);
+  });
+
+  /* --- Mascara de telefone BR, permissiva de proposito --- */
+  foneEl.addEventListener('input', function(){
+    var d = foneEl.value.replace(/\D/g, '').slice(0, 11);
+    if (d.length > 10)     foneEl.value = '(' + d.slice(0,2) + ') ' + d.slice(2,7) + '-' + d.slice(7);
+    else if (d.length > 6) foneEl.value = '(' + d.slice(0,2) + ') ' + d.slice(2,6) + '-' + d.slice(6);
+    else if (d.length > 2) foneEl.value = '(' + d.slice(0,2) + ') ' + d.slice(2);
+    else                   foneEl.value = d;
+  });
+
+  function fail(el, msg){
+    el.setAttribute('aria-invalid', 'true');
+    errBox.textContent = msg;
+    errBox.hidden = false;
+    el.focus();
+    return false;
+  }
+
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+
+    errBox.hidden = true;
+    [nameEl, mailEl, foneEl].forEach(function(el){ el.removeAttribute('aria-invalid'); });
+
+    var nome  = nameEl.value.trim();
+    var email = mailEl.value.trim();
+    var fone  = foneEl.value.trim();
+    var digits = fone.replace(/\D/g, '');
+
+    if (!nome) return fail(nameEl, 'Preencha o seu nome.');
+    if (digits.length < 10) return fail(foneEl, 'Informe o WhatsApp com DDD.');
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return fail(mailEl, 'E-mail inválido.');
+
+    var partes = nome.split(/\s+/);
+
+    /* Chaves EXATAS da Advanced Matching da Meta (em/fn/ln/ph). O /tracker
+       normaliza, aplica SHA-256 e so entao envia; o PII cru fica no D1 da
+       propria cliente, ja amarrado a sessao — e portanto as UTMs. */
+    try {
+      if (typeof window.krobTrack === 'function') {
+        window.krobTrack('Lead', {
+          em: email,
+          ph: fone,
+          fn: partes[0] || '',
+          ln: partes.slice(1).join(' ')
+        });
+      }
+    } catch (_) {}
+
+    var texto = pendingMessage + '\n\nMeu nome é ' + nome + '.';
+    var url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(texto);
+
+    /* Aberto de forma sincrona dentro do handler do submit: o POST /tracker
+       vai com keepalive e nao precisa ser aguardado, entao o bloqueador de
+       pop-up nao entra no caminho. */
+    window.open(url, '_blank', 'noopener');
+    shut();
+    form.reset();
+  });
+})();
 </script>
-<script src="https://widgets.agendor.com.br/whatsapp.js" defer></script>
 
 </body>
 </html>

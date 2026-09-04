@@ -30,6 +30,8 @@ export async function onRequestGet(context) {
         e.timestamp,
         e.session_id,
         e.raw_email,
+        e.raw_name,
+        e.raw_phone,
         e.browser,
         e.os,
         e.is_mobile,
