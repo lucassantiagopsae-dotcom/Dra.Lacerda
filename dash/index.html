@@ -258,6 +258,55 @@
       </div>
     </section>
 
+    <!-- Funil do CRM -->
+    <section class="card p-5 fade-in">
+      <div class="flex items-center justify-between mb-3">
+        <div>
+          <div class="font-semibold">CRM funnel</div>
+          <div class="text-xs text-[color:var(--muted)]">Stage changes in Agendor sent back to Meta. A drop between steps is the funnel; a red status is a problem.</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5" id="crm-funnel"></div>
+
+      <div class="text-xs uppercase tracking-wider text-[color:var(--dim)] mb-2">Recent CRM events</div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="text-xs uppercase tracking-wider text-[color:var(--dim)] border-b border-[color:var(--border)]">
+            <tr>
+              <th class="text-left py-2 pr-4">When</th>
+              <th class="text-left py-2 pr-4">Event</th>
+              <th class="text-left py-2 pr-4">Name</th>
+              <th class="text-left py-2 pr-4">Source</th>
+              <th class="text-left py-2 pr-4">Campaign</th>
+              <th class="text-right py-2 pr-4">Value</th>
+              <th class="text-center py-2">Meta</th>
+            </tr>
+          </thead>
+          <tbody id="crm-events-tbody">
+            <tr><td colspan="7" class="py-6 text-center text-[color:var(--muted)]">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="crm-failures" class="mt-5 hidden">
+        <div class="text-xs uppercase tracking-wider accent-red mb-2">Webhooks that did not turn into an event</div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="text-xs uppercase tracking-wider text-[color:var(--dim)] border-b border-[color:var(--border)]">
+              <tr>
+                <th class="text-left py-2 pr-4">When</th>
+                <th class="text-left py-2 pr-4">Stage</th>
+                <th class="text-left py-2 pr-4">Deal</th>
+                <th class="text-left py-2">Reason</th>
+              </tr>
+            </thead>
+            <tbody id="crm-failures-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
     <!-- Recent purchases -->
     <section class="card p-5 fade-in">
       <div class="flex items-center justify-between mb-3">
@@ -528,6 +577,72 @@
     });
   }
 
+  async function loadCrmEvents(days) {
+    const data = await fetchJson(`/api/crm-events?days=${days}`);
+
+    // O funil e lido da esquerda pra direita: cada passo mostra quantos
+    // chegaram ali e quanto isso representa do passo anterior. E a queda entre
+    // os passos que diz onde o dinheiro esta parando.
+    // Os titulos espelham o nome da etapa no Agendor de proposito: quem abre
+    // isto tem o funil aberto na outra aba, e traduzir os nomes obrigaria a
+    // pessoa a fazer a correspondencia de cabeca.
+    const rotulos = {
+      Lead:          ['Lead (site)', 'form submitted'],
+      QualifiedLead: ['QUALIFICADO', 'Comercial 1'],
+      Schedule:      ['CONSULTA AGENDADA', 'Comercial 2'],
+      Purchase:      ['GANHO', 'Comercial 2'],
+    };
+    const cores = { Lead: 'accent-green', QualifiedLead: 'accent-blue', Schedule: 'accent-blue', Purchase: 'accent-amber' };
+
+    qs('#crm-funnel').innerHTML = (data.funil || []).map((f, i, arr) => {
+      const [titulo, sub] = rotulos[f.evento] || [f.evento, ''];
+      const anterior = i > 0 ? arr[i - 1].total : 0;
+      const taxa = (i > 0 && anterior > 0) ? Math.round((f.total / anterior) * 100) + '% of previous step' : sub;
+      const falhou = f.total > f.aceitos;
+      return `
+        <div class="card p-4">
+          <div class="kpi-label">${escapeHtml(titulo)}</div>
+          <div class="kpi-value mono ${cores[f.evento] || ''} mt-1">${fmtInt(f.total)}</div>
+          <div class="text-xs text-[color:var(--muted)] mt-1">${escapeHtml(taxa)}</div>
+          ${falhou ? `<div class="text-xs accent-red mt-1">${fmtInt(f.total - f.aceitos)} rejected by Meta</div>` : ''}
+        </div>`;
+    }).join('');
+
+    const tbody = qs('#crm-events-tbody');
+    if (!data.eventos || data.eventos.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="7" class="py-6 text-center text-[color:var(--muted)]">No CRM events in this window.</td></tr>';
+    } else {
+      tbody.innerHTML = data.eventos.map(e => `
+        <tr class="border-b border-[color:var(--border)]" title="${escapeHtml(e.meta_response_body)}">
+          <td class="py-2 pr-4 text-[color:var(--dim)]">${fmtDate(e.timestamp)}</td>
+          <td class="py-2 pr-4 mono">${escapeHtml(e.event_name)}</td>
+          <td class="py-2 pr-4">${escapeHtml(e.nome || '—')}</td>
+          <td class="py-2 pr-4">${escapeHtml(e.utm_source || '(direct)')}</td>
+          <td class="py-2 pr-4 text-[color:var(--dim)]">${escapeHtml(e.utm_campaign || '—')}</td>
+          <td class="py-2 pr-4 text-right mono">${e.valor ? money(e.valor) : '—'}</td>
+          <td class="py-2 text-center">${e.meta_response_ok ? '<span class="accent-green">✓</span>' : `<span class="accent-red">✕ ${e.meta_status_code || ''}</span>`}</td>
+        </tr>
+      `).join('');
+    }
+
+    // A tabela de falhas so aparece quando ha falha. Uma tabela vazia
+    // permanente vira ruido e a pessoa para de olhar.
+    const box = qs('#crm-failures');
+    if (data.falhas && data.falhas.length) {
+      box.classList.remove('hidden');
+      qs('#crm-failures-tbody').innerHTML = data.falhas.map(f => `
+        <tr class="border-b border-[color:var(--border)]">
+          <td class="py-2 pr-4 text-[color:var(--dim)]">${fmtDate(f.created_at)}</td>
+          <td class="py-2 pr-4">${escapeHtml(f.etapa || '—')}</td>
+          <td class="py-2 pr-4 mono text-[color:var(--dim)]">${escapeHtml(f.deal_id || '—')}</td>
+          <td class="py-2 text-[color:var(--muted)]">${escapeHtml(f.motivo)}</td>
+        </tr>
+      `).join('');
+    } else {
+      box.classList.add('hidden');
+    }
+  }
+
   async function loadPurchases() {
     const data = await fetchJson('/api/purchases?limit=50');
     const tbody = qs('#purchases-tbody');
@@ -749,6 +864,7 @@
       loadAttribution(days),
       loadUtm(),
       loadLeads(days),
+      loadCrmEvents(days),
       loadPurchases(),
       loadHealth(),
     ]);
