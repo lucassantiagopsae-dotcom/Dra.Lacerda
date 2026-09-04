@@ -23,8 +23,11 @@ export async function onRequestPost(context) {
     return json({ error: 'invalid json' }, 400);
   }
 
-  // O Agendor manda o nome do gatilho ora no corpo, ora no cabecalho.
-  const hook = body.event
+  // Qual gatilho disparou. A query vem primeiro porque e a unica fonte que nos
+  // controlamos: cada assinatura no Agendor e registrada com o proprio nome na
+  // URL (ver /api/crm/subscribe). O corpo e o cabecalho ficam como reserva.
+  const hook = new URL(request.url).searchParams.get('hook')
+    || body.event
     || body.trigger
     || request.headers.get('x-agendor-event')
     || 'on_deal_stage_updated';

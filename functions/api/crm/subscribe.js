@@ -22,7 +22,7 @@ export async function onRequestGet(context) {
     headers: cabecalhos(context.env),
   });
   const body = await r.text();
-  return json({ status: r.status, subscriptions: parse(body), alvo: alvo(context) });
+  return json({ status: r.status, subscriptions: parse(body) });
 }
 
 export async function onRequestPost(context) {
@@ -30,18 +30,13 @@ export async function onRequestPost(context) {
   if (guard) return guard;
 
   const { env } = context;
-  const targetUrl = alvo(context);
 
   const atuais = await fetch(`${AGENDOR_API}/integrations/subscriptions`, {
     headers: cabecalhos(env),
   }).then(r => r.text()).then(parse).catch(() => null);
 
-  const jaExiste = (evento) => {
-    const lista = (atuais && (atuais.data || atuais)) || [];
-    return Array.isArray(lista) && lista.some(s =>
-      (s.event === evento) && (s.target_url === targetUrl)
-    );
-  };
+  const lista = (atuais && (atuais.data || atuais)) || [];
+  const jaExiste = (evento) => Array.isArray(lista) && lista.some(s => s.event === evento);
 
   const resultados = [];
   for (const evento of EVENTOS) {
@@ -49,15 +44,16 @@ export async function onRequestPost(context) {
       resultados.push({ evento, status: 'ja existia' });
       continue;
     }
+    const targetUrl = alvo(context, evento);
     const r = await fetch(`${AGENDOR_API}/integrations/subscriptions`, {
       method: 'POST',
       headers: cabecalhos(env),
       body: JSON.stringify({ target_url: targetUrl, event: evento }),
     });
-    resultados.push({ evento, status: r.status, resposta: parse(await r.text()) });
+    resultados.push({ evento, alvo: targetUrl, status: r.status, resposta: parse(await r.text()) });
   }
 
-  return json({ alvo: targetUrl, resultados });
+  return json({ resultados });
 }
 
 function checar({ request, env }) {
@@ -68,8 +64,13 @@ function checar({ request, env }) {
   return null;
 }
 
-function alvo({ request, env }) {
-  return `${new URL(request.url).origin}/webhook/agendor/${env.AGENDOR_WEBHOOK_SLUG}`;
+// O Agendor aceita UMA assinatura por target_url — tentar registrar um segundo
+// gatilho na mesma URL devolve 422 "target_url has already been taken". Por isso
+// cada gatilho ganha a sua propria URL via query, que tambem serve para o
+// webhook saber qual gatilho disparou sem depender do formato do corpo.
+function alvo({ request, env }, evento) {
+  const base = `${new URL(request.url).origin}/webhook/agendor/${env.AGENDOR_WEBHOOK_SLUG}`;
+  return evento ? `${base}?hook=${evento}` : base;
 }
 
 function cabecalhos(env) {
