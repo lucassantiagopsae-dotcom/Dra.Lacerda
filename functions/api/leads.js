@@ -56,9 +56,19 @@ export async function onRequestGet(context) {
         s.fbclid,
         s.gclid,
         s.referrer,
-        s.landing_url
+        s.landing_url,
+        c.ok            AS crm_ok,
+        c.status_code   AS crm_status_code,
+        c.person_id     AS crm_person_id,
+        c.deal_id       AS crm_deal_id,
+        c.response_body AS crm_response_body
       FROM event_log e
       LEFT JOIN sessions s ON e.session_id = s.session_id
+      -- A ultima tentativa de CRM para este evento. Subquery em vez de join
+      -- direto porque um mesmo evento pode ter mais de uma linha em crm_log.
+      LEFT JOIN crm_log c ON c.id = (
+        SELECT MAX(id) FROM crm_log WHERE event_id = e.event_id
+      )
       WHERE e.event_name = 'Lead'
         AND e.timestamp >= ?
         ${botClause}

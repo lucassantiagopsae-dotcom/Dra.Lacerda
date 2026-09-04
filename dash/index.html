@@ -247,7 +247,8 @@
               <th class="text-left py-2 pr-4">Campaign</th>
               <th class="text-left py-2 pr-4">Medium</th>
               <th class="text-center py-2 pr-4">Meta</th>
-              <th class="text-center py-2">GA4</th>
+              <th class="text-center py-2 pr-4">GA4</th>
+              <th class="text-center py-2">CRM</th>
             </tr>
           </thead>
           <tbody id="leads-tbody">
@@ -503,7 +504,7 @@
     qs('#kpi-leads').textContent = fmtInt((data.leads || []).length);
     const tbody = qs('#leads-tbody');
     if (!data.leads || data.leads.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="9" class="py-6 text-center text-[color:var(--muted)]">No leads in this window.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="10" class="py-6 text-center text-[color:var(--muted)]">No leads in this window.</td></tr>';
       return;
     }
     tbody.innerHTML = data.leads.map((l, i) => `
@@ -516,7 +517,8 @@
         <td class="py-2 pr-4 text-[color:var(--dim)]">${escapeHtml(l.utm_campaign || '—')}</td>
         <td class="py-2 pr-4 text-[color:var(--dim)]">${escapeHtml(l.utm_medium || '—')}</td>
         <td class="py-2 pr-4 text-center">${l.meta_response_ok ? '<span class="accent-green">✓</span>' : '<span class="accent-red">✕</span>'}</td>
-        <td class="py-2 text-center">${l.ga4_response_ok ? '<span class="accent-green">✓</span>' : '<span class="accent-red">✕</span>'}</td>
+        <td class="py-2 pr-4 text-center">${l.ga4_response_ok ? '<span class="accent-green">✓</span>' : '<span class="accent-red">✕</span>'}</td>
+        <td class="py-2 text-center">${l.crm_status_code == null ? '<span class="text-[color:var(--dim)]">–</span>' : (l.crm_ok ? '<span class="accent-green">✓</span>' : '<span class="accent-red">✕</span>')}</td>
       </tr>
     `).join('');
     qsa('#leads-tbody tr[data-idx]').forEach(row => {

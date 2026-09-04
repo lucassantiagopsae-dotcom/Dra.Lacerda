@@ -1,3 +1,5 @@
+import { sendLeadToAgendor } from './_agendor.js';
+
 export async function onRequestPost(context) {
   const { request, env } = context;
 
@@ -202,6 +204,22 @@ export async function onRequestPost(context) {
         }
       })()
     );
+
+    // --- Envio para o CRM (background, so em Lead real) ---
+    // Fica fora do Promise.allSettled acima de proposito: o CRM nao pode
+    // atrasar nem derrubar o envio para a Meta, e vice-versa.
+    if (!isBot && body.event_name === 'Lead' && (rawEmail || rawPhone)) {
+      context.waitUntil(
+        sendLeadToAgendor({
+          lead: { name: rawName, email: rawEmail, phone: rawPhone },
+          session: sessionData,
+          eventId: body.event_id,
+          sessionId,
+          env,
+          db: env.DB,
+        }).catch(e => console.error('Agendor error:', e.message))
+      );
+    }
 
     return new Response(JSON.stringify({ ok: true }), {
       status: 200,
