@@ -75,7 +75,7 @@ export async function handleAgendorEvent({ body, hook, env, context }) {
   }
 
   if (!personId) {
-    await log({ response: 'payload sem id de pessoa — impossivel achar a sessao' });
+    await log({ response: 'payload sem id de pessoa — impossível achar a sessão' });
     return { skipped: 'no person id' };
   }
 
@@ -85,7 +85,7 @@ export async function handleAgendorEvent({ body, hook, env, context }) {
   // deal_id nao bate com nada. A pessoa e a mesma nos dois funis.
   const origem = await buscarOrigem(personId, env);
   if (!origem) {
-    await log({ response: `pessoa ${personId} nao veio do site — nada a atribuir` });
+    await log({ response: `pessoa ${personId} não veio do site — nada a atribuir` });
     return { skipped: 'person not from site' };
   }
 
@@ -97,7 +97,7 @@ export async function handleAgendorEvent({ body, hook, env, context }) {
     'SELECT 1 FROM event_log WHERE event_id = ? LIMIT 1'
   ).bind(eventId).first().catch(() => null);
   if (jaEnviado) {
-    await log({ eventId, sessionId: origem.session_id, response: 'ja enviado antes' });
+    await log({ eventId, sessionId: origem.session_id, response: 'já enviado antes' });
     return { skipped: 'duplicate', eventId };
   }
 

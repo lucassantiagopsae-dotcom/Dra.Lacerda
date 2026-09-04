@@ -56,7 +56,7 @@ export async function onRequestGet(context) {
         -- "ja enviado antes" e o dedupe funcionando: o card voltou para uma
         -- etapa e foi arrastado de novo. Listar isso como falha treina a
         -- pessoa a ignorar a tabela inteira.
-        AND response_body NOT LIKE 'ja enviado antes%'
+        AND response_body NOT LIKE 'já enviado antes%'
       ORDER BY id DESC
       LIMIT 50
     `).bind(since).all();
