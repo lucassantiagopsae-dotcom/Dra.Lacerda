@@ -205,6 +205,20 @@ export async function onRequestPost(context) {
       })()
     );
 
+    // --- Codigo do WhatsApp direto (wa_ref) -> sessao ---
+    // Sem formulario, este codigo e o unico elo entre a pessoa que aparece no
+    // Agendor e a visita que ela fez. Formato estrito para nao gravar lixo
+    // vindo de um POST forjado.
+    const waRef = typeof body.wa_ref === 'string' ? body.wa_ref.toUpperCase() : '';
+    if (waRef && /^VL-[A-Z0-9]{5}$/.test(waRef) && sessionId && env.DB) {
+      context.waitUntil(
+        env.DB.prepare(
+          'INSERT OR IGNORE INTO wa_refs (ref, session_id, event_id, created_at) VALUES (?, ?, ?, ?)'
+        ).bind(waRef, sessionId, body.event_id || '', Math.floor(Date.now() / 1000))
+          .run().catch(e => console.error('wa_refs error:', e.message))
+      );
+    }
+
     // --- Envio para o CRM (background, so em Lead real) ---
     // Fica fora do Promise.allSettled acima de proposito: o CRM nao pode
     // atrasar nem derrubar o envio para a Meta, e vice-versa.
