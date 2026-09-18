@@ -2619,8 +2619,6 @@ main > .section:first-child{padding-block:82px 74px}
     </div>
   </div>
 </section>
-
-<!-- ============ DEPOIMENTOS ============ -->
 <section class="section section--creme2" id="depoimentos">
   <div class="shell">
     <div class="testimonials__head testimonials__head--single">
@@ -2804,6 +2802,8 @@ main > .section:first-child{padding-block:82px 74px}
     </div>
   </div>
 </section>
+
+<!-- ============ DEPOIMENTOS ============ -->
 
 <!-- ============ FAQ ============ -->
 <section class="section" id="faq">
@@ -3119,9 +3119,8 @@ main > .section:first-child{padding-block:82px 74px}
    Eventos (nomenclatura padrao da Meta):
      PageView     -> no <head>, no carregamento
      ViewContent  -> leitor alcancou a secao do metodo
-     Contact      -> clique em CTA de WhatsApp
-     Lead         -> primeiro clique no WhatsApp da visita (sem formulario;
-                     ver bloco WHATSAPP DIRETO no fim do documento)
+     Contact      -> clique em CTA de WhatsApp (intencao)
+     Lead         -> envio do formulario do WhatsApp, com PII (Advanced Matching)
    ============================================================================ */
 (function(){
   'use strict';
@@ -3134,18 +3133,8 @@ main > .section:first-child{padding-block:82px 74px}
     });
   }
 
-  // `extra` vai no corpo do POST /tracker ao lado dos campos padrao — hoje so
-  // o wa_ref, o codigo que liga o clique no WhatsApp a esta sessao.
-  function track(eventName, userData, extra){
+  function track(eventName, userData){
     var eventId = uuid();
-    var corpo = {
-      event_name: eventName,
-      event_id: eventId,
-      event_time: Math.floor(Date.now() / 1000),
-      event_source_url: window.location.href,
-      user_data: userData || {}
-    };
-    if (extra) for (var k in extra) if (Object.prototype.hasOwnProperty.call(extra, k)) corpo[k] = extra[k];
 
     try {
       if (typeof window.fbq === 'function') {
@@ -3157,7 +3146,13 @@ main > .section:first-child{padding-block:82px 74px}
       fetch('/tracker', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(corpo),
+        body: JSON.stringify({
+          event_name: eventName,
+          event_id: eventId,
+          event_time: Math.floor(Date.now() / 1000),
+          event_source_url: window.location.href,
+          user_data: userData || {}
+        }),
         keepalive: true
       }).catch(function(){});
     } catch (_) {}
@@ -3178,112 +3173,290 @@ main > .section:first-child{padding-block:82px 74px}
     io.observe(metodo);
   }
 
-  /* --- Contact e Lead: disparados pelo bloco WHATSAPP DIRETO no fim do
-     documento, que precisa gerar o codigo da visita antes de rastrear. --- */
+  /* --- Contact: clique em CTA de WhatsApp --- */
+  var lastContact = 0;
+  document.addEventListener('click', function(event){
+    var trigger = event.target.closest && event.target.closest('[data-wa-trigger]');
+    if (!trigger) return;
+    var now = Date.now();
+    if (now - lastContact < 2000) return;
+    lastContact = now;
+    track('Contact');
+  }, true);
+
+  /* --- Lead: disparado pelo widget proprio (ver bloco WIDGET no fim do
+     documento), que chama window.krobTrack com o PII do formulario. --- */
   window.krobTrack = track;
 })();
 </script>
 
 <!-- ============================================================================
-     WHATSAPP DIRETO — todo CTA abre o WhatsApp na hora, sem formulario
-     Por que: o mapa de calor mostrou gente clicando no botao do WhatsApp e
-     abandonando o mini formulario. Cada campo a mais era um lead perdido.
-
-     O que se perde e como foi compensado: sem formulario nao ha nome nem
-     telefone, entao o lead nao e mais criado sozinho no Agendor. Para nao
-     perder o elo com o anuncio, cada visita ganha um codigo curto (VL-XXXXX)
-     que vai na mensagem pre-escrita. O codigo e gravado no D1 junto com a
-     sessao — e portanto com UTMs e fbc. Quando a equipe cola o codigo no
-     negocio do Agendor, o webhook de etapa encontra a visita original e o
-     retorno QualifiedLead / Schedule / Purchase para a Meta continua valendo.
+     WIDGET DE WHATSAPP — versao propria (substitui widgets.agendor.com.br)
+     Por que trocamos: o widget do Agendor renderiza em shadow DOM fechado ao
+     nosso codigo e envia o lead direto para a API deles, sem carregar UTM,
+     fbclid nem session_id. Resultado: o lead chegava no CRM sem origem. Esta
+     versao mantem o mesmo layout, mas o submit passa por window.krobTrack, que
+     grava no D1 (com o join de UTMs feito pelo _middleware) e dispara o Lead
+     para a Meta com Advanced Matching antes de abrir o WhatsApp.
      ============================================================================ -->
 <style>
-  .wa-fab{
-    position:fixed; right:20px; bottom:20px; z-index:9999;
+  .wa{ position:fixed; right:20px; bottom:20px; z-index:9999; font-family:'Archivo',system-ui,-apple-system,sans-serif; }
+  .wa__fab{
     display:flex; align-items:center; justify-content:center;
-    width:60px; height:60px; border-radius:50%;
-    background:#25D366; color:#fff;
+    width:60px; height:60px; margin-left:auto; border:0; border-radius:50%;
+    background:#25D366; color:#fff; cursor:pointer;
     box-shadow:0 6px 20px rgba(0,0,0,.24);
     transition:transform .18s ease, box-shadow .18s ease;
   }
-  .wa-fab:hover{ transform:scale(1.06); box-shadow:0 8px 26px rgba(0,0,0,.3); }
-  .wa-fab svg{ width:32px; height:32px; fill:currentColor; }
-  @media (prefers-reduced-motion:reduce){ .wa-fab{ transition:none; } }
+  .wa__fab:hover{ transform:scale(1.06); box-shadow:0 8px 26px rgba(0,0,0,.3); }
+  .wa__fab svg{ width:32px; height:32px; fill:currentColor; }
+
+  .wa__panel{
+    width:min(320px, calc(100vw - 40px));
+    max-height:min(620px, calc(100vh - 130px));
+    margin-bottom:14px; overflow:auto;
+    border-radius:14px; background:#EFEAE0;
+    box-shadow:0 18px 48px rgba(0,0,0,.28);
+    animation:wa-in .18s ease-out;
+  }
+  @keyframes wa-in{ from{ opacity:0; transform:translateY(10px) scale(.97); } to{ opacity:1; transform:none; } }
+  @media (prefers-reduced-motion:reduce){ .wa__panel{ animation:none; } .wa__fab{ transition:none; } }
+
+  .wa__head{
+    display:flex; align-items:center; gap:10px;
+    padding:14px; background:#25D366; color:#fff;
+    border-radius:14px 14px 0 0;
+  }
+  .wa__head svg{ width:22px; height:22px; fill:currentColor; flex:none; }
+  .wa__head-title{ font-weight:700; font-size:15px; line-height:1.2; }
+  .wa__close{
+    margin-left:auto; width:26px; height:26px; flex:none;
+    display:flex; align-items:center; justify-content:center;
+    border:0; border-radius:50%; background:rgba(255,255,255,.18);
+    color:#fff; font-size:18px; line-height:1; cursor:pointer;
+  }
+  .wa__close:hover{ background:rgba(255,255,255,.3); }
+
+  .wa__body{ padding:16px; }
+  .wa__intro{
+    margin:0 0 16px; padding:14px 16px;
+    background:#fff; border-radius:10px;
+    font-size:14px; line-height:1.45; color:#2C2C2C; text-align:center;
+  }
+  .wa__label{ display:block; margin-bottom:6px; font-size:13px; font-weight:700; color:#2C2C2C; }
+  .wa__input{
+    width:100%; margin-bottom:14px; padding:11px 12px;
+    border:1px solid #D8D2C6; border-radius:8px; background:#fff;
+    font-family:inherit; font-size:14px; color:#2C2C2C;
+    -webkit-appearance:none; appearance:none;
+  }
+  .wa__input:focus{ outline:none; border-color:#25D366; box-shadow:0 0 0 3px rgba(37,211,102,.2); }
+  .wa__input[aria-invalid="true"]{ border-color:#C0392B; }
+  .wa__error{ margin:-6px 0 12px; font-size:12.5px; color:#A5281B; }
+  .wa__submit{
+    width:100%; padding:12px 14px; border:0; border-radius:8px;
+    background:#25D366; color:#fff; font-family:inherit; font-size:14.5px; font-weight:600;
+    cursor:pointer; transition:filter .15s ease;
+  }
+  .wa__submit:hover{ filter:brightness(.94); }
 </style>
 
-<a class="wa-fab" data-wa-trigger aria-label="Falar no WhatsApp"
-   href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20a%20equipe%20da%20Dra.%20Victoria%20Lacerda."
-   target="_blank" rel="noopener">
-  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>
-</a>
+<div class="wa" id="wa">
+  <div class="wa__panel" id="wa-panel" role="dialog" aria-labelledby="wa-title" hidden>
+    <div class="wa__head">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>
+      <span class="wa__head-title" id="wa-title">Dra Victoria Lacerda</span>
+      <button type="button" class="wa__close" id="wa-close" aria-label="Fechar">&times;</button>
+    </div>
+    <div class="wa__body">
+      <p class="wa__intro">Olá! Preencha os dados para atendimento via WhatsApp:</p>
+      <form id="wa-form" novalidate>
+        <label class="wa__label" for="wa-name">Nome</label>
+        <input class="wa__input" id="wa-name" name="name" type="text" autocomplete="name" required>
+
+        <label class="wa__label" for="wa-phone">WhatsApp</label>
+        <input class="wa__input" id="wa-phone" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(17) 99999-9999" required>
+
+        <p class="wa__error" id="wa-error" role="alert" hidden></p>
+        <button class="wa__submit" type="submit">Ir para o WhatsApp</button>
+      </form>
+    </div>
+  </div>
+
+  <button type="button" class="wa__fab" id="wa-fab" aria-label="Abrir atendimento no WhatsApp" aria-expanded="false" aria-controls="wa-panel">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>
+  </button>
+</div>
 
 <script>
 (function(){
   'use strict';
 
-  // Sem letras que se confundem ao copiar a mao (0/O, 1/I/L).
-  var ALFABETO = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
-  var ref = null;
-  var leadEnviado = false;
-  var ultimoContato = 0;
+  var WHATSAPP_NUMBER = '5517997454974';
+  var DEFAULT_MESSAGE = 'Olá! Gostaria de falar com a equipe da Dra. Victoria Lacerda.';
 
-  // Um codigo por visita: quem clica em tres botoes diferentes chega no
-  // WhatsApp sempre com o mesmo codigo, e o Lead conta uma vez so.
-  function codigo(){
-    if (ref) return ref;
-    try { ref = sessionStorage.getItem('wa_ref'); } catch (_) {}
-    if (!ref) {
-      var s = '';
-      var bytes = new Uint8Array(5);
-      if (window.crypto && crypto.getRandomValues) crypto.getRandomValues(bytes);
-      else for (var i = 0; i < 5; i++) bytes[i] = Math.floor(Math.random() * 256);
-      for (var j = 0; j < 5; j++) s += ALFABETO.charAt(bytes[j] % ALFABETO.length);
-      ref = 'VL-' + s;
-      try { sessionStorage.setItem('wa_ref', ref); } catch (_) {}
-    }
-    return ref;
-  }
+  var panel  = document.getElementById('wa-panel');
+  var fab    = document.getElementById('wa-fab');
+  var closer = document.getElementById('wa-close');
+  var form   = document.getElementById('wa-form');
+  var errBox = document.getElementById('wa-error');
+  var nameEl = document.getElementById('wa-name');
+  var foneEl = document.getElementById('wa-phone');
 
-  function mensagemBase(link){
+  /* Cada CTA da pagina carrega a sua propria mensagem no ?text= do href
+     ("quero agendar", "quero meu plano personalizado", ...). Guardamos a do
+     ultimo CTA clicado para que o WhatsApp abra com o contexto certo. */
+  var pendingMessage = DEFAULT_MESSAGE;
+
+  function messageFromTrigger(el){
     try {
-      var href = link.getAttribute('data-wa-href') || link.getAttribute('href') || '';
+      var href = el && el.getAttribute('href');
+      if (!href) return '';
       var q = href.indexOf('?');
-      return q < 0 ? '' : (new URLSearchParams(href.slice(q + 1)).get('text') || '');
+      if (q < 0) return '';
+      return new URLSearchParams(href.slice(q + 1)).get('text') || '';
     } catch (_) { return ''; }
   }
 
+  function isOpen(){ return !panel.hidden; }
+
+  function openPanel(message){
+    if (message) pendingMessage = message;
+    panel.hidden = false;
+    fab.setAttribute('aria-expanded', 'true');
+    try { nameEl.focus({ preventScroll: true }); } catch (_) { nameEl.focus(); }
+  }
+
+  function shut(){
+    panel.hidden = true;
+    fab.setAttribute('aria-expanded', 'false');
+  }
+
+  fab.addEventListener('click', function(){
+    if (isOpen()) shut(); else openPanel(DEFAULT_MESSAGE);
+  });
+  closer.addEventListener('click', shut);
+
+  document.addEventListener('keydown', function(ev){
+    if (ev.key === 'Escape' && isOpen()) shut();
+  });
+
   document.addEventListener('click', function(ev){
-    var link = ev.target.closest && ev.target.closest('[data-wa-trigger]');
-    if (!link) return;
+    if (!isOpen()) return;
+    if (document.getElementById('wa').contains(ev.target)) return;
+    if (ev.target.closest && ev.target.closest('[data-wa-trigger]')) return;
+    shut();
+  });
 
-    // Guarda o href original uma vez; e dele que sai a mensagem de cada CTA.
-    if (!link.getAttribute('data-wa-href')) link.setAttribute('data-wa-href', link.getAttribute('href'));
+  /* Todos os CTAs da pagina abrem o widget em vez de pular direto pro wa.me.
+     O href continua no HTML como fallback: sem JS o link ainda funciona. */
+  document.addEventListener('click', function(ev){
+    var trigger = ev.target.closest && ev.target.closest('[data-wa-trigger]');
+    if (!trigger) return;
+    ev.preventDefault();
+    openPanel(messageFromTrigger(trigger) || DEFAULT_MESSAGE);
+  });
 
-    var cod = codigo();
-    var texto = (mensagemBase(link) || 'Olá! Gostaria de falar com a equipe da Dra. Victoria Lacerda.')
-      + ' (cód. ' + cod + ')';
+  /* --- Telefone BR: DDD + 8 ou 9 digitos, com ou sem +55 ---
+     O numero local tem no maximo 11 digitos (DDD + 9 digitos). A mascara
+     antiga cortava tudo em 11, entao quem digitava "55 17 99745-4974" perdia
+     os DOIS ULTIMOS digitos: o 55 do pais ocupava o lugar do DDD.
 
-    // O navegador segue o proprio link depois deste handler. Nada de
-    // preventDefault + window.open: no Safari do iPhone isso cai no bloqueio
-    // de pop-up com frequencia.
-    link.setAttribute('href', 'https://wa.me/5517997454974?text=' + encodeURIComponent(texto));
+     Regras:
+     - 12 ou 13 digitos comecando com 55 -> o 55 e o codigo do pais e sai.
+       So com 12+ digitos, porque 55 tambem e DDD valido (Santa Maria/RS):
+       "55 99999-9999" com 11 digitos e um numero local legitimo.
+     - Zero inicial de interurbano ("017...") sai.
+     - 11 digitos -> celular com 9:  (17) 99745-4974
+       10 digitos -> numero sem o 9: (17) 9745-4974
+       As duas formas sao aceitas: ainda ha WhatsApp registrado sem o 9. */
+  function digitosLocais(valor){
+    var d = String(valor || '').replace(/\D/g, '');
+    if (d.length >= 12 && d.indexOf('55') === 0) d = d.slice(2);
+    d = d.replace(/^0+/, '');
+    return d.slice(0, 11);
+  }
 
-    var track = window.krobTrack;
-    if (typeof track !== 'function') return;
+  function formatarTelefone(d){
+    if (d.length === 0) return '';
+    if (d.length <= 2)  return '(' + d;
+    var ddd = '(' + d.slice(0, 2) + ') ';
+    var resto = d.slice(2);
+    // Com 9 digitos apos o DDD o hifen vai depois do 5o; com ate 8, depois do 4o.
+    if (resto.length > 8) return ddd + resto.slice(0, 5) + '-' + resto.slice(5);
+    if (resto.length > 4) return ddd + resto.slice(0, 4) + '-' + resto.slice(4);
+    return ddd + resto;
+  }
 
-    var agora = Date.now();
-    if (agora - ultimoContato > 2000) {
-      ultimoContato = agora;
-      track('Contact', {}, { wa_ref: cod });
+  // Enquanto a pessoa digita o +55 ainda nao da pra saber se e pais ou DDD,
+  // entao a mascara deixa passar ate 13 digitos crus e so decide quando o
+  // numero passa de 11. Sem isso o campo "trava" no 11o digito e o resto
+  // do que ela digita e engolido.
+  foneEl.addEventListener('input', function(ev){
+    var bruto = foneEl.value.replace(/\D/g, '');
+
+    // Backspace sobre um caractere da mascara ("(", ")", " ", "-") nao remove
+    // digito nenhum, e a remascara devolveria o mesmo texto: o apagar ficaria
+    // preso. Nesse caso apaga o ultimo digito de verdade.
+    if (ev && ev.inputType === 'deleteContentBackward' && bruto === foneEl.dataset.digitos) {
+      bruto = bruto.slice(0, -1);
     }
 
-    // O clique no WhatsApp virou a conversao da pagina: e o Lead. Uma vez por
-    // visita, para campanhas otimizadas por Lead nao contarem cliques repetidos.
-    if (!leadEnviado) {
-      leadEnviado = true;
-      track('Lead', {}, { wa_ref: cod });
-    }
-  }, true);
+    var d = (bruto.length > 11) ? digitosLocais(bruto) : bruto.replace(/^0+/, '');
+    foneEl.dataset.digitos = d;
+    foneEl.value = formatarTelefone(d);
+  });
+
+  function fail(el, msg){
+    el.setAttribute('aria-invalid', 'true');
+    errBox.textContent = msg;
+    errBox.hidden = false;
+    el.focus();
+    return false;
+  }
+
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+
+    errBox.hidden = true;
+    [nameEl, foneEl].forEach(function(el){ el.removeAttribute('aria-invalid'); });
+
+    var nome  = nameEl.value.trim();
+    var fone  = foneEl.value.trim();
+    var digits = digitosLocais(fone);
+
+    if (!nome) return fail(nameEl, 'Preencha o seu nome.');
+    if (digits.length < 10) return fail(foneEl, 'Informe o WhatsApp com DDD.');
+    // DDD brasileiro vai de 11 a 99 e nunca tem 0 no segundo digito.
+    if (!/^[1-9][1-9]/.test(digits)) return fail(foneEl, 'DDD inválido.');
+    // Com 11 digitos o numero apos o DDD e celular e comeca com 9.
+    if (digits.length === 11 && digits.charAt(2) !== '9') return fail(foneEl, 'Confira o número: celular com 9 dígitos começa com 9.');
+
+    var partes = nome.split(/\s+/);
+
+    /* Chaves EXATAS da Advanced Matching da Meta (fn/ln/ph). O /tracker
+       normaliza, aplica SHA-256 e so entao envia; o PII cru fica no D1 da
+       propria cliente, ja amarrado a sessao — e portanto as UTMs. */
+    try {
+      if (typeof window.krobTrack === 'function') {
+        window.krobTrack('Lead', {
+          ph: formatarTelefone(digits),
+          fn: partes[0] || '',
+          ln: partes.slice(1).join(' ')
+        });
+      }
+    } catch (_) {}
+
+    var texto = pendingMessage + '\n\nMeu nome é ' + nome + '.';
+    var url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(texto);
+
+    /* Aberto de forma sincrona dentro do handler do submit: o POST /tracker
+       vai com keepalive e nao precisa ser aguardado, entao o bloqueador de
+       pop-up nao entra no caminho. */
+    window.open(url, '_blank', 'noopener');
+    shut();
+    form.reset();
+  });
 })();
 </script>
 

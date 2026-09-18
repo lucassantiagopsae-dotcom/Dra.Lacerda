@@ -83,26 +83,10 @@ export async function handleAgendorEvent({ body, hook, env, context }) {
   // A busca e por PESSOA, nao por negocio, de proposito: o Comercial 2 pode
   // criar um negocio novo em vez de mover o do Comercial 1, e nesse caso o
   // deal_id nao bate com nada. A pessoa e a mesma nos dois funis.
-  let origem = await buscarOrigem(personId, env);
-  if (!origem) origem = await buscarOrigemPorCodigo({ body, personId, env });
+  const origem = await buscarOrigem(personId, env);
   if (!origem) {
     await log({ response: `pessoa ${personId} não veio do site — nada a atribuir` });
     return { skipped: 'person not from site' };
-  }
-
-  // Lead que veio pelo WhatsApp direto nao tem PII no nosso banco: completa
-  // com o que a equipe cadastrou no Agendor, senao a Meta recebe o evento sem
-  // Advanced Matching nas etapas seguintes.
-  {
-    const d = body.data || body.deal || body;
-    const pessoa = d.person || body.person || {};
-    const contato = pessoa.contact || {};
-    origem = {
-      ...origem,
-      raw_name: origem.raw_name || pessoa.name || '',
-      raw_email: origem.raw_email || contato.email || pessoa.email || '',
-      raw_phone: origem.raw_phone || contato.mobile || contato.whatsapp || contato.work || '',
-    };
   }
 
   // event_id deterministico: se o negocio for arrastado para a mesma etapa
@@ -176,65 +160,6 @@ async function buscarOrigem(personId, env) {
     console.error('lookup origem error:', e.message);
     return null;
   }
-}
-
-// Leads que chegam pelo WhatsApp direto nao passam por formulario, entao nao
-// existe linha em crm_log ligando a pessoa a sessao. O elo e o codigo VL-XXXXX
-// que foi na mensagem: a equipe cola no titulo ou na descricao do negocio, e
-// ele chega aqui dentro do payload do webhook.
-//
-// Na primeira vez que o codigo e encontrado, grava a ligacao pessoa -> sessao
-// em crm_log. Dali em diante as outras etapas acham pela pessoa, mesmo que
-// alguem apague o codigo do negocio.
-async function buscarOrigemPorCodigo({ body, personId, env }) {
-  if (!env.DB) return null;
-  // Tolerante ao jeito que alguem digita: "vl 7k3qm", "VL-7K3QM", "vl_7k3qm".
-  const m = JSON.stringify(body || {}).match(/VL[\s\-_:]*([A-Z0-9]{5})(?![A-Z0-9])/i);
-  if (!m) return null;
-  const ref = 'VL-' + m[1].toUpperCase();
-
-  let sessao;
-  try {
-    sessao = await env.DB.prepare(`
-      SELECT s.session_id, s.external_id, s.fbc, s.fbp, s.ip_address, s.user_agent,
-             s.landing_url, s.utm_source, s.utm_campaign, w.event_id
-      FROM wa_refs w
-      JOIN sessions s ON s.session_id = w.session_id
-      WHERE w.ref = ?
-    `).bind(ref).first();
-  } catch (e) {
-    console.error('lookup wa_ref error:', e.message);
-    return null;
-  }
-  if (!sessao) return null;
-
-  // O PII vem do proprio Agendor: foi a equipe que cadastrou a pessoa a
-  // partir da conversa no WhatsApp.
-  const deal = body.data || body.deal || body;
-  const pessoa = deal.person || body.person || {};
-  const contato = pessoa.contact || {};
-  const origem = {
-    ...sessao,
-    raw_name: pessoa.name || '',
-    raw_email: contato.email || pessoa.email || '',
-    raw_phone: contato.mobile || contato.whatsapp || contato.work || '',
-  };
-
-  try {
-    await env.DB.prepare(`
-      INSERT INTO crm_log (event_id, session_id, provider, created_at, status_code, ok, person_id, deal_id, request_payload, response_body)
-      VALUES (?, ?, 'agendor', ?, 200, 1, ?, ?, ?, ?)
-    `).bind(
-      sessao.event_id || '', sessao.session_id, Math.floor(Date.now() / 1000),
-      String(personId), deal.id ? String(deal.id) : null,
-      JSON.stringify({ linked_by: 'wa_ref', ref }),
-      `pessoa ligada a visita pelo código ${ref}`
-    ).run();
-  } catch (e) {
-    console.error('link wa_ref error:', e.message);
-  }
-
-  return origem;
 }
 
 async function enviarParaMeta({ eventName, eventId, value, origem, env }) {
