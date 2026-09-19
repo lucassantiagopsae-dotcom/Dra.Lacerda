@@ -8,6 +8,11 @@
 //   2. POST /v3/people/{id}/deals -> cria o negocio no funil, com a origem
 //      completa na descricao
 //
+// O /people/upsert EXIGE contact.email. O formulario do site so pede nome e
+// WhatsApp, entao quando nao ha e-mail real a gente deriva um estavel do
+// telefone (lead+55DDDNUMERO@dominio-da-cliente): o mesmo numero sempre gera
+// o mesmo e-mail e o upsert continua encontrando a mesma pessoa.
+//
 // A origem (UTMs, fbclid, referrer, landing page) vai no CAMPO DE DESCRICAO do
 // negocio de proposito: e o unico lugar que funciona sem a cliente precisar
 // criar campos customizados no Agendor antes. Quando ela criar os campos, basta
@@ -19,6 +24,18 @@
 // perceberia que ele nao entrou no funil.
 
 const API = 'https://api.agendor.com.br/v3';
+
+function emailDerivadoDoLead(phone, sessionId) {
+  const digitos = String(phone || '').replace(/\D/g, '');
+  if (digitos.length === 10 || digitos.length === 11) {
+    return `lead+55${digitos}@dravictorialacerda.com.br`;
+  }
+  if (digitos.length >= 12) {
+    return `lead+${digitos}@dravictorialacerda.com.br`;
+  }
+  const sid = String(sessionId || '').replace(/[^a-z0-9]/gi, '').slice(0, 12) || 'semtelefone';
+  return `lead+${sid}@dravictorialacerda.com.br`;
+}
 
 export async function sendLeadToAgendor({ lead, session, eventId, sessionId, env, db }) {
   if (!env.AGENDOR_TOKEN) {
@@ -35,9 +52,9 @@ export async function sendLeadToAgendor({ lead, session, eventId, sessionId, env
   // ---------- 1. pessoa ----------
   const pessoa = { name: lead.name || 'Lead sem nome' };
   const contact = {};
-  if (lead.email) contact.email = lead.email;
+  contact.email = lead.email || emailDerivadoDoLead(lead.phone, sessionId);
   if (lead.phone) contact.mobile = lead.phone;
-  if (Object.keys(contact).length) pessoa.contact = contact;
+  pessoa.contact = contact;
 
   const customFields = montarCustomFields(session, env);
   if (customFields) pessoa.customFields = customFields;
