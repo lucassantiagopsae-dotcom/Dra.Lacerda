@@ -2362,11 +2362,39 @@ main > .section:first-child{padding-block:82px 74px}
   width:100%;
   text-align:left;
 }
+.hero__title{
+  font-size:clamp(54px,4.7vw,68px);
+  line-height:.98;
+}
+.hero__promise{
+  width:100%;
+  max-width:none;
+  margin:24px 0 0;
+  color:var(--star);
+  font-family:var(--display);
+  font-size:clamp(29px,2.4vw,34px);
+  font-style:italic;
+  line-height:1.08;
+  text-align:left;
+  text-wrap:balance;
+}
+.hero__promise em{
+  color:inherit;
+  font-style:italic;
+}
+.hero__promise + .hero__sub{
+  margin-top:20px;
+}
 @media (max-width:980px){
   .hero__layout,
   .hero__content,
-  .hero__title{
+  .hero__title,
+  .hero__promise{
     text-align:center;
+  }
+  .hero__promise{
+    max-width:none;
+    margin-inline:auto;
   }
   .hero__sub{
     margin-inline:auto;
@@ -2386,6 +2414,19 @@ main > .section:first-child{padding-block:82px 74px}
   }
 }
 @media (max-width:680px){
+  .hero__title{
+    font-size:clamp(39px,10.5vw,46px);
+    line-height:1.01;
+  }
+  .hero__promise{
+    max-width:none;
+    margin-top:20px;
+    font-size:clamp(23px,6.4vw,27px);
+    line-height:1.1;
+  }
+  .hero__promise + .hero__sub{
+    margin-top:18px;
+  }
   main > .section:first-child{
     padding-bottom:30px;
   }
@@ -2545,9 +2586,11 @@ main > .section:first-child{padding-block:82px 74px}
   <div class="hero__layout">
     <div class="hero__content hero__plate">
       <h1 class="hero__title" id="top">
-        <span>Um plano de emagrecimento</span>
-        <em>que vai além da dieta</em>
+        <span>Conheça o método de emagrecimento</span>
+        <em>Slim Balance</em>
       </h1>
+
+      <p class="hero__promise">Um plano de emagrecimento que vai além da dieta</p>
 
       <p class="hero__sub">
         No Slim Balance, a Dra. Victoria Lacerda avalia você de forma completa para entender o que está dificultando o seu emagrecimento.
