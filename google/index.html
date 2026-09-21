@@ -2705,7 +2705,7 @@ main > .section:first-child{padding-block:82px 74px}
         <a href="#depoimentos">Pacientes</a>
         <a href="#faq">FAQ</a>
       </nav>
-      <a class="topbar__cta" data-wa-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">WhatsApp</a>
+      <a class="topbar__cta" data-wa-trigger data-wa-url="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." href="#wa">WhatsApp</a>
     </div>
   </div>
 
@@ -2731,7 +2731,7 @@ main > .section:first-child{padding-block:82px 74px}
 
       <div class="hero__cta hero__footer-block">
         <span class="hero__local">Atendimento em São José do Rio Preto - SP.</span>
-        <a class="btn btn--light" data-wa-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">
+        <a class="btn btn--light" data-wa-trigger data-wa-url="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." href="#wa">
           <img src="../assets/figma-chevron-right.svg" alt="" aria-hidden="true">
           Quero agendar minha consulta
         </a>
@@ -2916,7 +2916,7 @@ main > .section:first-child{padding-block:82px 74px}
         acompanhamento<br>
         com a <em>Dra.&nbsp;Victoria</em>
       </h2>
-      <a class="btn" data-wa-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">
+      <a class="btn" data-wa-trigger data-wa-url="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." href="#wa">
         <img src="../assets/figma-chevron-right.svg" alt="" aria-hidden="true">
         Quero agendar minha consulta
       </a>
@@ -2965,7 +2965,7 @@ main > .section:first-child{padding-block:82px 74px}
     </ol>
 
     <div class="process__mobile-cta">
-      <a class="btn" data-wa-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">
+      <a class="btn" data-wa-trigger data-wa-url="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." href="#wa">
         <img src="../assets/figma-chevron-right.svg" alt="" aria-hidden="true">
         Quero agendar minha consulta
       </a>
@@ -3064,7 +3064,7 @@ main > .section:first-child{padding-block:82px 74px}
     <h2 class="h2 rv">Um emagrecimento mais duradouro começa entendendo <em>o que seu corpo precisa</em>.</h2>
     <p class="lede rv">Entre em contato com nossa equipe para agendar sua consulta e ter um plano de emagrecimento pensado para o seu caso.</p>
     <p class="rv">
-      <a class="btn btn--light" data-wa-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20meu%20plano%20personalizado." target="_blank" rel="noopener">
+      <a class="btn btn--light" data-wa-trigger data-wa-url="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20meu%20plano%20personalizado." href="#wa">
         <img src="../assets/figma-chevron-right.svg" alt="" aria-hidden="true">
         Quero meu plano personalizado
       </a>
@@ -3090,7 +3090,7 @@ main > .section:first-child{padding-block:82px 74px}
       <div>
         <h3>Contato</h3>
         <div class="foot__links">
-          <a data-wa-trigger href="https://wa.me/5517997454974?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20a%20equipe." target="_blank" rel="noopener">Falar com a equipe — (17) 99745-4974</a>
+          <a data-wa-trigger data-wa-url="https://wa.me/5517997454974?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20a%20equipe." href="#wa">Falar com a equipe — (17) 99745-4974</a>
           <a data-phone-link href="tel:+5517997454974">Ligar para (17) 99745-4974</a>
           <a href="https://www.instagram.com/dravictorialacerda/" target="_blank" rel="noopener">Acompanhar no Instagram</a>
         </div>
@@ -3548,7 +3548,7 @@ main > .section:first-child{padding-block:82px 74px}
 
   function messageFromTrigger(el){
     try {
-      var href = el && el.getAttribute('href');
+      var href = el && (el.getAttribute('data-wa-url') || el.getAttribute('href'));
       if (!href) return '';
       var q = href.indexOf('?');
       if (q < 0) return '';
@@ -3586,8 +3586,7 @@ main > .section:first-child{padding-block:82px 74px}
     shut();
   });
 
-  /* Todos os CTAs da pagina abrem o widget em vez de pular direto pro wa.me.
-     O href continua no HTML como fallback: sem JS o link ainda funciona. */
+  /* Todos os CTAs abrem o formulario antes de seguir para o WhatsApp. */
   document.addEventListener('click', function(ev){
     var trigger = ev.target.closest && ev.target.closest('[data-wa-trigger]');
     if (!trigger) return;
