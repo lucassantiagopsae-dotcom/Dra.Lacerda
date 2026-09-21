@@ -2362,6 +2362,9 @@ main > .section:first-child{padding-block:82px 74px}
   width:100%;
   text-align:left;
 }
+#depoimentos{
+  background:var(--paper);
+}
 .hero__title{
   font-size:clamp(54px,4.7vw,68px);
   line-height:.98;
@@ -2384,6 +2387,13 @@ main > .section:first-child{padding-block:82px 74px}
 }
 .hero__promise + .hero__sub{
   margin-top:20px;
+}
+@media (min-width:1301px){
+  .hero__media img{
+    object-position:100% center;
+    transform:scale(1.22);
+    transform-origin:right top;
+  }
 }
 @media (max-width:980px){
   .hero__layout,
