@@ -79,6 +79,7 @@ export async function onRequest(context) {
   // Sanitised here because the value is injected into a <script> body below,
   // where HTMLRewriter would HTML-escape quotes and break the JS.
   const pixelId = String(env.META_PIXEL_ID || '').replace(/[^0-9]/g, '');
+  const gtmId = /^GTM-[A-Z0-9]+$/i.test(String(env.GTM_ID || '')) ? String(env.GTM_ID).toUpperCase() : '';
 
   // --- Serve the page FIRST, then write to D1 in background ---
   // When we're going to rewrite the HTML, strip the conditional headers so the
@@ -87,11 +88,15 @@ export async function onRequest(context) {
   // page carrying the PREVIOUS pixel ID — which would silently defeat the
   // whole point of driving the pixel from an env var.
   let downstreamRequest = request;
-  if (pixelId) {
+  if (pixelId || gtmId) {
     const h = new Headers(request.headers);
     h.delete('If-None-Match');
     h.delete('If-Modified-Since');
     downstreamRequest = new Request(request, { headers: h });
+  }
+  if (url.hostname === 'site.dravictorialacerda.com.br' && (url.pathname === '/' || url.pathname === '/index.html')) {
+    const institutionalUrl = new URL('/google/', url);
+    downstreamRequest = new Request(institutionalUrl, downstreamRequest);
   }
   const response = await next(downstreamRequest);
 
@@ -120,7 +125,7 @@ export async function onRequest(context) {
   // META_PIXEL_ID (Pages > Settings > Variables) the single source of truth
   // for BOTH the browser pixel and the Conversions API, so swapping pixels is
   // a dashboard change — never an edit to index.html.
-  if (pixelId && (newResponse.headers.get('content-type') || '').includes('text/html')) {
+  if ((pixelId || gtmId) && (newResponse.headers.get('content-type') || '').includes('text/html')) {
     // The document must be revalidated on every view, otherwise a browser that
     // cached it before the env var changed keeps firing the old pixel.
     newHeaders.set('Cache-Control', 'no-cache');
@@ -139,6 +144,11 @@ export async function onRequest(context) {
             `<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1" alt="">`,
             { html: true }
           );
+        },
+      })
+      .on('script#google-gtm-config', {
+        element(el) {
+          if (gtmId) el.setInnerContent(`window.__GTM_ID='${gtmId}';`);
         },
       })
       .transform(newResponse);

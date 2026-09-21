@@ -208,7 +208,7 @@ export async function onRequestPost(context) {
     // --- Envio para o CRM (background, so em Lead real) ---
     // Fica fora do Promise.allSettled acima de proposito: o CRM nao pode
     // atrasar nem derrubar o envio para a Meta, e vice-versa.
-    if (!isBot && body.event_name === 'Lead' && (rawEmail || rawPhone)) {
+    if (!isBot && body.event_name === 'Lead' && !body.crm_handled && (rawEmail || rawPhone)) {
       context.waitUntil(
         sendLeadToAgendor({
           lead: { name: rawName, email: rawEmail, phone: rawPhone },

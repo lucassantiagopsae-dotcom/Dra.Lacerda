@@ -159,6 +159,8 @@ function montarOrigem({ session, eventId, sessionId }) {
     + linha('Referrer', s.referrer)
     + linha('fbclid', s.fbclid)
     + linha('gclid', s.gclid)
+    + linha('gbraid', s.gbraid)
+    + linha('wbraid', s.wbraid)
     + '\n'
     + linha('session_id', sessionId)
     + linha('event_id', eventId);
