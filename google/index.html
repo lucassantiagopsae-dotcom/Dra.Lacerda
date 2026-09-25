@@ -2687,6 +2687,154 @@ main > .section:first-child{padding-block:82px 74px}
   #faq .faq summary{font-size:20px}
   #faq .faq p{font-size:16px}
 }
+
+/* Ajustes de revisão 25/09: hierarquia, ritmo editorial e consultório. */
+.no-break{white-space:nowrap}
+#metodo,#depoimentos,#minha-historia,#consultorio,#faq,#como-funciona{scroll-margin-top:104px}
+.hero__title .hero__city{
+  display:block;
+  margin-top:18px;
+  color:var(--creme-2);
+  font-family:var(--sans);
+  font-size:.46em;
+  font-weight:700;
+  line-height:1.2;
+  letter-spacing:.035em;
+}
+.hero__identity{
+  width:max-content;
+  max-width:calc(100% - 48px);
+  padding:12px 14px;
+}
+.signal--a{justify-content:flex-start}
+#depoimentos{padding-bottom:48px}
+#depoimentos + .pillars-section{padding-top:48px}
+
+.about__prose{max-width:60ch}
+.about__prose > p:not(.about__pull){
+  position:relative;
+  margin:0;
+  padding:22px 0 22px 34px;
+  border-top:1px solid rgba(239,233,222,.18);
+}
+.about__prose > p:first-child{padding-top:0;border-top:0}
+.about__prose [data-kicker]::before{
+  content:attr(data-kicker);
+  display:block;
+  margin-bottom:8px;
+  color:var(--star);
+  font-family:var(--sans);
+  font-size:10px;
+  font-weight:700;
+  line-height:1.2;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+.about__prose > p:not(.about__pull)::after{
+  content:"";
+  position:absolute;
+  left:0;
+  top:27px;
+  width:12px;
+  height:1px;
+  background:var(--star);
+}
+.about__prose > p:first-child::after{top:5px}
+.about__prose .about__lead{
+  color:var(--creme);
+  font-family:var(--display);
+  font-size:21px;
+  line-height:1.5;
+}
+.about__prose .about__origin{
+  width:calc(100% - 42px);
+  margin-left:42px;
+}
+.about__prose .about__pull{
+  width:min(420px,88%);
+  margin:24px 0 0 auto;
+  padding:22px 0 0 28px;
+  border-top:1px solid rgba(201,154,56,.58);
+  text-align:right;
+}
+
+.clinic__head{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:end;
+  gap:20px;
+}
+.clinic__head h2{
+  grid-column:2;
+  max-width:27ch;
+  margin-inline:auto;
+  text-align:center;
+  text-wrap:balance;
+}
+.clinic__controls{grid-column:3;justify-self:end}
+.clinic__gallery{gap:18px}
+.clinic__photo{
+  flex:0 0 calc((100% - 18px)/2);
+  height:auto;
+  aspect-ratio:4/3;
+  background:#e8e0d3;
+}
+.clinic__photo img{
+  object-fit:contain;
+  object-position:center;
+}
+.clinic__photo--facade{background:var(--bordo-ink)}
+.clinic__location h3{margin-bottom:4px}
+.clinic__address-label{
+  display:block;
+  margin-top:24px;
+  color:var(--star);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:1.8px;
+  text-transform:uppercase;
+}
+.clinic__location address{
+  width:100%;
+  margin:12px 0 28px;
+  padding:18px 20px;
+  background:#fff;
+  border-left:3px solid var(--star);
+  box-shadow:0 14px 34px rgba(51,15,11,.06);
+}
+
+@media(min-width:981px){
+  .topbar nav{gap:18px;font-size:10.5px;letter-spacing:1.25px}
+  .topbar__inner{gap:24px}
+}
+@media(max-width:980px){
+  .hero__title .hero__city{margin-top:14px;font-size:.5em}
+  .about__prose .about__origin{width:100%;margin-left:0}
+  .clinic__head{grid-template-columns:1fr auto}
+  .clinic__head h2{grid-column:1;text-align:left;margin:0}
+  .clinic__controls{grid-column:2}
+}
+@media(max-width:680px){
+  #depoimentos{padding-bottom:36px}
+  #depoimentos + .pillars-section{padding-top:36px}
+  .hero__title .hero__city{font-size:.55em;letter-spacing:.02em}
+  .hero__identity{max-width:calc(100% - 48px);padding:11px 13px}
+  .about__prose > p:not(.about__pull){padding:20px 0 20px 24px}
+  .about__prose > p:not(.about__pull)::after{width:9px}
+  .about__prose .about__lead{font-size:19px}
+  .about__prose .about__pull{
+    width:100%;
+    margin-top:18px;
+    padding-left:0;
+    text-align:center;
+  }
+  .clinic__head{display:flex;flex-direction:column;align-items:center;gap:18px}
+  .clinic__head h2{max-width:18ch;margin-inline:auto;text-align:center}
+  .clinic__controls{align-self:center}
+  .clinic__photo{flex-basis:88%;height:auto;aspect-ratio:4/3}
+  .clinic__location address{padding:16px 72px 16px 16px}
+  .clinic__location .btn{width:100%;justify-content:center;text-align:center}
+}
 </style>
 </head>
 <body>
@@ -2702,7 +2850,9 @@ main > .section:first-child{padding-block:82px 74px}
       <nav aria-label="Navegação principal">
         <a href="#metodo">Método</a>
         <a href="#como-funciona">Consulta</a>
-        <a href="#depoimentos">Pacientes</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#minha-historia">Minha história</a>
+        <a href="#consultorio">Consultório</a>
         <a href="#faq">FAQ</a>
       </nav>
       <a class="topbar__cta" data-wa-trigger data-wa-url="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." href="#wa">WhatsApp</a>
@@ -2720,13 +2870,14 @@ main > .section:first-child{padding-block:82px 74px}
   <div class="hero__layout">
     <div class="hero__content hero__plate">
       <h1 class="hero__title" id="top">
-        Acompanhamento médico para emagrecimento em São José do Rio Preto
+        Acompanhamento médico para emagrecimento em
+        <span class="hero__city">São José do Rio Preto</span>
       </h1>
 
       <p class="hero__promise">Um plano de emagrecimento que vai além da dieta</p>
 
       <p class="hero__sub">
-        No Slim Balance, a Dra. Victoria Lacerda avalia você de forma completa para entender o que está dificultando o seu emagrecimento.
+        No Método Slim Balance, a Dra. Victoria Lacerda avalia você de forma completa para entender o que está dificultando o seu emagrecimento.
       </p>
 
       <div class="hero__cta hero__footer-block">
@@ -2839,7 +2990,7 @@ main > .section:first-child{padding-block:82px 74px}
   <div class="shell">
     <div class="pillars__head rv">
       <h2 class="h2">Pilares do Método Slim Balance</h2>
-      <p class="pillars__sub">O que é avaliado?</p>
+      <p class="pillars__sub">O que é avaliado na consulta?</p>
     </div>
 
     <div class="assessment">
@@ -2974,7 +3125,7 @@ main > .section:first-child{padding-block:82px 74px}
 </section>
 
 <!-- ============ SOBRE A DRA. ============ -->
-<section class="about-section section section--deep grain">
+<section class="about-section section section--deep grain" id="minha-historia">
   <div class="about">
     <figure class="portrait">
       <img src="../assets/dra-victoria-portrait.webp" alt="Dra. Victoria Lacerda no consultório" loading="lazy">
@@ -2988,9 +3139,9 @@ main > .section:first-child{padding-block:82px 74px}
       <p class="eyebrow">Por trás do Slim Balance</p>
       <h2 class="about__title">Minha relação com o emagrecimento não começou apenas no consultório.</h2>
       <div class="about__prose">
-        <p>Eu também já vivi dificuldades com o meu próprio peso e sei como pode ser frustrante tentar fazer tudo certo e sentir que o corpo não responde da forma esperada.</p>
-        <p>Essa experiência pessoal se somou à minha formação médica, à prática clínica, aos anos acompanhando pacientes com dificuldade para emagrecer e à minha atuação como professora de Nutrologia.</p>
-        <p>Com o tempo, percebi que havia uma lógica que se repetia na forma como eu conduzia esses casos: antes de definir a estratégia, eu precisava entender a história, o contexto e o corpo de cada paciente. Foi dessa forma de pensar que nasceu o Slim Balance.</p>
+        <p class="about__lead" data-kicker="Experiência pessoal">Eu também já vivi dificuldades com o meu próprio peso e sei como pode ser frustrante tentar fazer tudo certo e sentir que o corpo não responde da forma esperada.</p>
+        <p data-kicker="Prática clínica">Essa experiência pessoal se somou à minha formação médica, à prática clínica, aos anos acompanhando pacientes com dificuldade para emagrecer e à minha atuação como professora de Nutrologia.</p>
+        <p class="about__origin" data-kicker="O método">Com o tempo, percebi que havia uma lógica que se repetia na forma como eu conduzia esses casos: antes de definir a estratégia, eu precisava entender a história, o contexto e o corpo de cada paciente. Foi dessa forma de pensar que nasceu o Slim Balance.</p>
         <p class="about__pull">Porque, antes de definir o caminho, eu preciso entender você.</p>
       </div>
     </div>
@@ -3000,14 +3151,14 @@ main > .section:first-child{padding-block:82px 74px}
 <section class="section clinic-section" id="consultorio">
   <div class="shell">
     <div class="clinic__head">
-      <h2 class="h2">Conheça o consultório da Dra. Victoria em São José do Rio Preto</h2>
+      <h2 class="h2">Conheça o consultório da <span class="no-break">Dra. Victoria</span> em São José do Rio Preto</h2>
       <div class="clinic__controls">
         <button type="button" class="clinic__arrow" data-clinic-prev aria-label="Foto anterior" title="Foto anterior"><span class="material-symbols-outlined" aria-hidden="true">chevron_left</span></button>
         <button type="button" class="clinic__arrow" data-clinic-next aria-label="Próxima foto" title="Próxima foto"><span class="material-symbols-outlined" aria-hidden="true">chevron_right</span></button>
       </div>
     </div>
     <div class="clinic__gallery" data-clinic-gallery aria-label="Fotos do consultório">
-      <button type="button" class="clinic__photo" aria-label="Ampliar foto 1"><img src="../assets/consultorio-1.jpg" alt="Entrada da Torre Bangkok" loading="lazy"></button>
+      <button type="button" class="clinic__photo clinic__photo--facade" aria-label="Ampliar foto da fachada"><img src="../assets/consultorio-1.jpg" alt="Fachada e entrada da Torre Bangkok" loading="lazy"></button>
       <button type="button" class="clinic__photo" aria-label="Ampliar foto 2"><img src="../assets/consultorio-2.jpg" alt="Consultório da Dra. Victoria" loading="lazy"></button>
       <button type="button" class="clinic__photo" aria-label="Ampliar foto 3"><img src="../assets/consultorio-3.jpg" alt="Espaço de atendimento" loading="lazy"></button>
       <button type="button" class="clinic__photo" aria-label="Ampliar foto 4"><img src="../assets/consultorio-4.jpg" alt="Ambiente do consultório" loading="lazy"></button>
@@ -3017,10 +3168,11 @@ main > .section:first-child{padding-block:82px 74px}
     <div class="clinic__location">
       <div>
         <h3>Onde estamos</h3>
+        <span class="clinic__address-label">Endereço do consultório</span>
         <address>Georgina Business Park · Setor Ásia<br>Av. Anísio Haddad, 8001 · Sala 106 Bangkok<br>Jardim Aclimação, São José do Rio Preto - SP</address>
-        <a class="btn" data-maps-link href="https://maps.app.goo.gl/tft7rNs8DHDH3DsAA" target="_blank" rel="noopener">Abrir rota no Google Maps</a>
+        <a class="btn" data-maps-link href="https://www.google.com/maps/search/?api=1&amp;query=Dra.%20Victoria%20Lacerda%20Av.%20An%C3%ADsio%20Haddad%208001%20S%C3%A3o%20Jos%C3%A9%20do%20Rio%20Preto" target="_blank" rel="noopener">Abrir perfil no Google Maps</a>
       </div>
-      <iframe title="Mapa do consultório da Dra. Victoria Lacerda" src="https://www.google.com/maps?q=Georgina%20Business%20Park%20Av.%20An%C3%ADsio%20Haddad%208001%20S%C3%A3o%20Jos%C3%A9%20do%20Rio%20Preto&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      <iframe title="Mapa do consultório da Dra. Victoria Lacerda" src="https://www.google.com/maps?q=Dra.%20Victoria%20Lacerda%20Av.%20An%C3%ADsio%20Haddad%208001%20S%C3%A3o%20Jos%C3%A9%20do%20Rio%20Preto&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
     </div>
   </div>
 </section>
@@ -3084,7 +3236,7 @@ main > .section:first-child{padding-block:82px 74px}
           Georgina Business Park — Setor Ásia<br>
           Av. Anísio Haddad, 8001 — Sala 106 Bangkok<br>
           Jardim Aclimação, São José do Rio Preto — SP<br>
-          <a data-maps-link href="https://maps.app.goo.gl/tft7rNs8DHDH3DsAA" target="_blank" rel="noopener">Ver no Google Maps</a>
+          <a data-maps-link href="https://www.google.com/maps/search/?api=1&amp;query=Dra.%20Victoria%20Lacerda%20Av.%20An%C3%ADsio%20Haddad%208001%20S%C3%A3o%20Jos%C3%A9%20do%20Rio%20Preto" target="_blank" rel="noopener">Ver no Google Maps</a>
         </address>
       </div>
       <div>
