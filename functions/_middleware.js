@@ -98,6 +98,13 @@ export async function onRequest(context) {
     const institutionalUrl = new URL('/google/', url);
     downstreamRequest = new Request(institutionalUrl, downstreamRequest);
   }
+  if (
+    (url.hostname === 'links.dravictorialacerda.com.br' || url.hostname === 'bio.dravictorialacerda.com.br') &&
+    (url.pathname === '/' || url.pathname === '/index.html')
+  ) {
+    const bioUrl = new URL('/bio/', url);
+    downstreamRequest = new Request(bioUrl, downstreamRequest);
+  }
   const response = await next(downstreamRequest);
 
   // --- Set HTTP cookies ---
