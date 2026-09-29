@@ -3110,6 +3110,70 @@ main > .section:first-child{padding-block:82px 74px}
   .section.clinic-section{padding-bottom:36px}
   #faq{padding-top:42px}
 }
+
+.topbar__menu-toggle{display:none}
+@media(max-width:980px){
+  .topbar__inner{position:relative}
+  .topbar__menu-toggle{
+    display:grid;
+    width:44px;
+    height:44px;
+    margin-left:auto;
+    padding:0;
+    place-items:center;
+    border:1px solid rgba(239,233,222,.48);
+    background:rgba(51,15,11,.42);
+    color:var(--creme);
+    cursor:pointer;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+  }
+  .topbar__menu-toggle .material-symbols-outlined{font-size:24px}
+  .topbar nav{
+    position:absolute;
+    top:calc(100% + 6px);
+    right:var(--gutter);
+    left:var(--gutter);
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    padding:8px;
+    background:rgba(51,15,11,.96);
+    border:1px solid rgba(239,233,222,.18);
+    box-shadow:0 20px 46px rgba(31,10,7,.3);
+    color:var(--creme-2);
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transform:translateY(-8px);
+    transition:opacity .18s ease,transform .18s ease,visibility .18s ease;
+  }
+  .topbar nav.is-open{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+    transform:translateY(0);
+  }
+  .topbar nav a{
+    padding:14px 16px;
+    border-bottom:1px solid rgba(239,233,222,.12);
+    color:var(--creme-2);
+  }
+  .topbar nav a:last-child{border-bottom:0}
+  .topbar nav a:hover,
+  .topbar nav a:focus-visible{
+    background:rgba(239,233,222,.08);
+    color:var(--creme);
+  }
+}
+@media(max-width:680px){
+  .topbar nav{
+    top:calc(100% + 4px);
+    right:24px;
+    left:24px;
+  }
+}
 </style>
 </head>
 <body>
@@ -3122,7 +3186,7 @@ main > .section:first-child{padding-block:82px 74px}
         <span class="brand__top">Victoria</span>
         <span class="brand__script">Lacerda</span>
       </a>
-      <nav aria-label="Navegação principal">
+      <nav id="site-navigation" aria-label="Navegação principal">
         <a href="#metodo">Método</a>
         <a href="#como-funciona">Consulta</a>
         <a href="#depoimentos">Depoimentos</a>
@@ -3131,6 +3195,9 @@ main > .section:first-child{padding-block:82px 74px}
         <a href="#faq">FAQ</a>
       </nav>
       <a class="topbar__cta" data-wa-trigger data-wa-url="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." href="#wa">WhatsApp</a>
+      <button class="topbar__menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="Abrir menu de seções">
+        <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+      </button>
     </div>
   </div>
 
@@ -4218,6 +4285,41 @@ main > .section:first-child{padding-block:82px 74px}
   document.querySelector('[data-clinic-close]').addEventListener('click', function(){ lightbox.close(); });
   lightbox.addEventListener('click', function(event){ if (event.target === lightbox) lightbox.close(); });
   updateGallery(0);
+})();
+</script>
+
+<script>
+(function(){
+  var toggle = document.querySelector('.topbar__menu-toggle');
+  var navigation = document.querySelector('#site-navigation');
+  var topbar = document.querySelector('.topbar__inner');
+  if (!toggle || !navigation || !topbar) return;
+
+  function setMenu(open){
+    navigation.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Fechar menu de seções' : 'Abrir menu de seções');
+    toggle.querySelector('.material-symbols-outlined').textContent = open ? 'close' : 'menu';
+  }
+
+  toggle.addEventListener('click', function(){
+    setMenu(toggle.getAttribute('aria-expanded') !== 'true');
+  });
+  navigation.addEventListener('click', function(event){
+    if (event.target.closest('a')) setMenu(false);
+  });
+  document.addEventListener('click', function(event){
+    if (!topbar.contains(event.target)) setMenu(false);
+  });
+  document.addEventListener('keydown', function(event){
+    if (event.key === 'Escape'){
+      setMenu(false);
+      toggle.focus();
+    }
+  });
+  window.addEventListener('resize', function(){
+    if (window.innerWidth > 980) setMenu(false);
+  });
 })();
 </script>
 
