@@ -2974,8 +2974,9 @@ main > .section:first-child{padding-block:82px 74px}
   object-fit:cover;
   object-position:center;
 }
-.clinic__photo:nth-child(2) img{object-position:center 62%}
-.clinic__photo:nth-child(4) img{object-position:center 60%}
+.clinic__photo--primary img{object-position:center 66%}
+.clinic__photo:nth-child(3) img{object-position:center 62%}
+.clinic__photo:nth-child(5) img{object-position:center 60%}
 .clinic__gallery-meta{
   display:flex;
   align-items:center;
@@ -2990,7 +2991,7 @@ main > .section:first-child{padding-block:82px 74px}
 }
 .clinic__progress span{
   display:block;
-  width:16.666%;
+  width:14.286%;
   height:100%;
   background:var(--bordo);
   transform-origin:left center;
@@ -3173,6 +3174,34 @@ main > .section:first-child{padding-block:82px 74px}
     right:24px;
     left:24px;
   }
+}
+
+/* Section headings share one alignment while card and step titles stay readable. */
+.hero__title,
+main > .section:first-child .shell > .h2,
+.method-title,
+.testimonials__head .h2,
+.pillars__head .h2,
+.process__title,
+.about__title,
+.clinic__head .h2,
+#faq .shell > .h2,
+.final .h2{
+  margin-inline:auto;
+  text-align:center;
+}
+.method-hero{width:100%;max-width:none;text-align:center}
+.pillars__head{text-align:center}
+.clinic__head{position:relative;justify-content:center}
+.clinic__head .h2{max-width:22ch}
+.clinic__controls{position:absolute;right:0;bottom:0}
+
+@media(max-width:680px){
+  .clinic__head{
+    flex-direction:column;
+    align-items:center;
+  }
+  .clinic__controls{position:static;align-self:center}
 }
 </style>
 </head>
@@ -3496,16 +3525,17 @@ main > .section:first-child{padding-block:82px 74px}
       </div>
     </div>
     <div class="clinic__gallery" data-clinic-gallery aria-label="Fotos do consultório" aria-roledescription="carrossel">
-      <button type="button" class="clinic__photo clinic__photo--facade" aria-label="Foto 1 de 6: ampliar fachada e entrada da Torre Bangkok"><img src="../assets/consultorio-1.jpg" alt="Fachada e entrada da Torre Bangkok" loading="lazy"></button>
-      <button type="button" class="clinic__photo" aria-label="Foto 2 de 6: ampliar detalhes da recepção"><img src="../assets/consultorio-2.jpg" alt="Detalhes da recepção do consultório" loading="lazy"></button>
-      <button type="button" class="clinic__photo" aria-label="Foto 3 de 6: ampliar sala de espera"><img src="../assets/consultorio-3.jpg" alt="Sala de espera do consultório" loading="lazy"></button>
-      <button type="button" class="clinic__photo" aria-label="Foto 4 de 6: ampliar detalhes do atendimento"><img src="../assets/consultorio-4.jpg" alt="Detalhes preparados para o atendimento" loading="lazy"></button>
-      <button type="button" class="clinic__photo" aria-label="Foto 5 de 6: ampliar entrada da Torre Bangkok"><img src="../assets/consultorio-5.jpg" alt="Entrada da Torre Bangkok" loading="lazy"></button>
-      <button type="button" class="clinic__photo" aria-label="Foto 6 de 6: ampliar sala de atendimento"><img src="../assets/consultorio-6.jpg" alt="Sala de atendimento com vista para o jardim" loading="lazy"></button>
+      <button type="button" class="clinic__photo clinic__photo--primary" aria-label="Foto 1 de 7: ampliar fachada principal do Georgina Business Park"><img src="../assets/consultorio-fachada-principal.jpg" alt="Fachada principal do Georgina Business Park" loading="lazy"></button>
+      <button type="button" class="clinic__photo clinic__photo--facade" aria-label="Foto 2 de 7: ampliar fachada e entrada da Torre Bangkok"><img src="../assets/consultorio-1.jpg" alt="Fachada e entrada da Torre Bangkok" loading="lazy"></button>
+      <button type="button" class="clinic__photo" aria-label="Foto 3 de 7: ampliar detalhes da recepção"><img src="../assets/consultorio-2.jpg" alt="Detalhes da recepção do consultório" loading="lazy"></button>
+      <button type="button" class="clinic__photo" aria-label="Foto 4 de 7: ampliar sala de espera"><img src="../assets/consultorio-3.jpg" alt="Sala de espera do consultório" loading="lazy"></button>
+      <button type="button" class="clinic__photo" aria-label="Foto 5 de 7: ampliar detalhes do atendimento"><img src="../assets/consultorio-4.jpg" alt="Detalhes preparados para o atendimento" loading="lazy"></button>
+      <button type="button" class="clinic__photo" aria-label="Foto 6 de 7: ampliar entrada da Torre Bangkok"><img src="../assets/consultorio-5.jpg" alt="Entrada da Torre Bangkok" loading="lazy"></button>
+      <button type="button" class="clinic__photo" aria-label="Foto 7 de 7: ampliar sala de atendimento"><img src="../assets/consultorio-6.jpg" alt="Sala de atendimento com vista para o jardim" loading="lazy"></button>
     </div>
     <div class="clinic__gallery-meta">
       <div class="clinic__progress" aria-hidden="true"><span data-clinic-progress></span></div>
-      <p class="clinic__count" aria-live="polite"><span data-clinic-current>01</span> / 06 <span class="sr-only">fotos</span></p>
+      <p class="clinic__count" aria-live="polite"><span data-clinic-current>01</span> / 07 <span class="sr-only">fotos</span></p>
     </div>
     <div class="clinic__location">
       <div>
