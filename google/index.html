@@ -3282,6 +3282,61 @@ main > .section:first-child .shell > .h2,
     text-wrap:pretty;
   }
 }
+
+/* Motion editorial reversivel, acionado pela zona central do viewport. */
+html:not(.motion-ready) .rv{
+  opacity:1!important;
+  transform:none!important;
+  transition:none!important;
+}
+@media (prefers-reduced-motion:no-preference){
+  .motion-ready .rv{
+    --rv-x:0px;
+    --rv-y:28px;
+    --rv-scale:.985;
+    --rv-delay:0ms;
+    --rv-duration:680ms;
+    opacity:0;
+    transform:translate3d(var(--rv-x),var(--rv-y),0) scale(var(--rv-scale));
+    transition:
+      opacity var(--rv-duration) cubic-bezier(.22,1,.36,1),
+      transform var(--rv-duration) cubic-bezier(.22,1,.36,1);
+    transition-delay:0ms;
+  }
+  .motion-ready .rv[data-reveal="left"]{--rv-x:-38px;--rv-y:0px}
+  .motion-ready .rv[data-reveal="right"]{--rv-x:38px;--rv-y:0px}
+  .motion-ready .rv[data-reveal="scale"]{--rv-y:16px;--rv-scale:.965}
+  .motion-ready .rv.in{
+    opacity:1;
+    transform:translate3d(0,0,0) scale(1);
+    transition-delay:var(--rv-delay);
+  }
+  .pain.rv.in:hover,
+  .assessment-tile.rv.in:hover{
+    transform:translate3d(0,-6px,0) scale(1);
+  }
+}
+
+@media (max-width:680px) and (prefers-reduced-motion:no-preference){
+  .motion-ready .rv{
+    --rv-y:20px;
+    --rv-duration:560ms;
+  }
+  .motion-ready .rv[data-reveal="left"],
+  .motion-ready .rv[data-reveal="right"]{
+    --rv-x:0px;
+    --rv-y:22px;
+  }
+  .motion-ready .rv[data-reveal="scale"]{--rv-y:12px;--rv-scale:.98}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .rv{
+    opacity:1!important;
+    transform:none!important;
+    transition:none!important;
+  }
+}
 </style>
 </head>
 <body>
@@ -3309,11 +3364,11 @@ main > .section:first-child .shell > .h2,
     </div>
   </div>
 
-  <figure class="hero__media">
+  <figure class="hero__media rv" data-reveal="right">
     <img src="../assets/hero-mobile-dra-victoria.png" alt="Dra. Victoria Lacerda" fetchpriority="high">
   </figure>
 
-  <div class="hero__layout">
+  <div class="hero__layout rv" data-reveal="left">
     <div class="hero__content hero__plate">
       <h1 class="hero__title" id="top">
         Acompanhamento médico para emagrecimento em
@@ -3337,7 +3392,7 @@ main > .section:first-child .shell > .h2,
   </div>
 </header>
 
-<div class="hero__strip">
+<div class="hero__strip rv">
   <span>Victoria Lacerda</span><span><b>Emagrecimento</b></span><span>CRM-SP 196.390</span>
 </div>
 
@@ -3348,11 +3403,11 @@ main > .section:first-child .shell > .h2,
   <div class="shell">
     <h2 class="h2 rv">Muitas pessoas <br class="mobile-only">querem emagrecer,<br>mas enfrentam <br class="mobile-only"><em>desafios como:</em></h2>
 
-    <div class="pains rv">
-      <article class="pain pain--0"><span class="pain__mark"></span><p>Perder peso e voltar a engordar;</p></article>
-      <article class="pain pain--1"><span class="pain__mark"></span><p>Comer pouco, passar fome e <br class="mobile-only">não ver o resultado esperado;</p></article>
-      <article class="pain pain--2"><span class="pain__mark"></span><p>Tentar dietas difíceis de sustentar;</p></article>
-      <article class="pain pain--3"><span class="pain__mark"></span><p>Não saber o que ajustar <br class="mobile-only">quando o emagrecimento <br class="mobile-only">não acontece.</p></article>
+    <div class="pains">
+      <article class="pain pain--0 rv"><span class="pain__mark"></span><p>Perder peso e voltar a engordar;</p></article>
+      <article class="pain pain--1 rv"><span class="pain__mark"></span><p>Comer pouco, passar fome e <br class="mobile-only">não ver o resultado esperado;</p></article>
+      <article class="pain pain--2 rv"><span class="pain__mark"></span><p>Tentar dietas difíceis de sustentar;</p></article>
+      <article class="pain pain--3 rv"><span class="pain__mark"></span><p>Não saber o que ajustar <br class="mobile-only">quando o emagrecimento <br class="mobile-only">não acontece.</p></article>
     </div>
   </div>
 </section>
@@ -3386,7 +3441,7 @@ main > .section:first-child .shell > .h2,
       </div>
     </div>
 
-    <div class="method-note rv">
+    <div class="method-note rv" data-reveal="scale">
       <p><strong>Por isso, emagrecer exige olhar além da dieta.</strong></p>
       <p>No Slim Balance, a Dra. Victoria investiga diferentes fatores que podem estar envolvidos na sua dificuldade para emagrecer e manter os resultados.</p>
     </div>
@@ -3398,7 +3453,7 @@ main > .section:first-child .shell > .h2,
       <h2 class="h2 rv">O que dizem os<br>nossos <em>pacientes</em>?</h2>
     </div>
 
-    <div class="testimonial-carousel rv" id="testimonial-rail" aria-live="polite" data-testimonial-rail>
+    <div class="testimonial-carousel rv" data-reveal="scale" id="testimonial-rail" aria-live="polite" data-testimonial-rail>
       <button class="testimonial-nav testimonial-nav--prev" type="button" aria-label="Ver depoimento anterior" aria-controls="testimonial-rail" title="Depoimento anterior" data-testimonial-prev>
         <img src="../assets/figma-arrow-left.svg" alt="" aria-hidden="true">
       </button>
@@ -3507,7 +3562,7 @@ main > .section:first-child .shell > .h2,
 <!-- ============ PASSO A PASSO ============ -->
 <section class="section process-section" id="como-funciona">
   <div class="shell process">
-    <div class="process__intro">
+    <div class="process__intro rv" data-reveal="left">
       <h2 class="h2 process__title">
         Como funciona o<br>
         acompanhamento<br>
@@ -3573,7 +3628,7 @@ main > .section:first-child .shell > .h2,
 <!-- ============ SOBRE A DRA. ============ -->
 <section class="about-section section section--deep grain" id="minha-historia">
   <div class="about">
-    <figure class="portrait">
+    <figure class="portrait rv" data-reveal="left">
       <img src="../assets/dra-victoria-portrait.webp" alt="Dra. Victoria Lacerda no consultório" loading="lazy">
       <figcaption class="portrait__crm">
         <strong>Dra. Victoria Lacerda</strong>
@@ -3581,7 +3636,7 @@ main > .section:first-child .shell > .h2,
       </figcaption>
     </figure>
 
-    <div class="about__body">
+    <div class="about__body rv" data-reveal="right">
       <p class="eyebrow">Por trás do Slim Balance</p>
       <h2 class="about__title">Minha relação com o emagrecimento não começou apenas no consultório.</h2>
       <div class="about__prose">
@@ -3596,14 +3651,14 @@ main > .section:first-child .shell > .h2,
 
 <section class="section clinic-section" id="consultorio">
   <div class="shell">
-    <div class="clinic__head">
+    <div class="clinic__head rv">
       <h2 class="h2">Conheça o consultório da <span class="no-break">Dra. Victoria</span> em São José do Rio Preto</h2>
       <div class="clinic__controls">
         <button type="button" class="clinic__arrow" data-clinic-prev aria-label="Foto anterior" title="Foto anterior"><span class="material-symbols-outlined" aria-hidden="true">chevron_left</span></button>
         <button type="button" class="clinic__arrow" data-clinic-next aria-label="Próxima foto" title="Próxima foto"><span class="material-symbols-outlined" aria-hidden="true">chevron_right</span></button>
       </div>
     </div>
-    <div class="clinic__gallery" data-clinic-gallery aria-label="Fotos do consultório" aria-roledescription="carrossel">
+    <div class="clinic__gallery rv" data-reveal="scale" data-clinic-gallery aria-label="Fotos do consultório" aria-roledescription="carrossel">
       <button type="button" class="clinic__photo clinic__photo--primary" aria-label="Foto 1 de 7: ampliar fachada principal do Georgina Business Park"><img src="../assets/consultorio-fachada-principal.jpg" alt="Fachada principal do Georgina Business Park" loading="lazy"></button>
       <button type="button" class="clinic__photo clinic__photo--facade" aria-label="Foto 2 de 7: ampliar fachada e entrada da Torre Bangkok"><img src="../assets/consultorio-1.jpg" alt="Fachada e entrada da Torre Bangkok" loading="lazy"></button>
       <button type="button" class="clinic__photo" aria-label="Foto 3 de 7: ampliar detalhes da recepção"><img src="../assets/consultorio-2.jpg" alt="Detalhes da recepção do consultório" loading="lazy"></button>
@@ -3612,18 +3667,18 @@ main > .section:first-child .shell > .h2,
       <button type="button" class="clinic__photo" aria-label="Foto 6 de 7: ampliar entrada da Torre Bangkok"><img src="../assets/consultorio-5.jpg" alt="Entrada da Torre Bangkok" loading="lazy"></button>
       <button type="button" class="clinic__photo" aria-label="Foto 7 de 7: ampliar sala de atendimento"><img src="../assets/consultorio-6.jpg" alt="Sala de atendimento com vista para o jardim" loading="lazy"></button>
     </div>
-    <div class="clinic__gallery-meta">
+    <div class="clinic__gallery-meta rv">
       <div class="clinic__progress" aria-hidden="true"><span data-clinic-progress></span></div>
       <p class="clinic__count" aria-live="polite"><span data-clinic-current>01</span> / 07 <span class="sr-only">fotos</span></p>
     </div>
     <div class="clinic__location">
-      <div>
+      <div class="rv" data-reveal="left">
         <h3>Onde estamos</h3>
         <span class="clinic__address-label">Endereço do consultório</span>
         <address>Georgina Business Park · Setor Ásia · Av. Anísio Haddad, 8001 · Sala 106, Torre Bangkok · Jardim Aclimação, São José do Rio Preto - SP</address>
         <a class="btn" data-maps-link href="https://www.google.com/maps/search/?api=1&amp;query=Dra.%20Victoria%20Lacerda%20Av.%20An%C3%ADsio%20Haddad%208001%20S%C3%A3o%20Jos%C3%A9%20do%20Rio%20Preto" target="_blank" rel="noopener">Abrir perfil no Google Maps</a>
       </div>
-      <iframe title="Mapa do consultório da Dra. Victoria Lacerda" src="https://www.google.com/maps?q=Dra.%20Victoria%20Lacerda%20Av.%20An%C3%ADsio%20Haddad%208001%20S%C3%A3o%20Jos%C3%A9%20do%20Rio%20Preto&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      <iframe class="rv" data-reveal="right" title="Mapa do consultório da Dra. Victoria Lacerda" src="https://www.google.com/maps?q=Dra.%20Victoria%20Lacerda%20Av.%20An%C3%ADsio%20Haddad%208001%20S%C3%A3o%20Jos%C3%A9%20do%20Rio%20Preto&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
     </div>
   </div>
 </section>
@@ -3681,7 +3736,7 @@ main > .section:first-child .shell > .h2,
 <footer class="foot">
   <div class="shell">
     <div class="foot__grid">
-      <div>
+      <div class="rv">
         <h3>Consultório</h3>
         <address>
           Georgina Business Park — Setor Ásia<br>
@@ -3690,7 +3745,7 @@ main > .section:first-child .shell > .h2,
           <a data-maps-link href="https://www.google.com/maps/search/?api=1&amp;query=Dra.%20Victoria%20Lacerda%20Av.%20An%C3%ADsio%20Haddad%208001%20S%C3%A3o%20Jos%C3%A9%20do%20Rio%20Preto" target="_blank" rel="noopener">Ver no Google Maps</a>
         </address>
       </div>
-      <div>
+      <div class="rv">
         <h3>Contato</h3>
         <div class="foot__links">
           <a data-wa-trigger data-wa-url="https://wa.me/5517997454974?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20a%20equipe." href="#wa">Falar com a equipe — (17) 99745-4974</a>
@@ -3698,12 +3753,12 @@ main > .section:first-child .shell > .h2,
           <a href="https://www.instagram.com/dravictorialacerda/" target="_blank" rel="noopener">Acompanhar no Instagram</a>
         </div>
       </div>
-      <div>
+      <div class="rv">
         <h3>Responsável técnica</h3>
         <p style="font-size:.94rem">Dra. Victoria Lacerda<br>CRM-SP 196.390</p>
       </div>
     </div>
-    <div class="foot__bar">
+    <div class="foot__bar rv">
       <span>Slim Balance · Dra. Victoria Lacerda</span>
       <span>São José do Rio Preto — SP</span>
     </div>
@@ -3712,16 +3767,33 @@ main > .section:first-child .shell > .h2,
 
 <script>
 (function(){
+  document.documentElement.classList.add('motion-ready');
   var els = document.querySelectorAll('.rv');
-  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function stagger(selector, step, maximum){
+    document.querySelectorAll(selector).forEach(function(el, index){
+      el.style.setProperty('--rv-delay', Math.min(index * step, maximum) + 'ms');
+    });
+  }
+
+  stagger('.pains .rv', 70, 210);
+  stagger('.signal-grid .rv', 80, 160);
+  stagger('.assessment-grid .rv', 65, 195);
+  stagger('.steps .rv', 65, 195);
+  stagger('.foot__grid > .rv', 70, 140);
+
+  if (!('IntersectionObserver' in window) || reducedMotion.matches){
     els.forEach(function(el){ el.classList.add('in'); });
     return;
   }
+
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
-      if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      e.target.classList.toggle('in', e.isIntersecting && e.intersectionRatio >= 0.08);
     });
-  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+  }, { rootMargin: '-8% 0px -12% 0px', threshold: [0, 0.08] });
+
   els.forEach(function(el){ io.observe(el); });
 })();
 
