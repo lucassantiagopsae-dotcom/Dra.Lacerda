@@ -3202,6 +3202,85 @@ main > .section:first-child .shell > .h2,
     align-items:center;
   }
   .clinic__controls{position:static;align-self:center}
+
+  .signal,
+  .signal--a,
+  .signal--b,
+  .signal--c{
+    align-items:stretch;
+    justify-content:flex-start;
+    text-align:center;
+  }
+  .signal__label{
+    width:100%;
+    text-align:center;
+  }
+  .signal p{
+    width:100%;
+    margin:0;
+    text-align:center;
+  }
+
+  .assessment-tile > .assessment-tile__content{
+    display:grid;
+    justify-items:center;
+    gap:14px;
+    text-align:center;
+  }
+  .assessment-tile__copy{
+    justify-items:center;
+  }
+  .assessment-tile h3,
+  .assessment-tile__copy p{
+    max-width:30ch;
+    text-align:center;
+  }
+
+  .step{
+    display:block;
+    padding:30px 0;
+  }
+  .step::before{display:none}
+  .step__n{
+    position:absolute;
+    top:30px;
+    left:0;
+    width:48px;
+    height:48px;
+    font-size:32px;
+  }
+  .step__body{max-width:none}
+  .step__body h3{
+    display:flex;
+    min-height:48px;
+    margin-bottom:16px;
+    padding-left:64px;
+    align-items:center;
+  }
+  .step__body p{
+    text-align:justify;
+    text-align-last:left;
+    text-justify:inter-word;
+    hyphens:auto;
+  }
+
+  .about__body > .eyebrow{text-align:center}
+  .about__title{max-width:15ch}
+  .about__prose{counter-reset:none}
+  .about__prose > p:not(.about__pull){padding-left:0}
+  .about__prose > p:not(.about__pull)::after{display:none}
+
+  .clinic__location > div{align-items:center}
+  .clinic__location h3,
+  .clinic__address-label{text-align:center}
+  .clinic__location address{
+    padding:18px;
+    border-left:0;
+    border-top:3px solid var(--star);
+    line-height:1.65;
+    text-align:center;
+    text-wrap:pretty;
+  }
 }
 </style>
 </head>
@@ -3541,7 +3620,7 @@ main > .section:first-child .shell > .h2,
       <div>
         <h3>Onde estamos</h3>
         <span class="clinic__address-label">Endereço do consultório</span>
-        <address>Georgina Business Park · Setor Ásia<br>Av. Anísio Haddad, 8001 · Sala 106 Bangkok<br>Jardim Aclimação, São José do Rio Preto - SP</address>
+        <address>Georgina Business Park · Setor Ásia · Av. Anísio Haddad, 8001 · Sala 106, Torre Bangkok · Jardim Aclimação, São José do Rio Preto - SP</address>
         <a class="btn" data-maps-link href="https://www.google.com/maps/search/?api=1&amp;query=Dra.%20Victoria%20Lacerda%20Av.%20An%C3%ADsio%20Haddad%208001%20S%C3%A3o%20Jos%C3%A9%20do%20Rio%20Preto" target="_blank" rel="noopener">Abrir perfil no Google Maps</a>
       </div>
       <iframe title="Mapa do consultório da Dra. Victoria Lacerda" src="https://www.google.com/maps?q=Dra.%20Victoria%20Lacerda%20Av.%20An%C3%ADsio%20Haddad%208001%20S%C3%A3o%20Jos%C3%A9%20do%20Rio%20Preto&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
