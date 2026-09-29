@@ -3283,6 +3283,61 @@ main > .section:first-child .shell > .h2,
   }
 }
 
+/* Refino microtipografico: evita viuvas sem engessar as quebras responsivas. */
+.hero__title,
+main > .section:first-child .shell > .h2,
+.method-title,
+.testimonials__head .h2,
+.pillars__head .h2,
+.process__title,
+.about__title,
+.clinic__head .h2,
+#faq .shell > .h2,
+.final .h2,
+.assessment-tile h3,
+.step__body h3,
+.faq summary{
+  text-wrap:balance;
+}
+.hero__sub,
+.pain p,
+.signal p,
+.method-note p,
+.quote__text,
+.assessment-tile__copy p,
+.step__body p,
+.about__prose p,
+.clinic__location address,
+.faq p,
+.final .lede{
+  text-wrap:pretty;
+}
+.about__title{max-width:20ch}
+
+@media(max-width:980px){
+  .about__title{max-width:15ch}
+}
+
+@media(max-width:680px){
+  .about__title{
+    max-width:17ch;
+    font-size:clamp(32px,8.2vw,36px);
+  }
+  .final .h2{max-width:16ch}
+}
+
+@media(max-width:360px){
+  .about__title{
+    font-size:28px;
+    line-height:1.1;
+  }
+  .final .h2{
+    max-width:17ch;
+    font-size:28px;
+    line-height:1.16;
+  }
+}
+
 /* Motion editorial reversivel, acionado pela zona central do viewport. */
 html:not(.motion-ready) .rv{
   opacity:1!important;
@@ -3371,8 +3426,8 @@ html:not(.motion-ready) .rv{
   <div class="hero__layout rv" data-reveal="left">
     <div class="hero__content hero__plate">
       <h1 class="hero__title" id="top">
-        Acompanhamento médico para emagrecimento em
-        <span class="hero__city">São José do Rio Preto</span>
+        Acompanhamento médico para emagrecimento
+        <span class="hero__city">em São José do Rio Preto</span>
       </h1>
 
       <p class="hero__promise">Um plano de emagrecimento que vai além da dieta</p>
@@ -3382,7 +3437,7 @@ html:not(.motion-ready) .rv{
       </p>
 
       <div class="hero__cta hero__footer-block">
-        <span class="hero__local">Atendimento em São José do Rio Preto - SP.</span>
+        <span class="hero__local">Atendimento em São José do <span class="no-break">Rio Preto - SP.</span></span>
         <a class="btn btn--light" data-wa-trigger data-wa-url="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." href="#wa">
           <img src="../assets/figma-chevron-right.svg" alt="" aria-hidden="true">
           Quero agendar minha consulta
@@ -3500,7 +3555,7 @@ html:not(.motion-ready) .rv{
           <div class="assessment-tile__content">
             <span class="material-symbols-outlined assessment-icon" aria-hidden="true">monitor_heart</span>
             <div class="assessment-tile__copy">
-              <h3>Metabolismo e fatores hormonais</h3>
+              <h3>Metabolismo e <span class="no-break">fatores hormonais</span></h3>
               <p>Investigação de sinais que podem influenciar fome, saciedade e gasto energético.</p>
             </div>
           </div>
@@ -3539,7 +3594,7 @@ html:not(.motion-ready) .rv{
           <div class="assessment-tile__content">
             <span class="material-symbols-outlined assessment-icon" aria-hidden="true">history</span>
             <div class="assessment-tile__copy">
-              <h3>História do peso e tentativas anteriores</h3>
+              <h3>História do peso e <span class="no-break">tentativas anteriores</span></h3>
               <p>Como o peso mudou ao longo do tempo, quais estratégias já foram tentadas e por que os resultados podem não ter se sustentado.</p>
             </div>
           </div>
@@ -3638,12 +3693,12 @@ html:not(.motion-ready) .rv{
 
     <div class="about__body rv" data-reveal="right">
       <p class="eyebrow">Por trás do Slim Balance</p>
-      <h2 class="about__title">Minha relação com o emagrecimento não começou apenas no consultório.</h2>
+      <h2 class="about__title">Minha relação com o emagrecimento <span class="no-break">não começou apenas</span> <span class="no-break">no consultório.</span></h2>
       <div class="about__prose">
         <p class="about__lead" data-kicker="Experiência pessoal">Eu também já vivi dificuldades com o meu próprio peso e sei como pode ser frustrante tentar fazer tudo certo e sentir que o corpo não responde da forma esperada.</p>
         <p data-kicker="Prática clínica">Essa experiência pessoal se somou à minha formação médica, à prática clínica, aos anos acompanhando pacientes com dificuldade para emagrecer e à minha atuação como professora de Nutrologia.</p>
         <p class="about__origin" data-kicker="O método">Com o tempo, percebi que havia uma lógica que se repetia na forma como eu conduzia esses casos: antes de definir a estratégia, eu precisava entender a história, o contexto e o corpo de cada paciente. Foi dessa forma de pensar que nasceu o Slim Balance.</p>
-        <p class="about__pull">Porque, antes de definir o caminho, eu preciso entender você.</p>
+        <p class="about__pull">Porque, antes de definir o caminho, eu preciso entender&nbsp;você.</p>
       </div>
     </div>
   </div>
@@ -3675,7 +3730,7 @@ html:not(.motion-ready) .rv{
       <div class="rv" data-reveal="left">
         <h3>Onde estamos</h3>
         <span class="clinic__address-label">Endereço do consultório</span>
-        <address>Georgina Business Park · Setor Ásia · Av. Anísio Haddad, 8001 · Sala 106, Torre Bangkok · Jardim Aclimação, São José do Rio Preto - SP</address>
+        <address>Georgina Business Park · Setor Ásia · Av. Anísio Haddad, 8001 · Sala 106, Torre Bangkok · Jardim Aclimação, São José do Rio <span class="no-break">Preto - SP</span></address>
         <a class="btn" data-maps-link href="https://www.google.com/maps/search/?api=1&amp;query=Dra.%20Victoria%20Lacerda%20Av.%20An%C3%ADsio%20Haddad%208001%20S%C3%A3o%20Jos%C3%A9%20do%20Rio%20Preto" target="_blank" rel="noopener">Abrir perfil no Google Maps</a>
       </div>
       <iframe class="rv" data-reveal="right" title="Mapa do consultório da Dra. Victoria Lacerda" src="https://www.google.com/maps?q=Dra.%20Victoria%20Lacerda%20Av.%20An%C3%ADsio%20Haddad%208001%20S%C3%A3o%20Jos%C3%A9%20do%20Rio%20Preto&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
@@ -3693,7 +3748,7 @@ html:not(.motion-ready) .rv{
 
     <div class="faq rv">
       <details open>
-        <summary>O que é o Slim Balance?</summary>
+        <summary>O que é o <span class="no-break">Slim Balance?</span></summary>
         <p>O Slim Balance é a abordagem utilizada pela Dra. Victoria para organizar a avaliação e o acompanhamento de pacientes que buscam emagrecimento. Ela considera diferentes fatores que podem participar da dificuldade para perder peso, incluindo comportamento alimentar, composição corporal, estilo de vida e aspectos metabólicos ou hormonais que precisem ser investigados.</p>
       </details>
       <details>
@@ -3719,7 +3774,7 @@ html:not(.motion-ready) .rv{
 <!-- ============ CTA FINAL ============ -->
 <section class="section section--bordo grain final">
   <div class="shell">
-    <h2 class="h2 rv">Um emagrecimento mais duradouro começa entendendo <em>o que seu corpo precisa</em>.</h2>
+    <h2 class="h2 rv">Um emagrecimento mais duradouro <span class="no-break">começa entendendo</span> <em>o que seu <span class="no-break">corpo precisa</span></em>.</h2>
     <p class="lede rv">Entre em contato com nossa equipe para agendar sua consulta e ter um plano de emagrecimento pensado para o seu caso.</p>
     <p class="rv">
       <a class="btn btn--light" data-wa-trigger data-wa-url="https://wa.me/5517997454974?text=Ol%C3%A1!%20Quero%20meu%20plano%20personalizado." href="#wa">
@@ -3741,7 +3796,7 @@ html:not(.motion-ready) .rv{
         <address>
           Georgina Business Park — Setor Ásia<br>
           Av. Anísio Haddad, 8001 — Sala 106 Bangkok<br>
-          Jardim Aclimação, São José do Rio Preto — SP<br>
+          Jardim Aclimação, São José do Rio <span class="no-break">Preto — SP</span><br>
           <a data-maps-link href="https://www.google.com/maps/search/?api=1&amp;query=Dra.%20Victoria%20Lacerda%20Av.%20An%C3%ADsio%20Haddad%208001%20S%C3%A3o%20Jos%C3%A9%20do%20Rio%20Preto" target="_blank" rel="noopener">Ver no Google Maps</a>
         </address>
       </div>
@@ -3759,8 +3814,8 @@ html:not(.motion-ready) .rv{
       </div>
     </div>
     <div class="foot__bar rv">
-      <span>Slim Balance · Dra. Victoria Lacerda</span>
-      <span>São José do Rio Preto — SP</span>
+      <span>Slim Balance · <span class="no-break">Dra. Victoria Lacerda</span></span>
+      <span>São José do Rio Preto <span class="no-break">— SP</span></span>
     </div>
   </div>
 </footer>
