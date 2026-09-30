@@ -4534,6 +4534,8 @@ html:not(.motion-ready) .rv{
   var currentPhoto = 0;
   var scrollFrame;
   var resizeFrame;
+  var programmaticTarget = null;
+  var programmaticTimer = null;
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function galleryMaxScroll(){
@@ -4546,8 +4548,8 @@ html:not(.motion-ready) .rv{
   }
 
   function updateGalleryControls(){
-    previousButton.disabled = gallery.scrollLeft <= 2;
-    nextButton.disabled = gallery.scrollLeft >= galleryMaxScroll() - 2;
+    previousButton.disabled = currentPhoto === 0;
+    nextButton.disabled = currentPhoto === photos.length - 1;
   }
 
   function updateGallery(index){
@@ -4563,10 +4565,16 @@ html:not(.motion-ready) .rv{
 
   function scrollToPhoto(index){
     var targetIndex = Math.max(0, Math.min(index, photos.length - 1));
+    programmaticTarget = targetIndex;
+    window.clearTimeout(programmaticTimer);
+    updateGallery(targetIndex);
     gallery.scrollTo({
       left: Math.min(photoLeft(targetIndex), galleryMaxScroll()),
       behavior: reduceMotion ? 'auto' : 'smooth'
     });
+    programmaticTimer = window.setTimeout(function(){
+      programmaticTarget = null;
+    }, reduceMotion ? 0 : 520);
   }
 
   previousButton.addEventListener('click', function(){ scrollToPhoto(currentPhoto - 1); });
@@ -4574,6 +4582,10 @@ html:not(.motion-ready) .rv{
   gallery.addEventListener('scroll', function(){
     window.cancelAnimationFrame(scrollFrame);
     scrollFrame = window.requestAnimationFrame(function(){
+      if (programmaticTarget !== null){
+        updateGallery(programmaticTarget);
+        return;
+      }
       var galleryStyles = window.getComputedStyle(gallery);
       var inset = parseFloat(galleryStyles.paddingLeft) || 0;
       var galleryLeft = gallery.getBoundingClientRect().left + inset;
@@ -4586,8 +4598,10 @@ html:not(.motion-ready) .rv{
           closestIndex = index;
         }
       });
+      if (gallery.scrollLeft >= galleryMaxScroll() - 2){
+        closestIndex = photos.length - 1;
+      }
       updateGallery(closestIndex);
-      updateGalleryControls();
     });
   }, { passive: true });
 
