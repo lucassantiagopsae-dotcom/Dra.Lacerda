@@ -168,7 +168,12 @@ export async function onRequestPost(context) {
     // Skip PageView: conversions fire regardless of this log, and the health
     // dashboard only reports Lead/Purchase. Dropping PageView cuts ~70% of
     // event_log writes so per-instance D1 stays healthy long-term.
-    const loggedEventName = (body.event_name || '').toLowerCase();
+    // `event_name` stays compatible with Meta/GA4 standard events, while
+    // `log_event_name` lets the dashboard keep the original UI action name.
+    // Example: a bio WhatsApp click is sent to Meta as `Contact`, but stored
+    // as `bio_whatsapp_click` so it does not blend with other contact CTAs.
+    const eventNameForLog = String(body.log_event_name || body.event_name || '').trim();
+    const loggedEventName = eventNameForLog.toLowerCase();
     const shouldLogEvent = loggedEventName !== 'pageview' && loggedEventName !== 'page_view';
     const browserInfo = parseBrowser(userAgent);
     context.waitUntil(
@@ -188,7 +193,7 @@ export async function onRequestPost(context) {
                 raw_email, raw_name, raw_phone
               ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             `).bind(
-              sessionId, body.event_name, body.event_id, body.event_time,
+              sessionId, eventNameForLog, body.event_id, body.event_time,
               browserInfo.browser, browserInfo.version, browserInfo.os, browserInfo.isMobile ? 1 : 0,
               pixelWasBlocked, fbpSource, fbcSource, fbclidSource,
               gaCookiePresent, gaClientIdFallback, fbpSource === 'middleware_http' ? 1 : 0,

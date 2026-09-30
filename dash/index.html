@@ -89,6 +89,37 @@
       </div>
     </section>
 
+    <!-- Link in bio clicks -->
+    <section class="card p-5 fade-in">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <div class="font-semibold">Cliques do link na bio</div>
+          <div class="text-xs text-[color:var(--muted)]">Ações reais registradas pelo rastreamento próprio, sem depender apenas do navegador.</div>
+        </div>
+        <div class="text-right">
+          <div class="kpi-label">Total</div>
+          <div class="mono text-xl font-semibold" id="bio-clicks-total">—</div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="border border-[color:var(--border)] rounded-lg p-4">
+          <div class="kpi-label">WhatsApp</div>
+          <div class="kpi-value mono accent-green mt-1" id="bio-clicks-whatsapp">—</div>
+          <div class="text-xs text-[color:var(--muted)] mt-1" id="bio-people-whatsapp">— pessoas</div>
+        </div>
+        <div class="border border-[color:var(--border)] rounded-lg p-4">
+          <div class="kpi-label">Método Slim Balance</div>
+          <div class="kpi-value mono accent-purple mt-1" id="bio-clicks-slim">—</div>
+          <div class="text-xs text-[color:var(--muted)] mt-1" id="bio-people-slim">— pessoas</div>
+        </div>
+        <div class="border border-[color:var(--border)] rounded-lg p-4">
+          <div class="kpi-label">Google Maps</div>
+          <div class="kpi-value mono accent-blue mt-1" id="bio-clicks-maps">—</div>
+          <div class="text-xs text-[color:var(--muted)] mt-1" id="bio-people-maps">— pessoas</div>
+        </div>
+      </div>
+    </section>
+
     <!-- Revenue time series -->
     <section class="card p-5 fade-in">
       <div class="flex items-center justify-between mb-3">
@@ -460,6 +491,22 @@
     qs('#kpi-sales').textContent = fmtInt(data.sales);
     qs('#kpi-aov').textContent = money(data.aov, data.currency);
     renderRevenueChart(data.time_series || []);
+  }
+
+  async function loadBioClicks(days) {
+    const data = await fetchJson(`/api/link-clicks?days=${days}`);
+    const events = data.events || {};
+    const whatsapp = events.bio_whatsapp_click || {};
+    const slim = events.bio_slim_balance_click || {};
+    const maps = events.bio_maps_click || {};
+
+    qs('#bio-clicks-total').textContent = fmtInt(data.total_clicks);
+    qs('#bio-clicks-whatsapp').textContent = fmtInt(whatsapp.clicks);
+    qs('#bio-clicks-slim').textContent = fmtInt(slim.clicks);
+    qs('#bio-clicks-maps').textContent = fmtInt(maps.clicks);
+    qs('#bio-people-whatsapp').textContent = `${fmtInt(whatsapp.people)} pessoas`;
+    qs('#bio-people-slim').textContent = `${fmtInt(slim.people)} pessoas`;
+    qs('#bio-people-maps').textContent = `${fmtInt(maps.people)} pessoas`;
   }
 
   async function loadProducts(days) {
@@ -860,6 +907,7 @@
     currentDays = days;
     await Promise.all([
       loadRevenue(days),
+      loadBioClicks(days),
       loadProducts(days),
       loadAttribution(days),
       loadUtm(),

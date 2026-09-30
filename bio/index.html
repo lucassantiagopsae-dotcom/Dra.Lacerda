@@ -229,6 +229,7 @@ h1{
 
 .link--primary .link__icon{border-color:transparent;background:var(--whatsapp);color:white}
 .link__icon .material-symbols-outlined{font-size:24px}
+.link__brand-icon{width:24px;height:24px;display:block}
 
 .link__copy{min-width:0}
 .link__label{display:block;font-size:.98rem;font-weight:700;line-height:1.25}
@@ -239,6 +240,29 @@ h1{
 .link:focus-visible{transform:translateY(-2px);border-color:var(--gold)}
 .link:focus-visible{outline:3px solid rgba(201,154,56,.34);outline-offset:4px}
 .link:hover .link__arrow,.link:focus-visible .link__arrow{transform:translateX(3px)}
+
+.place{
+  width:100%;
+  max-width:510px;
+  margin-top:24px;
+  animation:reveal .55s .26s ease both;
+}
+
+.place__title{
+  margin:0 0 10px;
+  color:rgba(239,233,222,.72);
+  font-size:.7rem;
+  font-weight:700;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+
+.link--place{
+  min-height:84px;
+  background:rgba(51,15,11,.34);
+}
+
+.link--place .link__meta{max-width:38ch;line-height:1.45}
 
 .location{
   margin:22px 0 0;
@@ -307,7 +331,7 @@ h1{
 
   <nav class="links" aria-label="Links principais">
     <a class="link link--primary" data-track="bio_whatsapp_click" href="https://wa.me/5517997454974?text=Ol%C3%A1%21%20Vim%20pelo%20link%20da%20bio%20e%20gostaria%20de%20falar%20com%20a%20equipe%20da%20Dra.%20Victoria%20Lacerda." target="_blank" rel="noopener">
-      <span class="link__icon" aria-hidden="true"><span class="material-symbols-outlined">chat</span></span>
+      <span class="link__icon" aria-hidden="true"><img class="link__brand-icon" src="../assets/whatsapp.svg" alt=""></span>
       <span class="link__copy">
         <span class="link__label">Fale com a nossa equipe</span>
         <span class="link__meta">WhatsApp: (17) 99745-4974</span>
@@ -316,7 +340,7 @@ h1{
     </a>
 
     <a class="link" data-track="bio_slim_balance_click" href="https://dravictorialacerda.com.br/?utm_source=instagram&amp;utm_medium=bio&amp;utm_campaign=link_na_bio&amp;utm_content=slim_balance">
-      <span class="link__icon" aria-hidden="true"><span class="material-symbols-outlined">monitoring</span></span>
+      <span class="link__icon" aria-hidden="true"><span class="material-symbols-outlined">assignment</span></span>
       <span class="link__copy">
         <span class="link__label">Conheça o método Slim Balance</span>
         <span class="link__meta">Emagrecimento além da dieta</span>
@@ -324,6 +348,18 @@ h1{
       <span class="material-symbols-outlined link__arrow" aria-hidden="true">arrow_forward</span>
     </a>
   </nav>
+
+  <section class="place" aria-labelledby="place-title">
+    <h2 class="place__title" id="place-title">Onde estamos</h2>
+    <a class="link link--place" data-track="bio_maps_click" href="https://maps.app.goo.gl/iiHW6btUx1yqXYvJ7" target="_blank" rel="noopener">
+      <span class="link__icon" aria-hidden="true"><span class="material-symbols-outlined">location_on</span></span>
+      <span class="link__copy">
+        <span class="link__label">Clínica Dra. Victoria Lacerda</span>
+        <span class="link__meta">Av. Anísio Haddad, 8001 · Sala 106 Bangkok<br>Jardim Aclimação · São José do Rio Preto, SP</span>
+      </span>
+      <span class="material-symbols-outlined link__arrow" aria-hidden="true">open_in_new</span>
+    </a>
+  </section>
 
   <p class="location">São José do Rio Preto, SP</p>
 
@@ -345,13 +381,13 @@ h1{
     });
   }
 
-  function track(eventName,metaEvent){
+  function track(eventName,platformEvent){
     var eventId=uuid();
     var details={page_type:'link_in_bio',link_name:eventName};
 
     try{
       if(typeof window.fbq==='function'){
-        if(metaEvent==='Contact') window.fbq('track','Contact',details,{eventID:eventId});
+        if(platformEvent==='Contact') window.fbq('track','Contact',details,{eventID:eventId});
         else window.fbq('trackCustom',eventName,details,{eventID:eventId});
       }
     }catch(_){}
@@ -370,7 +406,8 @@ h1{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({
-          event_name:metaEvent||eventName,
+          event_name:platformEvent||eventName,
+          log_event_name:eventName,
           event_id:eventId,
           event_time:Math.floor(Date.now()/1000),
           event_source_url:window.location.href,
