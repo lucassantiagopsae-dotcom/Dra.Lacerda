@@ -3838,18 +3838,31 @@ html:not(.motion-ready) .rv{
   stagger('.steps .rv', 65, 195);
   stagger('.foot__grid > .rv', 70, 140);
 
-  if (!('IntersectionObserver' in window) || reducedMotion.matches){
+  if (!('requestAnimationFrame' in window) || reducedMotion.matches){
     els.forEach(function(el){ el.classList.add('in'); });
     return;
   }
 
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      e.target.classList.toggle('in', e.isIntersecting && e.intersectionRatio >= 0.08);
-    });
-  }, { rootMargin: '-8% 0px -12% 0px', threshold: [0, 0.08] });
+  var revealFrame = null;
 
-  els.forEach(function(el){ io.observe(el); });
+  function syncRevealState(){
+    revealFrame = null;
+    var revealBoundary = window.innerHeight * 0.88;
+
+    els.forEach(function(el){
+      var hasReachedBoundary = el.getBoundingClientRect().top <= revealBoundary;
+      el.classList.toggle('in', hasReachedBoundary);
+    });
+  }
+
+  function scheduleRevealSync(){
+    if (revealFrame !== null){ return; }
+    revealFrame = window.requestAnimationFrame(syncRevealState);
+  }
+
+  window.addEventListener('scroll', scheduleRevealSync, { passive:true });
+  window.addEventListener('resize', scheduleRevealSync);
+  scheduleRevealSync();
 })();
 
 (function(){
