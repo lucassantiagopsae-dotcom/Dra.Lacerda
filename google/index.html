@@ -1734,10 +1734,6 @@ main > .section:first-child{padding-block:82px 74px}
   color:var(--ink);
   box-shadow:0 24px 58px rgba(51,15,11,.08);
 }
-.testimonial-carousel.is-switching .testimonial-card{
-  opacity:.25;
-  transform:translateY(10px);
-}
 .quote__stars{color:var(--star);font-size:15px;letter-spacing:.22em}
 .testimonial-carousel .quote__text,
 .testimonial-carousel .quote:first-child .quote__text{
@@ -3176,27 +3172,130 @@ main > .section:first-child{padding-block:82px 74px}
   }
 }
 
-/* Section headings share one alignment while card and step titles stay readable. */
-.hero__title,
-main > .section:first-child .shell > .h2,
-.method-title,
-.testimonials__head .h2,
-.pillars__head .h2,
-.process__title,
-.about__title,
-.clinic__head .h2,
-#faq .shell > .h2,
-.final .h2{
-  margin-inline:auto;
-  text-align:center;
+/* Títulos centralizados somente em tablet e mobile. */
+@media(max-width:980px){
+  .hero__title,
+  main > .section:first-child .shell > .h2,
+  .method-title,
+  .testimonials__head .h2,
+  .pillars__head .h2,
+  .process__title,
+  .about__title,
+  .clinic__head .h2,
+  #faq .shell > .h2,
+  .final .h2{
+    margin-inline:auto;
+    text-align:center;
+  }
+  .method-hero{width:100%;max-width:none;text-align:center}
+  .pillars__head{text-align:center}
+  .clinic__head{position:relative;justify-content:center}
+  .clinic__head .h2{max-width:22ch}
+  .clinic__controls{position:absolute;right:0;bottom:0}
 }
-.method-hero{width:100%;max-width:none;text-align:center}
-.pillars__head{text-align:center}
-.clinic__head{position:relative;justify-content:center}
-.clinic__head .h2{max-width:22ch}
-.clinic__controls{position:absolute;right:0;bottom:0}
+
+/* Depoimentos pré-carregados em um trilho real, com navegação e gesto nativos. */
+.testimonial-carousel{
+  display:grid;
+  grid-template-columns:42px minmax(0,1fr) 42px;
+  gap:14px;
+  align-items:center;
+  width:100%;
+  max-width:var(--shell);
+}
+.testimonial-viewport{
+  min-width:0;
+  overflow-x:auto;
+  overscroll-behavior-inline:contain;
+  scroll-behavior:smooth;
+  scroll-snap-type:x mandatory;
+  scrollbar-width:none;
+  touch-action:pan-x pan-y;
+}
+.testimonial-viewport::-webkit-scrollbar{display:none}
+.testimonial-track{
+  display:flex;
+  align-items:stretch;
+  gap:14px;
+}
+.testimonial-track .testimonial-card,
+.testimonial-track .quote.testimonial-card,
+.testimonial-track .quote:nth-child(even).testimonial-card,
+.testimonial-track .quote:first-child.testimonial-card{
+  flex:0 0 calc((100% - 28px)/3);
+  min-width:0;
+  min-height:380px;
+  padding:26px;
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+}
+.testimonial-carousel .testimonial-nav{
+  display:grid;
+  flex:none;
+}
+.testimonial-carousel .testimonial-nav:disabled{
+  cursor:not-allowed;
+  opacity:.32;
+}
+
+@media(max-width:980px){
+  .testimonial-track .testimonial-card,
+  .testimonial-track .quote.testimonial-card,
+  .testimonial-track .quote:nth-child(even).testimonial-card,
+  .testimonial-track .quote:first-child.testimonial-card{
+    flex-basis:calc((100% - 14px)/2);
+  }
+}
 
 @media(max-width:680px){
+  .testimonial-carousel{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px 10px;
+    width:100%;
+    max-width:none;
+    overflow:visible;
+    touch-action:auto;
+  }
+  .testimonial-viewport{
+    grid-column:1 / -1;
+    grid-row:1;
+    width:100%;
+  }
+  .testimonial-track{
+    gap:12px;
+  }
+  .testimonial-track::after{
+    content:"";
+    flex:0 0 14%;
+  }
+  .testimonial-track .testimonial-card,
+  .testimonial-track .quote.testimonial-card,
+  .testimonial-track .quote:nth-child(even).testimonial-card,
+  .testimonial-track .quote:first-child.testimonial-card{
+    display:flex;
+    flex-basis:86%;
+    min-height:0;
+    padding:24px;
+  }
+  .testimonial-carousel .testimonial-nav,
+  .testimonial-carousel .testimonial-nav--prev,
+  .testimonial-carousel .testimonial-nav--next{
+    display:grid;
+    width:42px;
+    height:42px;
+  }
+  .testimonial-carousel .testimonial-nav--prev{
+    grid-column:1;
+    grid-row:2;
+    justify-self:end;
+  }
+  .testimonial-carousel .testimonial-nav--next{
+    grid-column:2;
+    grid-row:2;
+    justify-self:start;
+  }
+
   .clinic__head{
     flex-direction:column;
     align-items:center;
@@ -3508,36 +3607,20 @@ html:not(.motion-ready) .rv{
       <h2 class="h2 rv">O que dizem os<br>nossos <em>pacientes</em>?</h2>
     </div>
 
-    <div class="testimonial-carousel rv" data-reveal="scale" id="testimonial-rail" aria-live="polite" data-testimonial-rail>
+    <div class="testimonial-carousel rv" data-reveal="scale">
       <button class="testimonial-nav testimonial-nav--prev" type="button" aria-label="Ver depoimento anterior" aria-controls="testimonial-rail" title="Depoimento anterior" data-testimonial-prev>
         <img src="../assets/figma-arrow-left.svg" alt="" aria-hidden="true">
       </button>
-      <article class="quote testimonial-card" data-quote-slot>
-        <span class="quote__stars">★★★★★</span>
-        <p class="quote__text">A consulta foi a melhor possível. Surpreendi-me, pois a Dra. Victoria é uma pessoa incrível. Eficiente profissionalmente, carinhosa, humana e não deixa você sair com dúvidas. Excelente profissional. Estou super satisfeita. O espaço é confortável e acolhedor. Minha nota para ela é 1000. Super recomendo.</p>
-        <p class="quote__name">Maria Engel</p>
-      </article>
-      <article class="quote testimonial-card" data-quote-slot>
-        <span class="quote__stars">★★★★★</span>
-        <p class="quote__text">A doutora Victoria é muito atenciosa. Fiquei impressionada com o acolhimento desde minha chegada, com sua equipe, e durante todo atendimento.</p>
-        <p class="quote__name">Andréa Petit</p>
-      </article>
-      <article class="quote testimonial-card" data-quote-slot>
-        <span class="quote__stars">★★★★★</span>
-        <p class="quote__text">O atendimento foi excelente do começo ao fim. A médica foi extremamente atenciosa, paciente e demonstrou muito cuidado.</p>
-        <p class="quote__name">Elisa Silva</p>
-      </article>
+      <div class="testimonial-viewport" id="testimonial-rail" role="region" aria-label="Depoimentos de pacientes" aria-roledescription="carrossel" data-testimonial-viewport>
+        <div class="testimonial-track" data-testimonial-track></div>
+      </div>
       <button class="testimonial-nav testimonial-nav--next" type="button" aria-label="Ver próximo depoimento" aria-controls="testimonial-rail" title="Próximo depoimento" data-testimonial-next>
         <img src="../assets/figma-arrow-right.svg" alt="" aria-hidden="true">
       </button>
     </div>
 
     <div class="testimonial-dots rv" aria-label="Escolher depoimento" data-testimonial-dots></div>
-    <div class="testimonial-more-wrap rv" data-testimonial-more-wrap hidden>
-      <button class="btn testimonial-more" type="button" data-testimonial-more>
-        Ver mais depoimentos
-      </button>
-    </div>
+    <p class="sr-only" aria-live="polite" data-testimonial-status></p>
   </div>
 </section>
 
@@ -3909,39 +3992,30 @@ html:not(.motion-ready) .rv{
     }
   ];
 
-  var rail = document.querySelector('[data-testimonial-rail]');
-  if (!rail) return;
+  var viewport = document.querySelector('[data-testimonial-viewport]');
+  var track = document.querySelector('[data-testimonial-track]');
+  if (!viewport || !track) return;
 
-  var slots = Array.prototype.slice.call(rail.querySelectorAll('[data-quote-slot]'));
   var prev = document.querySelector('[data-testimonial-prev]');
   var next = document.querySelector('[data-testimonial-next]');
-  var counter = document.querySelector('[data-testimonial-counter]');
   var dotsWrap = document.querySelector('[data-testimonial-dots]');
-  var more = document.querySelector('[data-testimonial-more]');
-  var moreWrap = document.querySelector('[data-testimonial-more-wrap]');
-  var mobileQuery = window.matchMedia('(max-width: 680px)');
-  var page = 0;
-  var desktopPerPage = slots.length || 1;
-  var mobileBatch = 5;
-  var totalPages = Math.ceil(testimonials.length / desktopPerPage);
-  var loadedCount = 0;
+  var status = document.querySelector('[data-testimonial-status]');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var isSwitching = false;
+  var cards = [];
+  var currentIndex = 0;
+  var scrollFrame = null;
+  var resizeFrame = null;
 
-  function fillQuote(slot, item){
-    slot.querySelector('.quote__stars').textContent = '★★★★★';
-    slot.querySelector('.quote__text').textContent = item.text;
-    slot.querySelector('.quote__name').textContent = item.name;
-  }
-
-  function createQuote(item){
+  function createQuote(item, index){
     var quote = document.createElement('article');
-    quote.className = 'quote';
-    quote.setAttribute('data-mobile-quote', '');
+    quote.className = 'quote testimonial-card';
+    quote.setAttribute('data-testimonial-index', String(index));
+    quote.setAttribute('aria-label', 'Depoimento ' + (index + 1) + ' de ' + testimonials.length);
 
     var stars = document.createElement('span');
     stars.className = 'quote__stars';
     stars.textContent = '★★★★★';
+    stars.setAttribute('aria-label', '5 de 5 estrelas');
 
     var text = document.createElement('p');
     text.className = 'quote__text';
@@ -3954,138 +4028,120 @@ html:not(.motion-ready) .rv{
     quote.appendChild(stars);
     quote.appendChild(text);
     quote.appendChild(name);
-    if (!reduceMotion) quote.classList.add('is-added');
     return quote;
   }
 
-  function clearMobileQuotes(){
-    rail.querySelectorAll('[data-mobile-quote]').forEach(function(el){ el.remove(); });
+  testimonials.forEach(function(item, index){
+    var card = createQuote(item, index);
+    cards.push(card);
+    track.appendChild(card);
+  });
+
+  function cardLeft(index){
+    if (!cards.length) return 0;
+    return cards[index].offsetLeft - cards[0].offsetLeft;
   }
 
-  function updateMoreButton(){
-    if (!more || !moreWrap) return;
-    var hasMore = loadedCount < testimonials.length;
-    moreWrap.hidden = !hasMore;
-    more.hidden = !hasMore;
+  function maxScroll(){
+    return Math.max(0, viewport.scrollWidth - viewport.clientWidth);
   }
 
-  function renderDots(){
-    if (!dotsWrap) return;
-    dotsWrap.textContent = '';
-    var count = mobileQuery.matches ? testimonials.length : totalPages;
-    for (var dotIndex = 0; dotIndex < count; dotIndex++){
-      var dot = document.createElement('button');
-      dot.className = 'testimonial-dot';
-      dot.type = 'button';
-      dot.setAttribute('aria-label', mobileQuery.matches ? 'Ver depoimento de ' + testimonials[dotIndex].name : 'Ver grupo de depoimentos ' + (dotIndex + 1));
-      dot.addEventListener('click', (function(index){ return function(){ goTo(index); }; })(dotIndex));
-      dotsWrap.appendChild(dot);
+  function lastReachableIndex(){
+    var limit = maxScroll() + 2;
+    var reachable = 0;
+    cards.forEach(function(card, index){
+      if (cardLeft(index) <= limit) reachable = index;
+    });
+    return reachable;
+  }
+
+  function updateControls(){
+    var lastIndex = lastReachableIndex();
+    if (prev) prev.disabled = currentIndex <= 0;
+    if (next) next.disabled = currentIndex >= lastIndex || maxScroll() <= 1;
+  }
+
+  function updateStatus(){
+    if (status){
+      status.textContent = 'Depoimento ' + (currentIndex + 1) + ' de ' + testimonials.length + ': ' + testimonials[currentIndex].name + '.';
     }
   }
 
   function updateDots(){
     if (!dotsWrap) return;
     Array.prototype.slice.call(dotsWrap.children).forEach(function(dot, dotIndex){
-      dot.classList.toggle('is-active', dotIndex === page);
-      dot.setAttribute('aria-current', dotIndex === page ? 'true' : 'false');
+      var active = dotIndex === currentIndex;
+      dot.classList.toggle('is-active', active);
+      if (active) dot.setAttribute('aria-current', 'true');
+      else dot.removeAttribute('aria-current');
     });
   }
 
-  function renderDesktop(){
-    clearMobileQuotes();
-    loadedCount = desktopPerPage;
-    slots.forEach(function(slot){ slot.hidden = false; });
-    if (prev) prev.hidden = false;
-    if (next) next.hidden = false;
-    if (dotsWrap) dotsWrap.hidden = false;
-    var start = page * desktopPerPage;
-    slots.forEach(function(slot, index){
-      var item = testimonials[(start + index) % testimonials.length];
-      fillQuote(slot, item);
-    });
-    if (counter) counter.textContent = (page + 1) + ' / ' + totalPages;
-    if (moreWrap) moreWrap.hidden = true;
+  function setCurrent(index, announce){
+    currentIndex = Math.max(0, Math.min(index, lastReachableIndex()));
     updateDots();
+    updateControls();
+    if (announce) updateStatus();
   }
 
-  function renderMobile(){
-    clearMobileQuotes();
-    if (prev) prev.hidden = false;
-    if (next) next.hidden = false;
-    if (dotsWrap) dotsWrap.hidden = false;
-    slots.forEach(function(slot, index){
-      if (index > 1){
-        slot.hidden = true;
-        return;
-      }
-      var item = testimonials[(page + index) % testimonials.length];
-      slot.hidden = false;
-      fillQuote(slot, item);
+  function scrollToCard(index){
+    var targetIndex = Math.max(0, Math.min(index, lastReachableIndex()));
+    setCurrent(targetIndex, true);
+    viewport.scrollTo({
+      left: Math.min(cardLeft(targetIndex), maxScroll()),
+      behavior: reduceMotion ? 'auto' : 'smooth'
     });
-    if (moreWrap) moreWrap.hidden = true;
-    if (more) more.hidden = true;
-    updateDots();
   }
 
-  function loadMoreMobile(){
-    if (!mobileQuery.matches) return;
-    testimonials.slice(loadedCount, loadedCount + mobileBatch).forEach(function(item){
-      rail.appendChild(createQuote(item));
-    });
-    loadedCount = Math.min(loadedCount + mobileBatch, testimonials.length);
-    updateMoreButton();
-  }
-
-  function syncTestimonials(){
-    var count = mobileQuery.matches ? testimonials.length : totalPages;
-    if (page >= count) page = 0;
-    renderDots();
-    if (mobileQuery.matches) renderMobile();
-    else renderDesktop();
-  }
-
-  function go(direction){
-    var count = mobileQuery.matches ? testimonials.length : totalPages;
-    goTo((page + direction + count) % count);
-  }
-
-  function goTo(nextPage){
-    if (isSwitching) return;
-    isSwitching = true;
-    page = nextPage;
-
-    if (reduceMotion){
-      syncTestimonials();
-      isSwitching = false;
-      return;
+  function renderDots(){
+    if (!dotsWrap) return;
+    dotsWrap.textContent = '';
+    for (var dotIndex = 0; dotIndex <= lastReachableIndex(); dotIndex++){
+      var dot = document.createElement('button');
+      dot.className = 'testimonial-dot';
+      dot.type = 'button';
+      dot.setAttribute('aria-label', 'Ver depoimento de ' + testimonials[dotIndex].name);
+      dot.addEventListener('click', (function(index){ return function(){ scrollToCard(index); }; })(dotIndex));
+      dotsWrap.appendChild(dot);
     }
-
-    rail.classList.add('is-switching');
-    window.setTimeout(function(){
-      syncTestimonials();
-      window.requestAnimationFrame(function(){
-        rail.classList.remove('is-switching');
-        window.setTimeout(function(){ isSwitching = false; }, 260);
-      });
-    }, 220);
+    updateDots();
   }
 
-  if (prev) prev.addEventListener('click', function(){ go(-1); });
-  if (next) next.addEventListener('click', function(){ go(1); });
-  var touchStartX = null;
-  rail.addEventListener('touchstart', function(event){
-    if (mobileQuery.matches) touchStartX = event.changedTouches[0].clientX;
-  }, { passive: true });
-  rail.addEventListener('touchend', function(event){
-    if (touchStartX === null) return;
-    var delta = event.changedTouches[0].clientX - touchStartX;
-    touchStartX = null;
-    if (Math.abs(delta) > 35) go(delta < 0 ? 1 : -1);
-  }, { passive: true });
-  if (more) more.addEventListener('click', loadMoreMobile);
-  if (mobileQuery.addEventListener) mobileQuery.addEventListener('change', syncTestimonials);
-  else mobileQuery.addListener(syncTestimonials);
-  syncTestimonials();
+  function syncFromScroll(){
+    scrollFrame = null;
+    var position = viewport.scrollLeft;
+    var limit = lastReachableIndex();
+    var closestIndex = 0;
+    var closestDistance = Infinity;
+    for (var index = 0; index <= limit; index++){
+      var distance = Math.abs(cardLeft(index) - position);
+      if (distance < closestDistance){
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    }
+    setCurrent(closestIndex, false);
+  }
+
+  viewport.addEventListener('scroll', function(){
+    if (scrollFrame !== null) window.cancelAnimationFrame(scrollFrame);
+    scrollFrame = window.requestAnimationFrame(syncFromScroll);
+  }, { passive:true });
+  if (prev) prev.addEventListener('click', function(){ scrollToCard(currentIndex - 1); });
+  if (next) next.addEventListener('click', function(){ scrollToCard(currentIndex + 1); });
+  window.addEventListener('resize', function(){
+    if (resizeFrame !== null) window.cancelAnimationFrame(resizeFrame);
+    resizeFrame = window.requestAnimationFrame(function(){
+      resizeFrame = null;
+      currentIndex = Math.min(currentIndex, lastReachableIndex());
+      renderDots();
+      viewport.scrollTo({ left: Math.min(cardLeft(currentIndex), maxScroll()), behavior:'auto' });
+      updateControls();
+    });
+  });
+
+  renderDots();
+  setCurrent(0, false);
 })();
 </script>
 
@@ -4477,24 +4533,40 @@ html:not(.motion-ready) .rv{
   var progress = document.querySelector('[data-clinic-progress]');
   var currentPhoto = 0;
   var scrollFrame;
+  var resizeFrame;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function galleryMaxScroll(){
+    return Math.max(0, gallery.scrollWidth - gallery.clientWidth);
+  }
+
+  function photoLeft(index){
+    if (!photos.length) return 0;
+    return photos[index].offsetLeft - photos[0].offsetLeft;
+  }
+
+  function updateGalleryControls(){
+    previousButton.disabled = gallery.scrollLeft <= 2;
+    nextButton.disabled = gallery.scrollLeft >= galleryMaxScroll() - 2;
+  }
 
   function updateGallery(index){
     currentPhoto = Math.max(0, Math.min(index, photos.length - 1));
     currentLabel.textContent = String(currentPhoto + 1).padStart(2, '0');
     progress.style.width = ((currentPhoto + 1) / photos.length * 100) + '%';
-    previousButton.disabled = currentPhoto === 0;
-    nextButton.disabled = currentPhoto === photos.length - 1;
     photos.forEach(function(photo, photoIndex){
       if (photoIndex === currentPhoto) photo.setAttribute('aria-current', 'true');
       else photo.removeAttribute('aria-current');
     });
+    updateGalleryControls();
   }
 
   function scrollToPhoto(index){
-    var target = photos[Math.max(0, Math.min(index, photos.length - 1))];
-    var galleryStyles = window.getComputedStyle(gallery);
-    var inset = parseFloat(galleryStyles.paddingLeft) || 0;
-    gallery.scrollTo({ left: target.offsetLeft - gallery.offsetLeft - inset, behavior: 'smooth' });
+    var targetIndex = Math.max(0, Math.min(index, photos.length - 1));
+    gallery.scrollTo({
+      left: Math.min(photoLeft(targetIndex), galleryMaxScroll()),
+      behavior: reduceMotion ? 'auto' : 'smooth'
+    });
   }
 
   previousButton.addEventListener('click', function(){ scrollToPhoto(currentPhoto - 1); });
@@ -4515,8 +4587,17 @@ html:not(.motion-ready) .rv{
         }
       });
       updateGallery(closestIndex);
+      updateGalleryControls();
     });
   }, { passive: true });
+
+  window.addEventListener('resize', function(){
+    window.cancelAnimationFrame(resizeFrame);
+    resizeFrame = window.requestAnimationFrame(function(){
+      scrollToPhoto(currentPhoto);
+      updateGalleryControls();
+    });
+  });
 
   photos.forEach(function(photo, index){
     photo.addEventListener('click', function(){
@@ -4530,6 +4611,7 @@ html:not(.motion-ready) .rv{
   document.querySelector('[data-clinic-close]').addEventListener('click', function(){ lightbox.close(); });
   lightbox.addEventListener('click', function(event){ if (event.target === lightbox) lightbox.close(); });
   updateGallery(0);
+  updateGalleryControls();
 })();
 </script>
 
