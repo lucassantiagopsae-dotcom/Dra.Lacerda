@@ -3516,6 +3516,22 @@ main > .section:first-child .shell > .h2,
   }
 }
 
+/* Seis pilares: duas colunas equilibradas, sem herdar as areas da grade antiga. */
+.assessment-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-areas:none;
+  grid-auto-flow:row;
+}
+.assessment-grid .assessment-tile{
+  grid-area:auto;
+}
+
+@media(max-width:680px){
+  .assessment-grid{
+    grid-template-columns:minmax(0,1fr);
+  }
+}
+
 /* Motion editorial reversivel, acionado pela zona central do viewport. */
 html:not(.motion-ready) .rv{
   opacity:1!important;
