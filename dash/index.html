@@ -34,6 +34,10 @@
   .dash-tab.active { color: var(--text); border-color: var(--accent-blue); }
   .range-btn { padding: 0.375rem 0.75rem; font-size: 0.8125rem; border: 1px solid var(--border); background: var(--card); border-radius: 8px; cursor: pointer; color: var(--dim); }
   .range-btn.active { background: var(--text); color: #fff; border-color: var(--text); }
+  .date-input { min-height: 38px; padding: 0.4375rem 0.625rem; border: 1px solid var(--border); border-radius: 8px; background: #fff; color: var(--text); font-size: 0.8125rem; }
+  .date-input:focus { outline: 2px solid rgba(37, 99, 235, 0.2); border-color: var(--accent-blue); }
+  .date-filter-btn { min-height: 38px; padding: 0.4375rem 0.75rem; border: 1px solid var(--text); border-radius: 8px; background: var(--text); color: #fff; font-size: 0.8125rem; font-weight: 600; cursor: pointer; }
+  .date-filter-btn.secondary { border-color: var(--border); background: #fff; color: var(--dim); }
   .row-hover:hover { background: #fafafa; }
   .fade-in { animation: fadeIn 0.35s ease-out; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
@@ -84,7 +88,7 @@
         <div class="card p-5">
           <div class="kpi-label">Leads</div>
           <div class="kpi-value mono accent-green mt-1" id="kpi-leads">—</div>
-          <div class="text-xs text-[color:var(--muted)] mt-1">Sem bots, no período</div>
+          <div class="text-xs text-[color:var(--muted)] mt-1" id="kpi-leads-sub">Sem bots, no período</div>
         </div>
       </div>
     </section>
@@ -260,10 +264,27 @@
 
     <!-- Leads with UTMs -->
     <section class="card p-5 fade-in">
-      <div class="flex items-center justify-between mb-3">
+      <div class="flex flex-col gap-4 mb-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <div class="font-semibold">Leads recentes</div>
           <div class="text-xs text-[color:var(--muted)]">Clique numa linha para ver exatamente o que foi enviado à Meta / GA4 e a resposta</div>
+        </div>
+        <div class="shrink-0" aria-label="Filtrar cadastros por data">
+          <div class="text-[11px] font-semibold uppercase tracking-wider text-[color:var(--dim)] mb-1.5">Filtrar somente cadastros</div>
+          <div class="flex flex-wrap items-end gap-2">
+            <label class="text-xs text-[color:var(--dim)]">
+              <span class="block mb-1">De</span>
+              <input class="date-input block" id="leads-date-from" type="date">
+            </label>
+            <label class="text-xs text-[color:var(--dim)]">
+              <span class="block mb-1">Até</span>
+              <input class="date-input block" id="leads-date-to" type="date">
+            </label>
+            <button class="date-filter-btn" id="leads-date-apply" type="button">Aplicar</button>
+            <button class="date-filter-btn secondary hidden" id="leads-date-clear" type="button">Limpar</button>
+          </div>
+          <div class="text-xs text-[color:var(--muted)] mt-2" id="leads-date-status">Últimos 30 dias</div>
+          <div class="text-xs text-[color:var(--accent-red)] mt-1 hidden" id="leads-date-error" role="alert"></div>
         </div>
       </div>
       <div class="overflow-x-auto">
@@ -472,6 +493,8 @@
 
   // -------- State --------
   let currentDays = 30;
+  let leadDateFrom = '';
+  let leadDateTo = '';
   let utmDimension = 'utm_source';
   let utmFilters = {};
   let revenueChart = null;
@@ -482,6 +505,23 @@
   const money = (n, cur = 'BRL') => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: cur, maximumFractionDigits: 0 }).format(Number(n || 0));
   const fmtInt = n => new Intl.NumberFormat('pt-BR').format(Number(n || 0));
   const fmtDate = ts => new Date(Number(ts) * 1000).toLocaleString('pt-BR', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+  const fmtDateOnly = value => {
+    const [year, month, day] = String(value || '').split('-');
+    return year && month && day ? `${day}/${month}/${year}` : value;
+  };
+
+  function setLeadDateStatus(total) {
+    const status = qs('#leads-date-status');
+    const count = total == null ? '' : ` · ${fmtInt(total)} ${Number(total) === 1 ? 'cadastro' : 'cadastros'}`;
+    if (!leadDateFrom || !leadDateTo) {
+      status.textContent = `Últimos ${currentDays} dias${count}`;
+      return;
+    }
+    const period = leadDateFrom === leadDateTo
+      ? `Cadastros de ${fmtDateOnly(leadDateFrom)}`
+      : `${fmtDateOnly(leadDateFrom)} a ${fmtDateOnly(leadDateTo)}`;
+    status.textContent = `${period}${count}`;
+  }
 
   // -------- Data loaders --------
   async function loadRevenue(days) {
@@ -596,8 +636,21 @@
   }
 
   async function loadLeads(days) {
-    const data = await fetchJson(`/api/leads?days=${days}&limit=50`);
-    qs('#kpi-leads').textContent = fmtInt((data.leads || []).length);
+    const params = new URLSearchParams({ limit: leadDateFrom && leadDateTo ? '500' : '50' });
+    if (leadDateFrom && leadDateTo) {
+      params.set('from', leadDateFrom);
+      params.set('to', leadDateTo);
+    } else {
+      params.set('days', String(days));
+    }
+    const data = await fetchJson(`/api/leads?${params.toString()}`);
+    if (data.error) throw new Error(data.error);
+    const total = Number(data.total ?? (data.leads || []).length);
+    qs('#kpi-leads').textContent = fmtInt(total);
+    qs('#kpi-leads-sub').textContent = leadDateFrom && leadDateTo
+      ? (leadDateFrom === leadDateTo ? `Cadastros de ${fmtDateOnly(leadDateFrom)}` : 'Intervalo personalizado')
+      : `Sem bots, últimos ${days} dias`;
+    setLeadDateStatus(total);
     const tbody = qs('#leads-tbody');
     if (!data.leads || data.leads.length === 0) {
       tbody.innerHTML = '<tr><td colspan="10" class="py-6 text-center text-[color:var(--muted)]">Nenhum lead no período.</td></tr>';
@@ -924,6 +977,49 @@
       qsa('#range-picker .range-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       loadAll(parseInt(btn.getAttribute('data-days'), 10));
+    });
+  });
+  const today = new Date();
+  const todayIso = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+  qs('#leads-date-from').max = todayIso;
+  qs('#leads-date-to').max = todayIso;
+  qs('#leads-date-apply').addEventListener('click', async () => {
+    const from = qs('#leads-date-from').value;
+    const to = qs('#leads-date-to').value;
+    const error = qs('#leads-date-error');
+    error.classList.add('hidden');
+    if (!from || !to) {
+      error.textContent = 'Escolha a data inicial e a data final.';
+      error.classList.remove('hidden');
+      return;
+    }
+    if (from > to) {
+      error.textContent = 'A data inicial precisa ser anterior à data final.';
+      error.classList.remove('hidden');
+      return;
+    }
+    leadDateFrom = from;
+    leadDateTo = to;
+    qs('#leads-date-clear').classList.remove('hidden');
+    try {
+      await loadLeads(currentDays);
+    } catch (_) {
+      error.textContent = 'Não foi possível carregar esse intervalo. Tente novamente.';
+      error.classList.remove('hidden');
+    }
+  });
+  qs('#leads-date-clear').addEventListener('click', async () => {
+    leadDateFrom = '';
+    leadDateTo = '';
+    qs('#leads-date-from').value = '';
+    qs('#leads-date-to').value = '';
+    qs('#leads-date-error').classList.add('hidden');
+    qs('#leads-date-clear').classList.add('hidden');
+    await loadLeads(currentDays);
+  });
+  qsa('#leads-date-from, #leads-date-to').forEach(input => {
+    input.addEventListener('keydown', event => {
+      if (event.key === 'Enter') qs('#leads-date-apply').click();
     });
   });
   qsa('#utm-tabs .dash-tab').forEach(tab => {

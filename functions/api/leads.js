@@ -1,4 +1,5 @@
 // GET /api/leads?key=...&days=30&limit=100
+// GET /api/leads?key=...&from=2026-09-01&to=2026-09-30&limit=500
 //
 // Returns Lead events joined to their originating session so each row carries
 // its UTMs / fbclid / gclid. This is the "where did my leads come from" view
@@ -16,10 +17,10 @@ export async function onRequestGet(context) {
     return json({ error: 'Unauthorized' }, 401);
   }
 
-  const days = clampInt(url.searchParams.get('days'), 30, 1, 365);
   const limit = clampInt(url.searchParams.get('limit'), 100, 1, 500);
   const includeBots = url.searchParams.get('include_bots') === '1';
-  const since = Math.floor(Date.now() / 1000) - days * 86400;
+  const range = resolveRange(url.searchParams);
+  if (range.error) return json({ error: range.error }, 400);
 
   const botClause = includeBots ? '' : 'AND e.is_bot = 0';
 
@@ -71,10 +72,11 @@ export async function onRequestGet(context) {
       )
       WHERE e.event_name = 'Lead'
         AND e.timestamp >= ?
+        AND e.timestamp < ?
         ${botClause}
       ORDER BY e.timestamp DESC
       LIMIT ?
-    `).bind(since, limit).all();
+    `).bind(range.since, range.before, limit).all();
 
     // Summary counts grouped by utm_source for the summary card above the table.
     const summary = await env.DB.prepare(`
@@ -85,15 +87,22 @@ export async function onRequestGet(context) {
       LEFT JOIN sessions s ON e.session_id = s.session_id
       WHERE e.event_name = 'Lead'
         AND e.timestamp >= ?
-        AND e.is_bot = 0
+        AND e.timestamp < ?
+        ${botClause}
       GROUP BY utm_source
       ORDER BY count DESC
-    `).bind(since).all();
+    `).bind(range.since, range.before).all();
+
+    const summaryRows = summary.results || [];
+    const total = summaryRows.reduce((sum, item) => sum + Number(item.count || 0), 0);
 
     return json({
-      days,
+      days: range.days,
+      from: range.from,
+      to: range.to,
+      total,
       leads: rows.results || [],
-      summary: summary.results || [],
+      summary: summaryRows,
     });
   } catch (err) {
     return json({ error: err.message }, 500);
@@ -114,4 +123,34 @@ function clampInt(raw, fallback, min, max) {
   const n = parseInt(raw || '', 10);
   if (Number.isNaN(n)) return fallback;
   return Math.max(min, Math.min(max, n));
+}
+
+function resolveRange(searchParams) {
+  const from = searchParams.get('from');
+  const to = searchParams.get('to');
+
+  if (from || to) {
+    if (!from || !to) return { error: 'from and to must be provided together' };
+    const since = saoPauloMidnight(from);
+    const finalDay = saoPauloMidnight(to);
+    if (since == null || finalDay == null) return { error: 'from and to must use YYYY-MM-DD' };
+    if (since > finalDay) return { error: 'from must be before or equal to to' };
+    if ((finalDay - since) / 86400 > 366) return { error: 'date range cannot exceed 367 days' };
+    return { since, before: finalDay + 86400, from, to, days: null };
+  }
+
+  const days = clampInt(searchParams.get('days'), 30, 1, 365);
+  const now = Math.floor(Date.now() / 1000);
+  return { since: now - days * 86400, before: now + 1, from: null, to: null, days };
+}
+
+function saoPauloMidnight(value) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value || '');
+  if (!match) return null;
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const check = new Date(Date.UTC(year, month - 1, day));
+  if (check.getUTCFullYear() !== year || check.getUTCMonth() !== month - 1 || check.getUTCDate() !== day) return null;
+  return Math.floor(Date.parse(`${value}T00:00:00-03:00`) / 1000);
 }
