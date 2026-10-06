@@ -54,7 +54,7 @@ Ou via preview do Claude Code: configuração `lacerda-lp` em `.claude/launch.js
 
 | Item | Destino |
 |------|---------|
-| WhatsApp (CTA) | (17) 99745-4974 |
+| WhatsApp (CTA) | (17) 99186-3175 |
 | Instagram | https://www.instagram.com/dravictorialacerda/ |
 | Endereço | Georgina Business Park - Setor Ásia - Av. Anísio Haddad, 8001 - Sala 106 Bangkok - Jardim Aclimação, São José do Rio Preto - SP |
 | Maps | https://maps.app.goo.gl/tft7rNs8DHDH3DsAA |
