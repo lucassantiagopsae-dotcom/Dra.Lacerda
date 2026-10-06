@@ -23,6 +23,21 @@ if (window.__GTM_ID) {
   gtag('js', new Date());
   gtag('config', 'AW-16663089171');
 </script>
+<!-- Google Ads conversion: Contato -->
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-16663089171/xFz0CL654ZMdEJOgyok-',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
 
 <!-- Meta Pixel — o ID vem da variavel META_PIXEL_ID do Cloudflare Pages.
      O middleware reescreve o conteudo de #krob-pixel-config na resposta, entao
@@ -4356,6 +4371,9 @@ html:not(.motion-ready) .rv{
     var now = Date.now();
     if (now - lastContact < 2000) return;
     lastContact = now;
+    if (typeof window.gtag_report_conversion === 'function') {
+      window.gtag_report_conversion();
+    }
     track('Contact');
   }, true);
 
