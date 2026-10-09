@@ -42,8 +42,8 @@ export async function onRequestPost(context) {
     const fbc = cookies['_fbc'] || sessionData.fbc || body.fbc || '';
     const externalId = cookies['_krob_eid'] || sessionData.external_id || body.external_id || '';
     const gclid = sessionData.gclid || body.gclid || '';
-    const gbraid = body.gbraid || '';
-    const wbraid = body.wbraid || '';
+    const gbraid = sessionData.gbraid || body.gbraid || '';
+    const wbraid = sessionData.wbraid || body.wbraid || '';
     // Extract GA4 client_id from _ga cookie (format: GA1.1.{timestamp}.{random})
     const gaCookie = cookies['_ga'] || '';
     const gaClientId = gaCookie ? gaCookie.split('.').slice(-2).join('.') : '';
