@@ -6,6 +6,38 @@
 <title>Dra. Victoria Lacerda — Slim Balance | Emagrecimento além da dieta</title>
 <meta name="description" content="Consulta médica para emagrecimento em São José do Rio Preto. Conheça o método Slim Balance, desenvolvido pela Dra. Victoria Lacerda.">
 <meta name="theme-color" content="#611D17">
+<script id="google-gtm-config">window.__GTM_ID='';</script>
+<script>
+window.dataLayer = window.dataLayer || [];
+if (window.__GTM_ID) {
+  window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+  (function(d,s,id){ var j=d.createElement(s), f=d.getElementsByTagName(s)[0]; j.async=true; j.src='https://www.googletagmanager.com/gtm.js?id='+encodeURIComponent(id); f.parentNode.insertBefore(j,f); })(document,'script',window.__GTM_ID);
+}
+</script>
+
+<!-- Google tag (Google Ads) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-16663089171"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-16663089171');
+</script>
+<!-- Google Ads conversion: Contato -->
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-16663089171/xFz0CL654ZMdEJOgyok-',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
 
 <!-- Meta Pixel — o ID vem da variavel META_PIXEL_ID do Cloudflare Pages.
      O middleware reescreve o conteudo de #krob-pixel-config na resposta, entao
@@ -3446,6 +3478,9 @@ main > .section:first-child{padding-block:82px 74px}
     var now = Date.now();
     if (now - lastContact < 2000) return;
     lastContact = now;
+    if (typeof window.gtag_report_conversion === 'function') {
+      window.gtag_report_conversion();
+    }
     track('Contact');
   }, true);
 

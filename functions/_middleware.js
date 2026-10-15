@@ -96,10 +96,6 @@ export async function onRequest(context) {
     h.delete('If-Modified-Since');
     downstreamRequest = new Request(request, { headers: h });
   }
-  if (url.hostname === 'site.dravictorialacerda.com.br' && (url.pathname === '/' || url.pathname === '/index.html')) {
-    const institutionalUrl = new URL('/google/', url);
-    downstreamRequest = new Request(institutionalUrl, downstreamRequest);
-  }
   if (
     (url.hostname === 'links.dravictorialacerda.com.br' || url.hostname === 'bio.dravictorialacerda.com.br') &&
     (url.pathname === '/' || url.pathname === '/index.html')
