@@ -2997,6 +2997,67 @@ body,
   margin:46px 0 0;
 }
 
+/* DESTAQUES DE CONVERSAO — hierarquia reforcada no desktop e no mobile */
+.method-section{
+  padding-bottom:16px;
+}
+.method-section .shell{
+  padding-bottom:18px;
+}
+#depoimentos{
+  padding-top:44px;
+}
+.method-section .method-note--closing p:first-child{
+  max-width:820px;
+  font-size:22px;
+  line-height:1.55;
+}
+.method-section .method-note--closing strong,
+.process__closing strong{
+  color:var(--bordo);
+  font-weight:750;
+}
+.process__flow .process__closing{
+  max-width:58ch;
+  font-size:20px;
+  line-height:1.62;
+}
+.first-consult-offer .h2{
+  max-width:18ch;
+  font-size:clamp(2rem,3vw,2.75rem);
+  line-height:1.08;
+}
+.first-consult-offer__highlight{
+  margin:0 0 22px;
+  padding:20px 22px;
+  background:var(--bordo);
+  color:var(--creme)!important;
+  font-size:clamp(1.25rem,2vw,1.55rem);
+  line-height:1.35;
+  box-shadow:0 14px 28px rgba(97,29,23,.15);
+}
+.first-consult-offer__body{
+  margin:0;
+  font-size:18px;
+  line-height:1.7;
+}
+.faq-cta{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px 28px;
+  margin-top:32px;
+}
+.faq-cta .faq-closing{
+  margin:0;
+  font-size:clamp(1.9rem,3vw,2.55rem);
+  line-height:1.12;
+}
+.faq-cta .btn{
+  flex:none;
+}
+
 @media (max-width:980px){
   .process{
     grid-template-columns:1fr;
@@ -3009,6 +3070,57 @@ body,
     position:relative;
     top:auto;
     min-height:auto;
+  }
+}
+@media (max-width:680px){
+  .method-section{
+    padding-bottom:20px;
+  }
+  .method-section .shell{
+    padding-bottom:24px;
+  }
+  #depoimentos{
+    padding-top:38px;
+  }
+  .method-section .method-note--closing p:first-child{
+    font-size:20px;
+    line-height:1.55;
+  }
+  .process__flow .process__closing{
+    margin-top:34px;
+    font-size:20px;
+    line-height:1.55;
+  }
+  .first-consult-offer .h2{
+    max-width:100%;
+    font-size:30px;
+    line-height:1.1;
+  }
+  .first-consult-offer__highlight{
+    margin-bottom:20px;
+    padding:20px;
+    font-size:22px;
+    line-height:1.38;
+  }
+  .first-consult-offer__body{
+    font-size:18px;
+    line-height:1.65;
+  }
+  .faq-cta{
+    align-items:stretch;
+    margin-top:28px;
+  }
+  .faq-cta .faq-closing{
+    width:100%;
+    font-size:30px;
+  }
+  .faq-cta .btn{
+    width:100%;
+    justify-content:center;
+    text-align:center;
+    padding-inline:16px;
+    font-size:14px;
+    white-space:nowrap;
   }
 }
 </style>
@@ -3092,7 +3204,7 @@ body,
     </div>
 
     <div class="method-note method-note--closing rv">
-      <p>O objetivo é ir além da perda de peso: é ajudar você a reduzir gordura, preservar massa muscular e manter os resultados a longo prazo.</p>
+      <p>O objetivo é ir além da perda de peso: é ajudar você a <strong>reduzir gordura, preservar massa muscular e manter os resultados</strong> a longo prazo.</p>
     </div>
   </div>
 </section>
@@ -3185,7 +3297,7 @@ body,
           Quero agendar minha consulta
         </a>
       </div>
-      <p class="process__closing">Você não precisa mais enfrentar o emagrecimento sozinha. Tenha uma estratégia médica personalizada e acompanhamento em cada etapa do seu processo.</p>
+      <p class="process__closing">Você não precisa mais enfrentar o emagrecimento sozinha. <strong>Tenha uma estratégia médica personalizada e acompanhamento</strong> em cada etapa do seu processo.</p>
     </div>
   </div>
 </section>
@@ -3263,8 +3375,8 @@ body,
     </div>
     <div class="first-consult-offer rv">
       <h2 class="h2">Uma avaliação completa para começar seu emagrecimento com a estratégia certa.</h2>
-      <p><strong>E tem mais: o valor da sua primeira consulta pode ser integralmente abatido!</strong></p>
-      <p>Se você decidir continuar seu tratamento comigo, 100% do valor pago na primeira consulta será descontado do acompanhamento Slim Balance.</p>
+      <p class="first-consult-offer__highlight"><strong>E tem mais: o valor da sua primeira consulta pode ser integralmente abatido!</strong></p>
+      <p class="first-consult-offer__body">Se você decidir continuar seu tratamento comigo, 100% do valor pago na primeira consulta será descontado do acompanhamento Slim Balance.</p>
     </div>
   </div>
 </section>
@@ -3319,7 +3431,13 @@ body,
       <details><summary>E se eu já tentei emagrecer várias vezes e não consegui?</summary><p>É justamente por isso que investigamos suas tentativas anteriores, seus hábitos, sua composição corporal e possíveis fatores que dificultam o emagrecimento. O objetivo é entender seu caso antes de definir a estratégia.</p></details>
       <details><summary>Como funciona o acompanhamento?</summary><p>As consultas são mensais. Em cada encontro, avaliamos sua evolução, acompanhamos a composição corporal e fazemos os ajustes necessários para continuar trabalhando em direção à sua meta.</p></details>
       <details><summary>Onde são realizadas as consultas?</summary><p>O atendimento é exclusivamente presencial, em São José do Rio Preto, São Paulo. Para agendar, basta entrar em contato pelo WhatsApp.</p></details>
-      <p class="faq-closing">Ficou com outra dúvida?</p>
+      <div class="faq-cta">
+        <p class="faq-closing">Ficou com outra dúvida?</p>
+        <a class="btn" data-wa-trigger href="https://wa.me/5517991863175?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20e%20gostaria%20de%20falar%20com%20a%20equipe%20da%20Dra.%20Victoria%20Lacerda." target="_blank" rel="noopener">
+          <img src="assets/figma-chevron-right.svg" alt="" aria-hidden="true">
+          Entre em contato pelo WhatsApp
+        </a>
+      </div>
     </div>
   </div>
 </section>
