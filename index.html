@@ -2879,10 +2879,15 @@ main > .section:first-child{padding-block:82px 74px}
   text-align:center;
 }
 .method-section .assessment-tile__content{
+  width:100%;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   text-align:center;
+}
+.method-section .assessment-icon{
+  align-self:center;
+  margin-inline:auto;
 }
 .method-section .assessment-tile__copy{
   justify-items:center;
@@ -2930,6 +2935,72 @@ main > .section:first-child{padding-block:82px 74px}
   }
   .method-section .method-note--closing p:first-child{
     font-size:16px;
+  }
+}
+
+/* SUPERFICIES — um bege principal e um tom quente apenas para contraste interno */
+:root{
+  --beige-section:#F8F3E8;
+  --beige-card:#EFE3D2;
+  --beige-line:#DED0BC;
+}
+body,
+#depoimentos,
+.method-section,
+.process-section,
+.commitment-section,
+.first-consult-section,
+.clinic-section,
+.address-section,
+#faq{
+  background:var(--beige-section);
+}
+.process-section{
+  background-image:none;
+}
+.first-consult-offer{
+  background:var(--beige-card);
+}
+.method-section .assessment-tile,
+.first-consult-offer{
+  border-color:var(--beige-line);
+}
+
+/* ACOMPANHAMENTO — o sticky considera CTA e mensagem final no mesmo fluxo */
+.process{
+  align-items:stretch;
+}
+.process__intro{
+  align-self:start;
+}
+.process__flow{
+  grid-column:2;
+  grid-row:1;
+  min-width:0;
+}
+.process__flow .process__mobile-cta,
+.process__flow .process__closing{
+  grid-column:auto;
+}
+.process__flow .process__mobile-cta{
+  margin-top:42px;
+}
+.process__flow .process__closing{
+  margin:46px 0 0;
+}
+
+@media (max-width:980px){
+  .process{
+    grid-template-columns:1fr;
+  }
+  .process__flow{
+    grid-column:1;
+    grid-row:auto;
+  }
+  .process__intro{
+    position:relative;
+    top:auto;
+    min-height:auto;
   }
 }
 </style>
@@ -3057,55 +3128,57 @@ main > .section:first-child{padding-block:82px 74px}
       <p class="process__text">Do primeiro atendimento à sua evolução: conheça cada etapa do seu emagrecimento.</p>
     </div>
 
-    <ol class="steps" aria-label="Etapas do acompanhamento">
-      <li class="step rv">
-        <span class="step__n">1</span>
-        <div class="step__body">
-          <h3>Agende sua primeira consulta</h3>
-          <p>Entre em contato pelo WhatsApp para agendar sua avaliação presencial em São José do Rio Preto.</p>
-        </div>
-      </li>
+    <div class="process__flow">
+      <ol class="steps" aria-label="Etapas do acompanhamento">
+        <li class="step rv">
+          <span class="step__n">1</span>
+          <div class="step__body">
+            <h3>Agende sua primeira consulta</h3>
+            <p>Entre em contato pelo WhatsApp para agendar sua avaliação presencial em São José do Rio Preto.</p>
+          </div>
+        </li>
 
-      <li class="step rv">
-        <span class="step__n">2</span>
-        <div class="step__body">
-          <h3>Faça sua avaliação completa</h3>
-          <p>Na primeira consulta, realizo sua bioimpedância e investigo seu histórico de peso, tentativas anteriores, fome e saciedade, rotina, hábitos e saúde metabólica.</p>
-        </div>
-      </li>
+        <li class="step rv">
+          <span class="step__n">2</span>
+          <div class="step__body">
+            <h3>Faça sua avaliação completa</h3>
+            <p>Na primeira consulta, realizo sua bioimpedância e investigo seu histórico de peso, tentativas anteriores, fome e saciedade, rotina, hábitos e saúde metabólica.</p>
+          </div>
+        </li>
 
-      <li class="step rv">
-        <span class="step__n">3</span>
-        <div class="step__body">
-          <h3>Receba sua estratégia personalizada</h3>
-          <p>Com base na avaliação, definimos uma meta de emagrecimento realista e um plano individualizado, que pode incluir mudanças de hábitos, acompanhamento nutricional e medicamentos, quando indicados.</p>
-        </div>
-      </li>
+        <li class="step rv">
+          <span class="step__n">3</span>
+          <div class="step__body">
+            <h3>Receba sua estratégia personalizada</h3>
+            <p>Com base na avaliação, definimos uma meta de emagrecimento realista e um plano individualizado, que pode incluir mudanças de hábitos, acompanhamento nutricional e medicamentos, quando indicados.</p>
+          </div>
+        </li>
 
-      <li class="step rv">
-        <span class="step__n">4</span>
-        <div class="step__body">
-          <h3>Inicie seu acompanhamento</h3>
-          <p>Se decidir continuar comigo, o valor pago na primeira consulta será abatido integralmente do acompanhamento.</p>
-        </div>
-      </li>
+        <li class="step rv">
+          <span class="step__n">4</span>
+          <div class="step__body">
+            <h3>Inicie seu acompanhamento</h3>
+            <p>Se decidir continuar comigo, o valor pago na primeira consulta será abatido integralmente do acompanhamento.</p>
+          </div>
+        </li>
 
-      <li class="step rv">
-        <span class="step__n">5</span>
-        <div class="step__body">
-          <h3>Acompanhe sua evolução mês a mês</h3>
-          <p>Nos encontros mensais, avaliamos sua evolução, monitoramos sua composição corporal e ajustamos a estratégia conforme a resposta do seu organismo.</p>
-        </div>
-      </li>
-    </ol>
+        <li class="step rv">
+          <span class="step__n">5</span>
+          <div class="step__body">
+            <h3>Acompanhe sua evolução mês a mês</h3>
+            <p>Nos encontros mensais, avaliamos sua evolução, monitoramos sua composição corporal e ajustamos a estratégia conforme a resposta do seu organismo.</p>
+          </div>
+        </li>
+      </ol>
 
-    <div class="process__mobile-cta">
-      <a class="btn" data-wa-trigger href="https://wa.me/5517991863175?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">
-        <img src="assets/figma-chevron-right.svg" alt="" aria-hidden="true">
-        Quero agendar minha consulta
-      </a>
+      <div class="process__mobile-cta">
+        <a class="btn" data-wa-trigger href="https://wa.me/5517991863175?text=Ol%C3%A1!%20Quero%20agendar%20minha%20consulta%20com%20a%20Dra.%20Victoria." target="_blank" rel="noopener">
+          <img src="assets/figma-chevron-right.svg" alt="" aria-hidden="true">
+          Quero agendar minha consulta
+        </a>
+      </div>
+      <p class="process__closing">Você não precisa mais enfrentar o emagrecimento sozinha. Tenha uma estratégia médica personalizada e acompanhamento em cada etapa do seu processo.</p>
     </div>
-    <p class="process__closing">Você não precisa mais enfrentar o emagrecimento sozinha. Tenha uma estratégia médica personalizada e acompanhamento em cada etapa do seu processo.</p>
   </div>
 </section>
 
