@@ -69,7 +69,7 @@
 
     <!-- Revenue Overview -->
     <section class="fade-in">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
         <div class="card p-5">
           <div class="kpi-label">Receita bruta</div>
           <div class="kpi-value mono accent-amber mt-1" id="kpi-revenue">—</div>
@@ -86,9 +86,14 @@
           <div class="text-xs text-[color:var(--muted)] mt-1">Receita / vendas</div>
         </div>
         <div class="card p-5">
-          <div class="kpi-label">Leads</div>
+          <div class="kpi-label">Cadastros</div>
           <div class="kpi-value mono accent-green mt-1" id="kpi-leads">—</div>
           <div class="text-xs text-[color:var(--muted)] mt-1" id="kpi-leads-sub">Sem bots, no período</div>
+        </div>
+        <div class="card p-5">
+          <div class="kpi-label">Contatos WhatsApp</div>
+          <div class="kpi-value mono accent-green mt-1" id="kpi-contacts">—</div>
+          <div class="text-xs text-[color:var(--muted)] mt-1" id="kpi-contacts-sub">Cliques reais, no período</div>
         </div>
       </div>
     </section>
@@ -121,6 +126,35 @@
           <div class="kpi-value mono accent-blue mt-1" id="bio-clicks-maps">—</div>
           <div class="text-xs text-[color:var(--muted)] mt-1" id="bio-people-maps">— pessoas</div>
         </div>
+      </div>
+    </section>
+
+    <!-- WhatsApp contacts -->
+    <section class="card p-5 fade-in">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <div class="font-semibold">Contatos recentes pelo WhatsApp</div>
+          <div class="text-xs text-[color:var(--muted)]">Inclui os cliques do site, da página para Google e do link da bio. A conversão continua sendo enviada como Contact.</div>
+        </div>
+        <div class="text-right text-xs text-[color:var(--muted)]" id="contacts-summary">Carregando…</div>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="text-xs uppercase tracking-wider text-[color:var(--dim)] border-b border-[color:var(--border)]">
+            <tr>
+              <th class="text-left py-2 pr-4">Quando</th>
+              <th class="text-left py-2 pr-4">Página</th>
+              <th class="text-left py-2 pr-4">Origem</th>
+              <th class="text-left py-2 pr-4">Campanha</th>
+              <th class="text-left py-2 pr-4">Identificador Google</th>
+              <th class="text-center py-2 pr-4">Meta</th>
+              <th class="text-center py-2">GA4</th>
+            </tr>
+          </thead>
+          <tbody id="contacts-tbody">
+            <tr><td colspan="7" class="py-6 text-center text-[color:var(--muted)]">Carregando…</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
@@ -549,6 +583,43 @@
     qs('#bio-people-maps').textContent = `${fmtInt(maps.people)} pessoas`;
   }
 
+  async function loadContacts(days) {
+    const data = await fetchJson(`/api/contacts?days=${days}&limit=100`);
+    if (data.error) throw new Error(data.error);
+
+    qs('#kpi-contacts').textContent = fmtInt(data.total);
+    qs('#kpi-contacts-sub').textContent = `${fmtInt(data.people)} pessoas · últimos ${days} dias`;
+    qs('#contacts-summary').textContent = `${fmtInt(data.bio_clicks)} pela bio · ${fmtInt(data.google_attributed)} com identificador Google`;
+
+    const rows = data.contacts || [];
+    const tbody = qs('#contacts-tbody');
+    if (rows.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="7" class="py-6 text-center text-[color:var(--muted)]">Nenhum contato no período.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = rows.map((contact, index) => {
+      const googleId = contact.google_id_type || '—';
+      return `
+        <tr class="row-hover border-b border-[color:var(--border)] cursor-pointer" data-contact-idx="${index}">
+          <td class="py-2 pr-4 text-[color:var(--dim)]">${fmtDate(contact.timestamp)}</td>
+          <td class="py-2 pr-4">${escapeHtml(contact.surface || 'Site principal')}</td>
+          <td class="py-2 pr-4">${escapeHtml(contact.utm_source || '(direto)')}</td>
+          <td class="py-2 pr-4 text-[color:var(--dim)]">${escapeHtml(contact.utm_campaign || '—')}</td>
+          <td class="py-2 pr-4 mono text-[color:var(--dim)]">${googleId}</td>
+          <td class="py-2 pr-4 text-center">${contact.meta_response_ok ? '<span class="accent-green">✓</span>' : '<span class="accent-red">✕</span>'}</td>
+          <td class="py-2 text-center">${contact.ga4_response_ok ? '<span class="accent-green">✓</span>' : '<span class="accent-red">✕</span>'}</td>
+        </tr>
+      `;
+    }).join('');
+
+    qsa('#contacts-tbody tr[data-contact-idx]').forEach(row => {
+      row.addEventListener('click', () => {
+        openDetails('contact', rows[parseInt(row.getAttribute('data-contact-idx'), 10)]);
+      });
+    });
+  }
+
   async function loadProducts(days) {
     const data = await fetchJson(`/api/products?days=${days}`);
     const container = qs('#product-cards');
@@ -786,6 +857,9 @@
     if (kind === 'lead') {
       title.textContent = 'Detalhes do lead';
       subtitle.textContent = `${fmtDate(row.timestamp)} · ${row.raw_name || '(sem nome)'} · ${row.raw_phone || '(sem telefone)'} · ${row.raw_email || '(sem e-mail)'}`;
+    } else if (kind === 'contact') {
+      title.textContent = 'Detalhes do contato';
+      subtitle.textContent = `${fmtDate(row.timestamp)} · ${row.surface || 'Site principal'} · ${row.utm_source || '(direto)'}`;
     } else {
       title.textContent = 'Detalhes da compra';
       subtitle.textContent = `${fmtDate(row.created_at)} · ${row.raw_email || '(sem e-mail)'} · ${money(row.value, row.currency || 'BRL')} · transação ${row.transaction_id || '—'}`;
@@ -961,6 +1035,7 @@
     await Promise.all([
       loadRevenue(days),
       loadBioClicks(days),
+      loadContacts(days),
       loadProducts(days),
       loadAttribution(days),
       loadUtm(),

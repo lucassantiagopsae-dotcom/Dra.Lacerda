@@ -17,6 +17,21 @@ if (window.__GTM_ID) {
 }
 </script>
 
+<!-- Google tag (Google Ads) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-16663089171"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'AW-16663089171');
+
+function gtag_report_conversion(){
+  gtag('event', 'conversion', {
+    send_to: 'AW-16663089171/xFz0CL654ZMdEJOgyok-'
+  });
+}
+</script>
+
 <script id="krob-pixel-config">window.__PIXEL_ID='1287010046953864';</script>
 <script>
 !function(f,b,e,v,n,t,s)
@@ -423,6 +438,9 @@ h1{
     var link=event.target.closest&&event.target.closest('[data-track]');
     if(!link)return;
     var name=link.getAttribute('data-track');
+    if(name==='bio_whatsapp_click'&&typeof window.gtag_report_conversion==='function'){
+      window.gtag_report_conversion();
+    }
     track(name,name==='bio_whatsapp_click'?'Contact':name);
   },true);
 })();
